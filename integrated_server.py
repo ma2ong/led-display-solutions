@@ -2364,17 +2364,5 @@ if __name__ == '__main__':
     
     app.run(host='0.0.0.0', port=port, debug=debug)
 
-# For Vercel deployment - expose the app instance
-def handler(request):
-    """Vercel serverless function handler"""
-    with app.app_context():
-        # Initialize database if not exists
-        try:
-            init_db(create_admin=True, use_enhanced_schema=True)
-        except:
-            pass  # Database might already exist
-    
-    return app(request.environ, request.start_response)
-
-# Export app for WSGI servers
+# Export app for WSGI servers and Vercel
 application = app

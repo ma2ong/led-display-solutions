@@ -9,14 +9,6 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/index.py"
-    },
-    {
-      "src": "/admin/(.*)",
-      "dest": "/api/index.py"
-    },
-    {
       "src": "/(.*\\.(js|css|html|png|jpg|jpeg|gif|svg|ico|pdf|txt|json))",
       "dest": "/$1"
     },
@@ -26,8 +18,7 @@
     }
   ],
   "env": {
-    "FLASK_ENV": "production",
-    "PYTHONPATH": "/var/task"
+    "FLASK_ENV": "production"
   },
   "functions": {
     "api/index.py": {
