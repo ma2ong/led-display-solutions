@@ -1,0 +1,133 @@
+{
+  "siteName": "LED Display Solutions | Shenzhen Lianjin Optoelectronics",
+  "defaultTitle": "Professional LED Display Solutions | High-Quality LED Screens & Digital Signage",
+  "defaultDescription": "Leading manufacturer of premium LED displays including fine pitch, outdoor, rental, transparent, and creative LED solutions. Professional digital signage for commercial, industrial, and entertainment applications.",
+  "defaultKeywords": "LED display, LED screen, digital signage, fine pitch LED, outdoor LED display, rental LED screen, transparent LED, creative LED display, LED video wall, LED billboard, commercial LED display, industrial LED screen",
+  "defaultImage": "/images/og-led-display-default.jpg",
+  "twitterHandle": "@LEDSolutionsChina",
+  "fbAppId": "",
+  "googleAnalyticsId": "G-XXXXXXXXXX",
+  "googleTagManagerId": "GTM-XXXXXXX",
+  "structuredDataEnabled": true,
+  "canonicalUrlEnabled": true,
+  "openGraphEnabled": true,
+  "twitterCardEnabled": true,
+  "jsonLdEnabled": true,
+  "companyInfo": {
+    "name": "Shenzhen Lianjin Optoelectronics Co., Ltd.",
+    "legalName": "深圳市联进光电有限公司",
+    "address": {
+      "streetAddress": "Building A, LED Technology Park, Nanshan District",
+      "addressLocality": "Shenzhen",
+      "addressRegion": "Guangdong Province",
+      "postalCode": "518000",
+      "addressCountry": "China"
+    },
+    "contactPoint": {
+      "telephone": "+86-755-8888-9999",
+      "email": "sales@lianjin-led.com",
+      "contactType": "customer service",
+      "availableLanguage": ["English", "Chinese", "Spanish", "Arabic"]
+    },
+    "foundingDate": "2010",
+    "numberOfEmployees": "500-1000",
+    "industry": "LED Display Manufacturing",
+    "socialMedia": {
+      "linkedin": "https://www.linkedin.com/company/lianjin-optoelectronics",
+      "facebook": "https://www.facebook.com/lianjinled",
+      "twitter": "https://twitter.com/lianjinled",
+      "youtube": "https://www.youtube.com/c/lianjinled",
+      "instagram": "https://www.instagram.com/lianjinled"
+    }
+  },
+  "products": {
+    "categories": [
+      {
+        "name": "Fine Pitch LED Display",
+        "description": "Ultra-high resolution LED displays with pixel pitch from 0.9mm to 2.5mm, perfect for control rooms, broadcast studios, and premium indoor applications.",
+        "keywords": "fine pitch LED, small pixel pitch, high resolution LED, indoor LED display, control room LED, broadcast LED"
+      },
+      {
+        "name": "Outdoor LED Display",
+        "description": "Weather-resistant LED displays designed for outdoor advertising, sports stadiums, and public information systems with high brightness and IP65 protection.",
+        "keywords": "outdoor LED display, weatherproof LED, high brightness LED, LED billboard, stadium LED, advertising LED screen"
+      },
+      {
+        "name": "Rental LED Display",
+        "description": "Lightweight, portable LED panels ideal for events, concerts, trade shows, and temporary installations with quick setup and modular design.",
+        "keywords": "rental LED, portable LED display, event LED screen, concert LED, trade show LED, modular LED panel"
+      },
+      {
+        "name": "Transparent LED Display",
+        "description": "See-through LED displays perfect for retail windows, glass facades, and modern architecture with high transparency and stunning visual effects.",
+        "keywords": "transparent LED, see-through LED, glass LED display, retail LED window, architectural LED"
+      },
+      {
+        "name": "Creative LED Display",
+        "description": "Flexible and customizable LED displays for unique shapes including curved, cylindrical, spherical, and artistic installations.",
+        "keywords": "creative LED, flexible LED display, curved LED screen, cylindrical LED, spherical LED, artistic LED installation"
+      }
+    ]
+  },
+  "seo": {
+    "focusKeywords": [
+      "LED display manufacturer",
+      "professional LED screens",
+      "digital signage solutions",
+      "LED video wall",
+      "commercial LED display",
+      "industrial LED screen",
+      "LED display supplier China",
+      "custom LED solutions"
+    ],
+    "localSEO": {
+      "enabled": true,
+      "businessType": "Manufacturer",
+      "serviceAreas": [
+        "Shenzhen",
+        "Guangdong",
+        "China",
+        "Asia Pacific",
+        "Global"
+      ],
+      "businessHours": {
+        "monday": "09:00-18:00",
+        "tuesday": "09:00-18:00",
+        "wednesday": "09:00-18:00",
+        "thursday": "09:00-18:00",
+        "friday": "09:00-18:00",
+        "saturday": "09:00-17:00",
+        "sunday": "Closed"
+      }
+    },
+    "contentStrategy": {
+      "blogEnabled": true,
+      "newsEnabled": true,
+      "caseStudiesEnabled": true,
+      "technicalDocsEnabled": true
+    }
+  },
+  "tracking": {
+    "events": {
+      "productView": true,
+      "catalogDownload": true,
+      "quoteRequest": true,
+      "contactForm": true,
+      "phoneCall": true,
+      "emailClick": true,
+      "socialShare": true,
+      "videoPlay": true
+    },
+    "ecommerce": {
+      "enabled": false,
+      "currency": "USD"
+    }
+  },
+  "performance": {
+    "lazyLoadImages": true,
+    "preloadCriticalResources": true,
+    "minifyHTML": true,
+    "compressImages": true,
+    "enableCaching": true
+  }
+}

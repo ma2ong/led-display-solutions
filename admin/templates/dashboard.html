@@ -1,0 +1,454 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Admin Panel{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Dashboard</h1>
+        <div class="text-muted">
+            <i class="fas fa-clock"></i> Last updated: <span id="last-updated">Loading...</span>
+        </div>
+    </div>
+    
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Total Products</h5>
+                            <h2 class="mb-0" id="total-products">-</h2>
+                            <small class="opacity-75">Active: <span id="active-products">-</span></small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-cube fa-2x opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">New Inquiries</h5>
+                            <h2 class="mb-0" id="new-inquiries">-</h2>
+                            <small class="opacity-75">Today: <span id="today-inquiries">-</span></small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-envelope fa-2x opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">High Priority</h5>
+                            <h2 class="mb-0" id="high-priority">-</h2>
+                            <small class="opacity-75">Pending: <span id="pending-inquiries">-</span></small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-exclamation-triangle fa-2x opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">This Month</h5>
+                            <h2 class="mb-0" id="monthly-inquiries">-</h2>
+                            <small class="opacity-75">Conversion: <span id="conversion-rate">-</span></small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-chart-line fa-2x opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts and Recent Activity -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Inquiry Trends (Last 7 Days)</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="inquiryChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Inquiries</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush" id="recent-inquiries">
+                        <div class="list-group-item text-center">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/admin/inquiries" class="btn btn-sm btn-outline-primary">View All Inquiries</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Categories Overview -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Product Categories</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="categoryChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Inquiry Types Distribution</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="inquiryTypeChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="/admin/products" class="btn btn-outline-primary btn-lg w-100 mb-2">
+                                <i class="fas fa-plus-circle"></i><br>
+                                Add Product
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-outline-success btn-lg w-100 mb-2" onclick="exportInquiries()">
+                                <i class="fas fa-download"></i><br>
+                                Export Inquiries
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-outline-info btn-lg w-100 mb-2" onclick="refreshDashboard()">
+                                <i class="fas fa-sync-alt"></i><br>
+                                Refresh Data
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/admin/inquiries?status=new" class="btn btn-outline-warning btn-lg w-100 mb-2">
+                                <i class="fas fa-bell"></i><br>
+                                New Inquiries
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Dashboard JavaScript
+let inquiryChart, categoryChart, inquiryTypeChart;
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadDashboardData();
+    initializeCharts();
+    
+    // Update timestamp
+    document.getElementById('last-updated').textContent = new Date().toLocaleString();
+    
+    // Auto-refresh every 5 minutes
+    setInterval(refreshDashboard, 5 * 60 * 1000);
+});
+
+async function loadDashboardData() {
+    try {
+        // Load statistics
+        const statsResponse = await fetch('/api/admin/dashboard/stats');
+        const stats = await statsResponse.json();
+        
+        // Update product stats
+        document.getElementById('total-products').textContent = stats.products?.total || stats.total_products || 0;
+        if (document.getElementById('active-products')) {
+            document.getElementById('active-products').textContent = stats.products?.active || 0;
+        }
+        if (document.getElementById('featured-products')) {
+            document.getElementById('featured-products').textContent = stats.products?.featured || 0;
+        }
+        
+        // Update inquiry stats
+        document.getElementById('new-inquiries').textContent = stats.inquiries?.new || stats.new_inquiries || 0;
+        document.getElementById('high-priority').textContent = stats.inquiries?.high_priority || stats.high_priority || 0;
+        document.getElementById('monthly-inquiries').textContent = stats.inquiries?.monthly || stats.monthly_inquiries || 0;
+        
+        // Update additional stats if elements exist
+        if (document.getElementById('pending-inquiries')) {
+            document.getElementById('pending-inquiries').textContent = stats.inquiries?.pending || 0;
+        }
+        if (document.getElementById('today-inquiries')) {
+            document.getElementById('today-inquiries').textContent = stats.inquiries?.today || 0;
+        }
+        if (document.getElementById('conversion-rate')) {
+            document.getElementById('conversion-rate').textContent = (stats.inquiries?.conversion_rate || 0) + '%';
+        }
+        if (document.getElementById('avg-response-time')) {
+            document.getElementById('avg-response-time').textContent = (stats.performance?.avg_response_time || 0) + ' hours';
+        }
+        
+        // Load recent inquiries
+        const inquiriesResponse = await fetch('/api/admin/inquiries?limit=5');
+        const inquiriesData = await inquiriesResponse.json();
+        const inquiries = inquiriesData.inquiries || inquiriesData;
+        displayRecentInquiries(inquiries);
+        
+        // Load chart data
+        const chartResponse = await fetch('/api/admin/dashboard/charts');
+        const chartData = await chartResponse.json();
+        updateCharts(chartData);
+        
+    } catch (error) {
+        console.error('Error loading dashboard data:', error);
+        showError('Failed to load dashboard data');
+    }
+}
+
+function displayRecentInquiries(inquiries) {
+    const container = document.getElementById('recent-inquiries');
+    
+    if (inquiries.length === 0) {
+        container.innerHTML = '<div class="list-group-item text-center text-muted">No recent inquiries</div>';
+        return;
+    }
+    
+    container.innerHTML = inquiries.map(inquiry => `
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">${inquiry.name}</h6>
+                <small class="text-muted">${formatDate(inquiry.created_at)}</small>
+            </div>
+            <p class="mb-1 text-truncate">${inquiry.message}</p>
+            <small class="text-muted">
+                <span class="badge bg-${getStatusColor(inquiry.status)}">${inquiry.status}</span>
+                ${inquiry.product_interest ? ' • ' + inquiry.product_interest : ''}
+            </small>
+        </div>
+    `).join('');
+}
+
+function initializeCharts() {
+    // Inquiry Trend Chart
+    const inquiryCtx = document.getElementById('inquiryChart').getContext('2d');
+    inquiryChart = new Chart(inquiryCtx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Inquiries',
+                data: [],
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+    
+    // Category Chart
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    categoryChart = new Chart(categoryCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [],
+            datasets: [{
+                data: [],
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#4BC0C0',
+                    '#9966FF',
+                    '#FF9F40'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+    
+    // Inquiry Type Chart
+    const inquiryTypeCtx = document.getElementById('inquiryTypeChart').getContext('2d');
+    inquiryTypeChart = new Chart(inquiryTypeCtx, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Count',
+                data: [],
+                backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+function updateCharts(data) {
+    // Update inquiry trend chart
+    if (data.inquiry_trend) {
+        inquiryChart.data.labels = data.inquiry_trend.labels;
+        inquiryChart.data.datasets[0].data = data.inquiry_trend.data;
+        inquiryChart.update();
+    }
+    
+    // Update category chart
+    if (data.product_categories) {
+        categoryChart.data.labels = data.product_categories.labels;
+        categoryChart.data.datasets[0].data = data.product_categories.data;
+        categoryChart.update();
+    }
+    
+    // Update inquiry type chart
+    if (data.inquiry_types) {
+        inquiryTypeChart.data.labels = data.inquiry_types.labels;
+        inquiryTypeChart.data.datasets[0].data = data.inquiry_types.data;
+        inquiryTypeChart.update();
+    }
+}
+
+function refreshDashboard() {
+    document.getElementById('last-updated').textContent = 'Refreshing...';
+    loadDashboardData().then(() => {
+        document.getElementById('last-updated').textContent = new Date().toLocaleString();
+        showSuccess('Dashboard refreshed successfully');
+    });
+}
+
+async function exportInquiries() {
+    try {
+        const response = await fetch('/api/admin/inquiries/export');
+        const blob = await response.blob();
+        
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `inquiries_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        
+        showSuccess('Inquiries exported successfully');
+    } catch (error) {
+        console.error('Export error:', error);
+        showError('Failed to export inquiries');
+    }
+}
+
+// Utility functions
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 1) return 'Today';
+    if (diffDays === 2) return 'Yesterday';
+    if (diffDays <= 7) return `${diffDays - 1} days ago`;
+    
+    return date.toLocaleDateString();
+}
+
+function getStatusColor(status) {
+    const colors = {
+        'new': 'primary',
+        'contacted': 'info',
+        'quoted': 'warning',
+        'closed': 'success',
+        'lost': 'secondary'
+    };
+    return colors[status] || 'secondary';
+}
+
+function showSuccess(message) {
+    showToast(message, 'success');
+}
+
+function showError(message) {
+    showToast(message, 'danger');
+}
+
+function showToast(message, type) {
+    const toast = document.createElement('div');
+    toast.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+    toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+    toast.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        if (toast.parentNode) {
+            toast.remove();
+        }
+    }, 5000);
+}
+</script>
+{% endblock %}

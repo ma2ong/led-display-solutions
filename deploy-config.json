@@ -1,0 +1,207 @@
+{
+  "project": {
+    "name": "LED Display Solutions Website",
+    "version": "1.0.0",
+    "description": "Professional LED display solutions with advanced search and comparison features"
+  },
+  "environments": {
+    "development": {
+      "name": "Development",
+      "url": "http://localhost:8000",
+      "branch": "develop",
+      "autoTest": true,
+      "minify": false,
+      "sourceMap": true,
+      "debug": true
+    },
+    "staging": {
+      "name": "Staging",
+      "url": "https://staging.leddisplaysolutions.com",
+      "branch": "staging",
+      "autoTest": true,
+      "minify": true,
+      "sourceMap": true,
+      "debug": false
+    },
+    "production": {
+      "name": "Production",
+      "url": "https://leddisplaysolutions.com",
+      "branch": "main",
+      "autoTest": true,
+      "minify": true,
+      "sourceMap": false,
+      "debug": false
+    }
+  },
+  "build": {
+    "outputDir": "dist",
+    "assetsDir": "assets",
+    "publicPath": "/",
+    "optimization": {
+      "minifyCSS": true,
+      "minifyJS": true,
+      "optimizeImages": true,
+      "generateSitemap": true,
+      "generateRobots": true
+    },
+    "bundling": {
+      "splitChunks": true,
+      "vendorChunk": true,
+      "runtimeChunk": true
+    }
+  },
+  "testing": {
+    "unit": {
+      "enabled": true,
+      "threshold": {
+        "statements": 80,
+        "branches": 75,
+        "functions": 80,
+        "lines": 80
+      }
+    },
+    "integration": {
+      "enabled": true,
+      "timeout": 30000
+    },
+    "e2e": {
+      "enabled": true,
+      "browsers": ["chrome", "firefox", "safari"],
+      "viewports": [
+        { "width": 375, "height": 667, "name": "mobile" },
+        { "width": 768, "height": 1024, "name": "tablet" },
+        { "width": 1920, "height": 1080, "name": "desktop" }
+      ]
+    },
+    "performance": {
+      "enabled": true,
+      "budgets": {
+        "firstContentfulPaint": 2000,
+        "largestContentfulPaint": 4000,
+        "firstInputDelay": 100,
+        "cumulativeLayoutShift": 0.1
+      }
+    },
+    "accessibility": {
+      "enabled": true,
+      "standard": "WCAG2AA",
+      "includeWarnings": true
+    }
+  },
+  "deployment": {
+    "strategy": "blue-green",
+    "rollback": {
+      "enabled": true,
+      "keepVersions": 5
+    },
+    "healthCheck": {
+      "enabled": true,
+      "endpoint": "/health",
+      "timeout": 10000,
+      "retries": 3
+    },
+    "notifications": {
+      "slack": {
+        "enabled": false,
+        "webhook": "",
+        "channel": "#deployments"
+      },
+      "email": {
+        "enabled": false,
+        "recipients": []
+      }
+    }
+  },
+  "monitoring": {
+    "analytics": {
+      "googleAnalytics": {
+        "enabled": false,
+        "trackingId": ""
+      },
+      "customEvents": true
+    },
+    "errorTracking": {
+      "enabled": true,
+      "service": "browser-console",
+      "sampleRate": 1.0
+    },
+    "performance": {
+      "enabled": true,
+      "realUserMonitoring": true,
+      "syntheticMonitoring": false
+    },
+    "uptime": {
+      "enabled": true,
+      "interval": 300000,
+      "endpoints": ["/", "/products.html", "/contact.html"]
+    }
+  },
+  "security": {
+    "contentSecurityPolicy": {
+      "enabled": true,
+      "directives": {
+        "default-src": ["'self'"],
+        "script-src": ["'self'", "'unsafe-inline'"],
+        "style-src": ["'self'", "'unsafe-inline'"],
+        "img-src": ["'self'", "data:", "https:"],
+        "font-src": ["'self'"],
+        "connect-src": ["'self'"]
+      }
+    },
+    "headers": {
+      "X-Frame-Options": "DENY",
+      "X-Content-Type-Options": "nosniff",
+      "X-XSS-Protection": "1; mode=block",
+      "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "https": {
+      "enforced": true,
+      "hsts": true
+    }
+  },
+  "performance": {
+    "caching": {
+      "static": {
+        "maxAge": 31536000,
+        "immutable": true
+      },
+      "html": {
+        "maxAge": 3600,
+        "mustRevalidate": true
+      },
+      "api": {
+        "maxAge": 300,
+        "staleWhileRevalidate": 600
+      }
+    },
+    "compression": {
+      "gzip": true,
+      "brotli": true,
+      "threshold": 1024
+    },
+    "cdn": {
+      "enabled": false,
+      "provider": "",
+      "domains": []
+    }
+  },
+  "backup": {
+    "enabled": true,
+    "schedule": "0 2 * * *",
+    "retention": {
+      "daily": 7,
+      "weekly": 4,
+      "monthly": 12
+    },
+    "storage": {
+      "type": "local",
+      "path": "./backups"
+    }
+  },
+  "maintenance": {
+    "enabled": false,
+    "message": "Site is temporarily under maintenance. Please check back soon.",
+    "allowedIPs": [],
+    "bypassKey": ""
+  }
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Lejin Optoelectronics</title>
+    <meta name="description" content="Detailed specifications and information for our LED display products.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="navbar-brand">
+                    <span class="logo-text">Lianjin</span>
+                </a>
+                <button class="navbar-toggler" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-collapse">
+                                        <ul class="navbar-nav">
+                        <li><a href="index.html" class="nav-link" data-i18n="nav.home">Home</a></li>
+                        <li><a href="about.html" class="nav-link" data-i18n="nav.about">About Us</a></li>
+                        <li class="nav-item-dropdown">
+                            <a href="products.html" class="nav-link" data-i18n="nav.products">Products</a>
+                            <div class="dropdown-menu">
+                                <a href="fine-pitch.html" data-i18n="products.fine-pitch">Fine Pitch LED</a>
+                                <a href="rental.html" data-i18n="products.rental">Rental LED</a>
+                                <a href="outdoor.html" data-i18n="products.outdoor">Outdoor LED</a>
+                                <a href="creative.html" data-i18n="products.creative">Creative LED</a>
+                                <a href="transparent.html" data-i18n="products.transparent">Transparent LED</a>
+                            </div>
+                        </li>
+                        <li><a href="solutions.html" class="nav-link" data-i18n="nav.solutions">Solutions</a></li>
+                        <li><a href="cases.html" class="nav-link" data-i18n="nav.cases">Cases</a></li>
+                        <li><a href="news.html" class="nav-link" data-i18n="nav.news">News</a></li>
+                        <li><a href="support.html" class="nav-link" data-i18n="nav.support">Support</a></li>
+                        <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+                    </ul>
+                    <div class="navbar-actions">
+                        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+                        <button class="lang-switcher">EN/中</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main id="product-detail-container">
+        <!-- Product details will be loaded here by JavaScript -->
+        <div class="container section-padding" style="text-align: center;">
+            <p>Loading product details...</p>
+        </div>
+    </main>
+
+        <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4 class="footer-heading" data-i18n="company.name">Lianjin Optoelectronics</h4>
+                    <p>Your trusted partner for innovative LED display solutions.</p>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading" data-i18n="footer.quick-links">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html" data-i18n="nav.about">About Us</a></li>
+                        <li><a href="products.html" data-i18n="nav.products">Products</a></li>
+                        <li><a href="solutions.html" data-i18n="nav.solutions">Solutions</a></li>
+                        <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading" data-i18n="footer.contact-info">Contact Us</h4>
+                    <p>Email: <span data-i18n="company.email">sales@lianjin-led.com</span></p>
+                    <p>Phone: <span data-i18n="company.phone">+86-755-1234-5678</span></p>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading" data-i18n="footer.follow-us">Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><img src="https://via.placeholder.com/32/ffffff/1e40af?text=in" alt="LinkedIn"></a>
+                        <a href="#" aria-label="Facebook"><img src="https://via.placeholder.com/32/ffffff/1e40af?text=f" alt="Facebook"></a>
+                        <a href="#" aria-label="Twitter"><img src="https://via.placeholder.com/32/ffffff/1e40af?text=t" alt="Twitter"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">&copy; 2024 Shenzhen Lianjin Optoelectronics Co., Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+        <!-- I18n System -->
+    \1\n    <script src="js/breadcrumb.js"></script>
+    <!-- Main JS File -->
+    <script src="js/main.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('product-detail-container');
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id');
+
+            if (!productId) {
+                container.innerHTML = '<div class="container section-padding"><p class="text-danger">No product ID specified.</p></div>';
+                return;
+            }
+
+            fetch(`/api/products/${productId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Product not found');
+                    }
+                    return response.json();
+                })
+                .then(product => {
+                    document.title = `${product.name} | Lejin Optoelectronics`;
+                    
+                    // Safely parse specs, assuming it might be invalid JSON
+                    let specsHtml = '<h4>Specifications</h4><p>No specifications available.</p>';
+                    if (product.specs) {
+                        try {
+                            const specs = JSON.parse(product.specs);
+                            specsHtml = '<h4>Specifications</h4><table class="specs-table">';
+                            for (const key in specs) {
+                                specsHtml += `<tr><td>${key}</td><td>${specs[key]}</td></tr>`;
+                            }
+                            specsHtml += '</table>';
+                        } catch (e) {
+                            // If specs is not valid JSON, display it as plain text
+                            specsHtml = `<h4>Specifications</h4><pre>${product.specs}</pre>`;
+                        }
+                    }
+
+                    const detailHtml = `
+                        <section class="page-header">
+                            <div class="container">
+                                <h1>${product.name}</h1>
+                                <p>Category: ${product.category}</p>
+                            </div>
+                        </section>
+                        <section class="section-padding">
+                            <div class="container">
+                                <div class="product-detail-layout">
+                                    <div class="product-detail-image">
+                                        <img src="${product.image_url ? '/' + product.image_url : 'https://via.placeholder.com/800x600/e5e7eb/4b5563?text=No+Image'}" alt="${product.name}">
+                                    </div>
+                                    <div class="product-detail-content">
+                                        <h2>${product.name}</h2>
+                                        <p class="product-description">${product.description || 'No description available.'}</p>
+                                        <div class="product-specs">
+                                            ${specsHtml}
+                                        </div>
+                                        <a href="contact.html" class="btn btn-primary mt-4">Request a Quote for this Product</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    `;
+                    container.innerHTML = detailHtml;
+                })
+                .catch(error => {
+                    console.error('Error fetching product details:', error);
+                    container.innerHTML = '<div class="container section-padding"><p class="text-danger">Error: Could not load product details. The product may not exist.</p></div>';
+                });
+        });
+    </script>
+</body>
+</html>

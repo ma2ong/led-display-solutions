@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Functionality Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .test-section {
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 800px; margin: 2rem auto;">
+        <h1>JavaScript Functionality Test Page</h1>
+        
+        <!-- Test Contact Form -->
+        <div class="test-section">
+            <h3>1. Contact Form Test</h3>
+            <form id="inquiry-form" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company Name</label>
+                    <input type="text" id="company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message *</label>
+                    <textarea id="message" name="message" rows="4" required placeholder="Test message..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Test Form</button>
+            </form>
+        </div>
+        
+        <!-- Test Product Comparison -->
+        <div class="test-section">
+            <h3>2. Product Comparison Test</h3>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 8px;">
+                    <h4>Fine Pitch LED</h4>
+                    <p>High resolution display</p>
+                    <button class="btn btn-compare" data-product-id="fine-pitch-led">Add to Compare</button>
+                </div>
+                <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 8px;">
+                    <h4>Outdoor LED</h4>
+                    <p>Weather resistant display</p>
+                    <button class="btn btn-compare" data-product-id="outdoor-led">Add to Compare</button>
+                </div>
+                <div style="border: 1px solid #ccc; padding: 1rem; border-radius: 8px;">
+                    <h4>Rental LED</h4>
+                    <p>Portable event display</p>
+                    <button class="btn btn-compare" data-product-id="rental-led">Add to Compare</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test Language Switcher -->
+        <div class="test-section">
+            <h3>3. Language Switcher Test</h3>
+            <button class="lang-switcher">EN/中</button>
+            <p>Click the button above to test language switching (check console for logs)</p>
+        </div>
+        
+        <!-- Test Lazy Loading -->
+        <div class="test-section">
+            <h3>4. Lazy Loading Test</h3>
+            <img class="lazy" data-src="https://via.placeholder.com/400x300/e5e7eb/4b5563?text=Lazy+Loaded+Image" alt="Test lazy loading">
+            <p>The image above should load with a fade-in effect</p>
+        </div>
+        
+        <!-- Test Scroll to Top -->
+        <div class="test-section">
+            <h3>5. Scroll to Top Test</h3>
+            <p>Scroll down to see the "Scroll to Top" button appear</p>
+            <div style="height: 1000px; background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);">
+                <p style="padding-top: 500px; text-align: center;">Scroll down more...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js" defer></script>
+</body>
+</html>

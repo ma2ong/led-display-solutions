@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Product Search & Comparison - LED Display Solutions</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Advanced product search and comparison system for LED displays with filters, sorting, and detailed comparison features.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/critical.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/advanced-search.css">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/js/advanced-product-search.js" as="script">
+    <link rel="preload" href="/js/main.js" as="script">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a href="/" class="logo-text">LED Solutions</a>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/products.html" class="nav-link active">Products</a></li>
+                <li><a href="/contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="navbar-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Advanced Product Search</h1>
+            <p>Find the perfect LED display solution with our comprehensive search and comparison tools</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container section-padding">
+        <!-- Search Interface will be inserted here by JavaScript -->
+        <div id="advanced-search-container">
+            <!-- Advanced search panel will be dynamically created here -->
+        </div>
+        
+        <!-- Feature Highlights -->
+        <section class="search-features" style="margin-bottom: 3rem;">
+            <div class="section-header text-center">
+                <h2>Search Features</h2>
+                <p>Powerful tools to help you find the right LED display</p>
+            </div>
+            
+            <div class="product-grid">
+                <div class="card">
+                    <div class="product-content">
+                        <h3>🔍 Smart Search</h3>
+                        <p>Intelligent search that understands product names, specifications, and features. Use natural language to find what you need.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="product-content">
+                        <h3>🎤 Voice Search</h3>
+                        <p>Search hands-free using voice commands. Simply click the microphone icon and speak your search query.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="product-content">
+                        <h3>🔧 Advanced Filters</h3>
+                        <p>Filter by pixel pitch, application, price range, brightness, and more to narrow down your options quickly.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="product-content">
+                        <h3>⚖️ Product Comparison</h3>
+                        <p>Compare up to 3 products side-by-side with detailed specifications and features comparison.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="product-content">
+                        <h3>♥️ Favorites</h3>
+                        <p>Save products to your favorites list for easy access later. Your preferences are remembered across sessions.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="product-content">
+                        <h3>👁️ Quick View</h3>
+                        <p>Get detailed product information instantly without leaving the search results page.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Search Tips -->
+        <section class="search-tips" style="background: var(--gray-50); padding: 2rem; border-radius: 8px; margin-bottom: 3rem;">
+            <h3>Search Tips</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 1rem;">
+                <div>
+                    <h4>🎯 Effective Searching</h4>
+                    <ul style="margin-top: 0.5rem; color: var(--gray-600);">
+                        <li>Use specific terms like "P1.25" or "outdoor"</li>
+                        <li>Search by application: "control room", "retail"</li>
+                        <li>Include specifications: "high brightness", "fine pitch"</li>
+                        <li>Try brand names or model numbers</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4>🔧 Using Filters</h4>
+                    <ul style="margin-top: 0.5rem; color: var(--gray-600);">
+                        <li>Start with category filters for broad results</li>
+                        <li>Add pixel pitch for resolution requirements</li>
+                        <li>Use price range to match your budget</li>
+                        <li>Filter by application for specific use cases</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4>⚖️ Comparison Tips</h4>
+                    <ul style="margin-top: 0.5rem; color: var(--gray-600);">
+                        <li>Compare products in the same category</li>
+                        <li>Look at key specs like brightness and pitch</li>
+                        <li>Consider total cost of ownership</li>
+                        <li>Check application compatibility</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Demo Actions -->
+        <section class="demo-actions" style="text-align: center; margin-bottom: 3rem;">
+            <h3>Try These Demo Searches</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                <button class="btn btn-secondary" onclick="demoSearch('fine pitch')">Fine Pitch Displays</button>
+                <button class="btn btn-secondary" onclick="demoSearch('outdoor advertising')">Outdoor Advertising</button>
+                <button class="btn btn-secondary" onclick="demoSearch('rental events')">Rental & Events</button>
+                <button class="btn btn-secondary" onclick="demoSearch('transparent')">Transparent Displays</button>
+                <button class="btn btn-secondary" onclick="demoSearch('high brightness')">High Brightness</button>
+                <button class="btn btn-secondary" onclick="clearAndReset()">Clear All</button>
+            </div>
+        </section>
+        
+        <!-- User Guide -->
+        <section class="user-guide" style="margin-bottom: 3rem;">
+            <details style="background: var(--bg-primary); padding: 2rem; border-radius: 8px; border: 1px solid var(--gray-200);">
+                <summary style="font-size: var(--text-lg); font-weight: 600; cursor: pointer; margin-bottom: 1rem;">
+                    📖 Complete User Guide
+                </summary>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div>
+                        <h4>Search Interface</h4>
+                        <p><strong>Main Search Bar:</strong> Enter keywords, product names, or specifications</p>
+                        <p><strong>Voice Search:</strong> Click the microphone icon for hands-free searching</p>
+                        <p><strong>Quick Filters:</strong> Use category chips for instant filtering</p>
+                        <p><strong>Advanced Filters:</strong> Fine-tune results with detailed criteria</p>
+                    </div>
+                    
+                    <div>
+                        <h4>View Options</h4>
+                        <p><strong>Grid View:</strong> Visual cards with images and key information</p>
+                        <p><strong>List View:</strong> Compact rows with detailed specifications</p>
+                        <p><strong>Compare View:</strong> Side-by-side comparison table</p>
+                    </div>
+                    
+                    <div>
+                        <h4>Product Actions</h4>
+                        <p><strong>Favorites (♥):</strong> Save products for later reference</p>
+                        <p><strong>Compare (⚖):</strong> Add to comparison (up to 3 products)</p>
+                        <p><strong>Quick View (👁):</strong> See detailed specs in a popup</p>
+                        <p><strong>Request Quote:</strong> Get pricing information</p>
+                    </div>
+                    
+                    <div>
+                        <h4>Advanced Features</h4>
+                        <p><strong>Save Search:</strong> Bookmark your search criteria</p>
+                        <p><strong>Search History:</strong> Automatically saved recent searches</p>
+                        <p><strong>Sorting:</strong> Order by name, price, category, or specs</p>
+                        <p><strong>Pagination:</strong> Navigate through large result sets</p>
+                    </div>
+                </div>
+            </details>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 LED Solutions. Advanced Product Search & Comparison System.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/advanced-product-search.js"></script>
+    
+    <!-- Demo Functions -->
+    <script>
+        // Demo search functions
+        function demoSearch(query) {
+            // Wait for the search system to initialize
+            setTimeout(() => {
+                if (window.advancedSearch) {
+                    const searchInput = document.getElementById('main-search-input');
+                    if (searchInput) {
+                        searchInput.value = query;
+                        window.advancedSearch.performSearch();
+                        
+                        // Scroll to results
+                        document.getElementById('search-results-container')?.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }
+                } else {
+                    console.log('Advanced search not yet initialized, retrying...');
+                    setTimeout(() => demoSearch(query), 500);
+                }
+            }, 100);
+        }
+        
+        function clearAndReset() {
+            if (window.advancedSearch) {
+                window.advancedSearch.clearFilters();
+            }
+        }
+        
+        // Initialize demo when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add some demo interactions after a short delay
+            setTimeout(() => {
+                if (window.advancedSearch) {
+                    console.log('Advanced Product Search Demo Ready!');
+                    console.log('Try the demo buttons or use the search interface above.');
+                    
+                    // Show a welcome message
+                    const welcomeMessage = document.createElement('div');
+                    welcomeMessage.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: var(--primary-blue);
+                        color: white;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        z-index: 1000;
+                        max-width: 300px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    `;
+                    welcomeMessage.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.2rem;">🎉</span>
+                            <div>
+                                <strong>Advanced Search Ready!</strong><br>
+                                <small>Try searching for LED products or use the demo buttons below.</small>
+                            </div>
+                            <button onclick="this.parentElement.parentElement.remove()" 
+                                    style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; margin-left: auto;">×</button>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(welcomeMessage);
+                    
+                    // Auto-remove after 8 seconds
+                    setTimeout(() => {
+                        if (welcomeMessage.parentNode) {
+                            welcomeMessage.remove();
+                        }
+                    }, 8000);
+                }
+            }, 1000);
+        });
+        
+        // Add some keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + K to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.getElementById('main-search-input');
+                if (searchInput) {
+                    searchInput.focus();
+                    searchInput.select();
+                }
+            }
+            
+            // Escape to clear search
+            if (e.key === 'Escape') {
+                const searchInput = document.getElementById('main-search-input');
+                if (searchInput && document.activeElement === searchInput) {
+                    clearAndReset();
+                }
+            }
+        });
+        
+        // Add search analytics (demo)
+        function trackSearchEvent(eventType, data) {
+            console.log('Search Analytics:', eventType, data);
+            // In production, this would send to analytics service
+        }
+        
+        // Track search interactions
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-chip')) {
+                trackSearchEvent('filter_used', {
+                    filter: e.target.dataset.filter,
+                    value: e.target.dataset.value
+                });
+            }
+            
+            if (e.target.classList.contains('compare-btn')) {
+                trackSearchEvent('product_compared', {
+                    productId: e.target.dataset.productId
+                });
+            }
+            
+            if (e.target.classList.contains('favorite-btn')) {
+                trackSearchEvent('product_favorited', {
+                    productId: e.target.dataset.productId
+                });
+            }
+        });
+    </script>
+</body>
+</html>

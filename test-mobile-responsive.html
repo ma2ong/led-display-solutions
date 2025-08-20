@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#007bff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Mobile Responsive Test - LED Display Solutions</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="css/mobile-responsive.css" as="style">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <style>
+        /* Test-specific styles */
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .test-section h2 {
+            color: #007bff;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .device-info {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .feature-test {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-test h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-test p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .test-buttons .btn {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .status-success {
+            background: #28a745;
+        }
+        
+        .status-warning {
+            background: #ffc107;
+        }
+        
+        .status-error {
+            background: #dc3545;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .demo-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .demo-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .demo-card h4 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .demo-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .touch-test-area {
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+        
+        .touch-feedback {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .orientation-test {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .orientation-indicator {
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+        
+        @media (orientation: landscape) {
+            .orientation-indicator::before {
+                content: "📱 Landscape";
+            }
+        }
+        
+        @media (orientation: portrait) {
+            .orientation-indicator::before {
+                content: "📱 Portrait";
+            }
+        }
+        
+        /* Mobile-specific test styles */
+        @media (max-width: 768px) {
+            .test-section {
+                margin: 1rem 0;
+                padding: 1rem;
+            }
+            
+            .device-info {
+                font-size: 0.8rem;
+            }
+            
+            .test-buttons {
+                display: block;
+            }
+            
+            .test-buttons .btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="navbar-brand">LED Solutions</a>
+            <button class="navbar-toggler" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="navbar-toggler-icon">☰</span>
+            </button>
+            <div class="navbar-nav">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#search" class="nav-link">Search</a>
+                <a href="#comparison" class="nav-link">Compare</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <header style="text-align: center; margin: 2rem 0;">
+            <h1>Mobile Responsive Test</h1>
+            <p style="color: #666;">Testing mobile enhancements and responsive design</p>
+        </header>
+
+        <!-- Device Information -->
+        <div class="test-section">
+            <h2>📱 Device Information</h2>
+            <div class="device-info" id="device-info">
+                Loading device information...
+            </div>
+        </div>
+
+        <!-- Navigation Test -->
+        <div class="test-section">
+            <h2>🧭 Navigation Test</h2>
+            <div class="feature-test">
+                <h3><span class="status-indicator status-success"></span>Mobile Navigation</h3>
+                <p>Test the mobile navigation menu with touch gestures and keyboard navigation.</p>
+                <div class="test-buttons">
+                    <button class="btn btn-primary" onclick="testMobileNav()">Test Navigation</button>
+                    <button class="btn btn-secondary" onclick="testSwipeGestures()">Test Swipe</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Touch Gestures Test -->
+        <div class="test-section">
+            <h2>👆 Touch Gestures Test</h2>
+            <div class="feature-test">
+                <h3><span class="status-indicator status-success"></span>Touch Interactions</h3>
+                <p>Test various touch gestures including tap, swipe, and long press.</p>
+                
+                <div class="touch-test-area" id="touch-test-area">
+                    Touch, swipe, or long press this area
+                </div>
+                
+                <div class="touch-feedback" id="touch-feedback">
+                    Touch events will appear here...
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Layout Test -->
+        <div class="test-section">
+            <h2>📐 Responsive Layout Test</h2>
+            <div class="feature-test">
+                <h3><span class="status-indicator status-success"></span>Grid Layout</h3>
+                <p>Test responsive grid layout that adapts to different screen sizes.</p>
+                
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <img src="https://via.placeholder.com/300x150/007bff/white?text=Product+1" alt="Product 1">
+                        <h4>Fine Pitch LED</h4>
+                        <p>High resolution indoor display</p>
+                        <button class="btn btn-primary btn-sm">View Details</button>
+                    </div>
+                    <div class="demo-card">
+                        <img src="https://via.placeholder.com/300x150/28a745/white?text=Product+2" alt="Product 2">
+                        <h4>Outdoor LED</h4>
+                        <p>Weather-resistant outdoor display</p>
+                        <button class="btn btn-success btn-sm">View Details</button>
+                    </div>
+                    <div class="demo-card">
+                        <img src="https://via.placeholder.com/300x150/ffc107/black?text=Product+3" alt="Product 3">
+                        <h4>Rental LED</h4>
+                        <p>Portable event display</p>
+                        <button class="btn btn-warning btn-sm">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orientation Test -->
+        <div class="test-section">
+            <h2>🔄 Orientation Test</h2>
+            <div class="orientation-test">
+                <h3><span class="status-indicator status-success"></span>Orientation Detection</h3>
+                <p>Rotate your device to test orientation changes.</p>
+                <div class="orientation-indicator"></div>
+                <div id="orientation-info">
+                    <p>Screen: <span id="screen-size">-</span></p>
+                    <p>Viewport: <span id="viewport-size">-</span></p>
+                    <p>Orientation: <span id="orientation">-</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Interface Test -->
+        <div class="test-section" id="search">
+            <h2>🔍 Mobile Search Test</h2>
+            <div class="feature-test">
+                <h3><span class="status-indicator status-success"></span>Advanced Search</h3>
+                <p>Test the mobile-optimized search interface with collapsible filters.</p>
+                <div class="test-buttons">
+                    <button class="btn btn-primary" onclick="testMobileSearch()">Initialize Search</button>
+                    <button class="btn btn-secondary" onclick="testSearchShortcuts()">Test Shortcuts</button>
+                </div>
+            </div>
+            <!-- Search interface will be inserted here -->
+        </div>
+
+        <!-- Comparison Test -->
+        <div class="test-section" id="comparison">
+            <h2>⚖️ Mobile Comparison Test</h2>
+            <div class="feature-test">
+                <h3><span class="status-indicator status-success"></span>Product Comparison</h3>
+                <p>Test mobile-optimized product comparison with swipe gestures.</p>
+                <div class="test-buttons">
+                    <button class="btn btn-success" onclick="addTestProducts()">Add Test Products</button>
+                    <button class="btn btn-primary" onclick="testMobileComparison()">View Comparison</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Test -->
+        <div class="test-section">
+            <h2>⚡ Performance Test</h2>
+            <div class="feature-test">
+                <h3><span class="status-indicator status-warning"></span>Performance Metrics</h3>
+                <p>Test loading performance and memory usage on mobile devices.</p>
+                <div id="performance-metrics">
+                    <p>Loading performance data...</p>
+                </div>
+                <div class="test-buttons">
+                    <button class="btn btn-info" onclick="testPerformance()">Run Performance Test</button>
+                    <button class="btn btn-secondary" onclick="testMemoryUsage()">Check Memory</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accessibility Test -->
+        <div class="test-section">
+            <h2>♿ Accessibility Test</h2>
+            <div class="feature-test">
+                <h3><span class="status-indicator status-success"></span>Mobile Accessibility</h3>
+                <p>Test accessibility features including screen reader support and keyboard navigation.</p>
+                <div class="test-buttons">
+                    <button class="btn btn-info" onclick="testAccessibility()">Test Accessibility</button>
+                    <button class="btn btn-secondary" onclick="testKeyboardNav()">Test Keyboard</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Results -->
+        <div class="test-section">
+            <h2>📊 Test Results</h2>
+            <div id="test-results" style="background: white; padding: 1.5rem; border-radius: 8px; min-height: 200px;">
+                <p style="color: #666; font-style: italic;">Test results will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/mobile-enhancements.js"></script>
+    <script src="js/advanced-search.js"></script>
+    <script src="js/enhanced-comparison.js"></script>
+    
+    <script>
+        // Test functions
+        let testResults = [];
+
+        function logTestResult(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const result = { timestamp, message, type };
+            testResults.push(result);
+            
+            const resultsContainer = document.getElementById('test-results');
+            const resultEntry = document.createElement('div');
+            resultEntry.style.cssText = `
+                padding: 0.5rem;
+                border-bottom: 1px solid #eee;
+                color: ${type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#333'};
+            `;
+            resultEntry.innerHTML = `<strong>[${timestamp}]</strong> ${message}`;
+            
+            if (resultsContainer.firstChild && resultsContainer.firstChild.tagName !== 'P') {
+                resultsContainer.insertBefore(resultEntry, resultsContainer.firstChild);
+            } else {
+                resultsContainer.innerHTML = '';
+                resultsContainer.appendChild(resultEntry);
+            }
+            
+            // Keep only last 15 results
+            const results = resultsContainer.children;
+            if (results.length > 15) {
+                resultsContainer.removeChild(results[results.length - 1]);
+            }
+        }
+
+        function updateDeviceInfo() {
+            const deviceInfo = document.getElementById('device-info');
+            const info = {
+                'User Agent': navigator.userAgent,
+                'Screen Size': `${screen.width} x ${screen.height}`,
+                'Viewport Size': `${window.innerWidth} x ${window.innerHeight}`,
+                'Device Pixel Ratio': window.devicePixelRatio,
+                'Touch Support': 'ontouchstart' in window ? 'Yes' : 'No',
+                'Orientation': screen.orientation ? screen.orientation.type : 'Unknown',
+                'Connection': navigator.connection ? navigator.connection.effectiveType : 'Unknown',
+                'Memory': navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Unknown',
+                'Hardware Concurrency': navigator.hardwareConcurrency || 'Unknown'
+            };
+            
+            deviceInfo.innerHTML = Object.entries(info)
+                .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+                .join('<br>');
+        }
+
+        function updateOrientationInfo() {
+            document.getElementById('screen-size').textContent = `${screen.width} x ${screen.height}`;
+            document.getElementById('viewport-size').textContent = `${window.innerWidth} x ${window.innerHeight}`;
+            document.getElementById('orientation').textContent = window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait';
+        }
+
+        function testMobileNav() {
+            const navbar = document.querySelector('.navbar');
+            const navMenu = navbar.querySelector('.navbar-nav');
+            const toggleBtn = navbar.querySelector('.navbar-toggler');
+            
+            if (navMenu && toggleBtn) {
+                // Simulate toggle
+                toggleBtn.click();
+                logTestResult('Mobile navigation toggled', 'success');
+                
+                setTimeout(() => {
+                    toggleBtn.click();
+                    logTestResult('Mobile navigation closed', 'success');
+                }, 2000);
+            } else {
+                logTestResult('Mobile navigation elements not found', 'error');
+            }
+        }
+
+        function testSwipeGestures() {
+            logTestResult('Testing swipe gestures - try swiping left/right on the page', 'info');
+            
+            // Add temporary swipe indicator
+            const indicator = document.createElement('div');
+            indicator.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.8);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                z-index: 10000;
+                font-size: 1.2rem;
+            `;
+            indicator.textContent = '← Swipe Left or Right →';
+            document.body.appendChild(indicator);
+            
+            setTimeout(() => {
+                indicator.remove();
+            }, 3000);
+        }
+
+        function setupTouchTest() {
+            const touchArea = document.getElementById('touch-test-area');
+            const feedback = document.getElementById('touch-feedback');
+            
+            let touchLog = [];
+            
+            function addTouchLog(event, details) {
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = `[${timestamp}] ${event}: ${details}`;
+                touchLog.unshift(logEntry);
+                
+                if (touchLog.length > 10) {
+                    touchLog = touchLog.slice(0, 10);
+                }
+                
+                feedback.innerHTML = touchLog.join('<br>');
+            }
+            
+            // Touch events
+            touchArea.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                addTouchLog('Touch Start', `X: ${Math.round(touch.clientX)}, Y: ${Math.round(touch.clientY)}`);
+            }, { passive: true });
+            
+            touchArea.addEventListener('touchmove', (e) => {
+                const touch = e.touches[0];
+                addTouchLog('Touch Move', `X: ${Math.round(touch.clientX)}, Y: ${Math.round(touch.clientY)}`);
+            }, { passive: true });
+            
+            touchArea.addEventListener('touchend', (e) => {
+                addTouchLog('Touch End', `Touches: ${e.changedTouches.length}`);
+            }, { passive: true });
+            
+            // Mouse events for desktop testing
+            touchArea.addEventListener('mousedown', (e) => {
+                addTouchLog('Mouse Down', `X: ${e.clientX}, Y: ${e.clientY}`);
+            });
+            
+            touchArea.addEventListener('mousemove', (e) => {
+                if (e.buttons > 0) {
+                    addTouchLog('Mouse Move', `X: ${e.clientX}, Y: ${e.clientY}`);
+                }
+            });
+            
+            touchArea.addEventListener('mouseup', (e) => {
+                addTouchLog('Mouse Up', `X: ${e.clientX}, Y: ${e.clientY}`);
+            });
+            
+            // Long press simulation
+            let longPressTimer;
+            touchArea.addEventListener('touchstart', () => {
+                longPressTimer = setTimeout(() => {
+                    addTouchLog('Long Press', 'Detected after 1 second');
+                    navigator.vibrate && navigator.vibrate(100);
+                }, 1000);
+            }, { passive: true });
+            
+            touchArea.addEventListener('touchend', () => {
+                clearTimeout(longPressTimer);
+            }, { passive: true });
+        }
+
+        function testMobileSearch() {
+            if (window.advancedSearch) {
+                logTestResult('Advanced search already initialized', 'info');
+            } else {
+                logTestResult('Initializing advanced search...', 'info');
+                // The search will be initialized by the script
+                setTimeout(() => {
+                    if (window.advancedSearch) {
+                        logTestResult('Advanced search initialized successfully', 'success');
+                    } else {
+                        logTestResult('Failed to initialize advanced search', 'error');
+                    }
+                }, 2000);
+            }
+        }
+
+        function testSearchShortcuts() {
+            const shortcuts = document.querySelector('.mobile-search-shortcuts');
+            if (shortcuts) {
+                logTestResult('Mobile search shortcuts found and working', 'success');
+                const firstShortcut = shortcuts.querySelector('button');
+                if (firstShortcut) {
+                    firstShortcut.click();
+                    logTestResult('Test shortcut clicked', 'info');
+                }
+            } else {
+                logTestResult('Mobile search shortcuts not found', 'warning');
+            }
+        }
+
+        function addTestProducts() {
+            if (window.enhancedComparison && window.advancedSearch) {
+                const products = window.advancedSearch.getAllProducts();
+                if (products.length > 0) {
+                    // Add first 3 products to comparison
+                    for (let i = 0; i < Math.min(3, products.length); i++) {
+                        window.enhancedComparison.addProduct(products[i]);
+                    }
+                    logTestResult(`Added ${Math.min(3, products.length)} products to comparison`, 'success');
+                } else {
+                    logTestResult('No products available for comparison', 'warning');
+                }
+            } else {
+                logTestResult('Comparison system not initialized', 'error');
+            }
+        }
+
+        function testMobileComparison() {
+            if (window.enhancedComparison) {
+                window.enhancedComparison.viewComparison();
+                logTestResult('Mobile comparison view opened', 'success');
+            } else {
+                logTestResult('Enhanced comparison not initialized', 'error');
+            }
+        }
+
+        function testPerformance() {
+            const startTime = performance.now();
+            
+            // Simulate some work
+            const testArray = new Array(100000).fill(0).map((_, i) => i);
+            const sum = testArray.reduce((a, b) => a + b, 0);
+            
+            const endTime = performance.now();
+            const duration = endTime - startTime;
+            
+            const metrics = {
+                'Test Duration': `${duration.toFixed(2)} ms`,
+                'Memory Used': navigator.deviceMemory ? `${navigator.deviceMemory} GB available` : 'Unknown',
+                'Connection': navigator.connection ? navigator.connection.effectiveType : 'Unknown',
+                'Hardware Concurrency': navigator.hardwareConcurrency || 'Unknown'
+            };
+            
+            const metricsContainer = document.getElementById('performance-metrics');
+            metricsContainer.innerHTML = Object.entries(metrics)
+                .map(([key, value]) => `<p><strong>${key}:</strong> ${value}</p>`)
+                .join('');
+            
+            logTestResult(`Performance test completed in ${duration.toFixed(2)}ms`, 'success');
+        }
+
+        function testMemoryUsage() {
+            if ('memory' in performance) {
+                const memory = performance.memory;
+                const used = Math.round(memory.usedJSHeapSize / 1048576);
+                const total = Math.round(memory.totalJSHeapSize / 1048576);
+                const limit = Math.round(memory.jsHeapSizeLimit / 1048576);
+                
+                logTestResult(`Memory: ${used}MB used, ${total}MB total, ${limit}MB limit`, 'info');
+            } else {
+                logTestResult('Memory API not available', 'warning');
+            }
+        }
+
+        function testAccessibility() {
+            const focusableElements = document.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            
+            logTestResult(`Found ${focusableElements.length} focusable elements`, 'info');
+            
+            // Test ARIA labels
+            const elementsWithoutLabels = Array.from(focusableElements).filter(el => 
+                !el.getAttribute('aria-label') && 
+                !el.getAttribute('aria-labelledby') && 
+                !el.textContent.trim()
+            );
+            
+            if (elementsWithoutLabels.length > 0) {
+                logTestResult(`${elementsWithoutLabels.length} elements missing accessibility labels`, 'warning');
+            } else {
+                logTestResult('All focusable elements have proper labels', 'success');
+            }
+        }
+
+        function testKeyboardNav() {
+            logTestResult('Testing keyboard navigation - use Tab to navigate', 'info');
+            
+            // Focus first focusable element
+            const firstFocusable = document.querySelector('button, [href], input, select, textarea');
+            if (firstFocusable) {
+                firstFocusable.focus();
+                logTestResult('Focused first element - continue with Tab key', 'success');
+            }
+        }
+
+        // Initialize tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDeviceInfo();
+            updateOrientationInfo();
+            setupTouchTest();
+            
+            logTestResult('Mobile responsive test page loaded', 'success');
+            
+            // Update orientation info on resize/orientation change
+            window.addEventListener('resize', updateOrientationInfo);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(updateOrientationInfo, 500);
+            });
+            
+            // Test mobile enhancements initialization
+            setTimeout(() => {
+                if (window.mobileEnhancements) {
+                    logTestResult('Mobile enhancements initialized successfully', 'success');
+                    
+                    if (window.mobileEnhancements.isMobileDevice()) {
+                        logTestResult('Mobile device detected', 'info');
+                    } else if (window.mobileEnhancements.isTabletDevice()) {
+                        logTestResult('Tablet device detected', 'info');
+                    } else {
+                        logTestResult('Desktop device detected', 'info');
+                    }
+                } else {
+                    logTestResult('Mobile enhancements failed to initialize', 'error');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

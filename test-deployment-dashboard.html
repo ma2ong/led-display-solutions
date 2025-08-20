@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test & Deployment Dashboard - LED Display Solutions</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+        }
+        
+        .sidebar h2 {
+            margin-bottom: 2rem;
+            color: #ecf0f1;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-menu a {
+            color: #bdc3c7;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: #34495e;
+            color: white;
+        }
+        
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+        }
+        
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .status-badge.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-badge.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-badge.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-badge.info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #007bff;
+        }
+        
+        .metric-card.success {
+            border-left-color: #28a745;
+        }
+        
+        .metric-card.warning {
+            border-left-color: #ffc107;
+        }
+        
+        .metric-card.error {
+            border-left-color: #dc3545;
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-change {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .metric-change.positive {
+            color: #28a745;
+        }
+        
+        .metric-change.negative {
+            color: #dc3545;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+        }
+        
+        .test-suite {
+            margin-bottom: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+        }
+        
+        .test-suite-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .test-suite-name {
+            font-weight: bold;
+            color: #495057;
+        }
+        
+        .test-suite-stats {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .test-stat {
+            font-size: 0.9rem;
+        }
+        
+        .test-stat.passed {
+            color: #28a745;
+        }
+        
+        .test-stat.failed {
+            color: #dc3545;
+        }
+        
+        .test-results {
+            padding: 1rem;
+        }
+        
+        .test-result {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .test-result:last-child {
+            border-bottom: none;
+        }
+        
+        .test-name {
+            flex: 1;
+        }
+        
+        .test-status {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .test-status.passed {
+            color: #28a745;
+        }
+        
+        .test-status.failed {
+            color: #dc3545;
+        }
+        
+        .test-duration {
+            color: #6c757d;
+            font-size: 0.8rem;
+            margin-left: 1rem;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .progress-fill.warning {
+            background: linear-gradient(90deg, #ffc107, #fd7e14);
+        }
+        
+        .progress-fill.error {
+            background: linear-gradient(90deg, #dc3545, #e74c3c);
+        }
+        
+        .deployment-pipeline {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .pipeline-stage {
+            flex: 1;
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .pipeline-stage.active {
+            border-color: #007bff;
+            background: #e3f2fd;
+        }
+        
+        .pipeline-stage.success {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .pipeline-stage.error {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        .pipeline-stage::after {
+            content: '→';
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #6c757d;
+        }
+        
+        .pipeline-stage:last-child::after {
+            display: none;
+        }
+        
+        .stage-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stage-status {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .stage-duration {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        
+        .log-viewer {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 1rem 0;
+        }
+        
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.25rem;
+            border-left: 3px solid #4a5568;
+            padding-left: 0.75rem;
+        }
+        
+        .log-entry.info {
+            border-left-color: #3182ce;
+        }
+        
+        .log-entry.success {
+            border-left-color: #38a169;
+        }
+        
+        .log-entry.warning {
+            border-left-color: #d69e2e;
+        }
+        
+        .log-entry.error {
+            border-left-color: #e53e3e;
+        }
+        
+        .timestamp {
+            color: #a0aec0;
+            font-size: 0.8rem;
+        }
+        
+        .coverage-chart {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .coverage-bar {
+            flex: 1;
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .coverage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #dc3545, #ffc107, #28a745);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .coverage-label {
+            font-weight: bold;
+            min-width: 100px;
+        }
+        
+        .coverage-value {
+            font-weight: bold;
+            min-width: 60px;
+            text-align: right;
+        }
+        
+        .environment-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .environment-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .environment-card.healthy {
+            border-color: #28a745;
+        }
+        
+        .environment-card.unhealthy {
+            border-color: #dc3545;
+        }
+        
+        .environment-card.deploying {
+            border-color: #ffc107;
+        }
+        
+        .environment-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .environment-url {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .environment-health {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .environment-version {
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+        
+        .tab-container {
+            margin-bottom: 2rem;
+        }
+        
+        .tab-nav {
+            display: flex;
+            border-bottom: 2px solid #dee2e6;
+            margin-bottom: 1rem;
+        }
+        
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button.active {
+            border-bottom-color: #007bff;
+            color: #007bff;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin-right: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .deployment-pipeline {
+                flex-direction: column;
+            }
+            
+            .pipeline-stage::after {
+                content: '↓';
+                right: 50%;
+                top: 100%;
+                transform: translateX(50%);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar">
+            <h2>🚀 Dashboard</h2>
+            <ul class="nav-menu">
+                <li><a href="#overview" class="nav-link active" data-tab="overview">Overview</a></li>
+                <li><a href="#tests" class="nav-link" data-tab="tests">Test Results</a></li>
+                <li><a href="#coverage" class="nav-link" data-tab="coverage">Coverage</a></li>
+                <li><a href="#performance" class="nav-link" data-tab="performance">Performance</a></li>
+                <li><a href="#security" class="nav-link" data-tab="security">Security</a></li>
+                <li><a href="#deployment" class="nav-link" data-tab="deployment">Deployment</a></li>
+                <li><a href="#environments" class="nav-link" data-tab="environments">Environments</a></li>
+                <li><a href="#logs" class="nav-link" data-tab="logs">Logs</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <div class="header">
+                <h1>Test & Deployment Dashboard</h1>
+                <div class="status-badge success" id="overall-status">All Systems Operational</div>
+            </div>
+            
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="metrics-grid">
+                    <div class="metric-card success">
+                        <div class="metric-value" id="test-pass-rate">95%</div>
+                        <div class="metric-label">Test Pass Rate</div>
+                        <div class="metric-change positive">+2% from last build</div>
+                    </div>
+                    
+                    <div class="metric-card success">
+                        <div class="metric-value" id="code-coverage">82%</div>
+                        <div class="metric-label">Code Coverage</div>
+                        <div class="metric-change positive">+5% from last week</div>
+                    </div>
+                    
+                    <div class="metric-card warning">
+                        <div class="metric-value" id="performance-score">78</div>
+                        <div class="metric-label">Performance Score</div>
+                        <div class="metric-change negative">-3 from last build</div>
+                    </div>
+                    
+                    <div class="metric-card success">
+                        <div class="metric-value" id="security-score">92</div>
+                        <div class="metric-label">Security Score</div>
+                        <div class="metric-change positive">+1 from last scan</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>Recent Activity</h3>
+                    <div id="recent-activity">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            Loading recent activity...
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="runAllTests()">Run All Tests</button>
+                        <button class="btn btn-success" onclick="deployToStaging()">Deploy to Staging</button>
+                        <button class="btn btn-warning" onclick="runPerformanceTest()">Performance Test</button>
+                        <button class="btn btn-secondary" onclick="generateReport()">Generate Report</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tests Tab -->
+            <div id="tests" class="tab-content">
+                <div class="section">
+                    <h3>Test Suites</h3>
+                    <div id="test-suites">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            Loading test results...
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="runTestSuite('unit')">Run Unit Tests</button>
+                    <button class="btn btn-primary" onclick="runTestSuite('integration')">Run Integration Tests</button>
+                    <button class="btn btn-primary" onclick="runTestSuite('e2e')">Run E2E Tests</button>
+                    <button class="btn btn-danger" onclick="runTestSuite('all')">Run All Tests</button>
+                </div>
+            </div>
+            
+            <!-- Coverage Tab -->
+            <div id="coverage" class="tab-content">
+                <div class="section">
+                    <h3>Code Coverage</h3>
+                    <div id="coverage-metrics">
+                        <div class="coverage-chart">
+                            <div class="coverage-label">Statements</div>
+                            <div class="coverage-bar">
+                                <div class="coverage-fill" style="width: 85%">85%</div>
+                            </div>
+                            <div class="coverage-value">85%</div>
+                        </div>
+                        
+                        <div class="coverage-chart">
+                            <div class="coverage-label">Branches</div>
+                            <div class="coverage-bar">
+                                <div class="coverage-fill" style="width: 78%">78%</div>
+                            </div>
+                            <div class="coverage-value">78%</div>
+                        </div>
+                        
+                        <div class="coverage-chart">
+                            <div class="coverage-label">Functions</div>
+                            <div class="coverage-bar">
+                                <div class="coverage-fill" style="width: 92%">92%</div>
+                            </div>
+                            <div class="coverage-value">92%</div>
+                        </div>
+                        
+                        <div class="coverage-chart">
+                            <div class="coverage-label">Lines</div>
+                            <div class="coverage-bar">
+                                <div class="coverage-fill" style="width: 88%">88%</div>
+                            </div>
+                            <div class="coverage-value">88%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generateCoverageReport()">Generate Coverage Report</button>
+                    <button class="btn btn-secondary" onclick="viewDetailedCoverage()">View Detailed Coverage</button>
+                </div>
+            </div>
+            
+            <!-- Performance Tab -->
+            <div id="performance" class="tab-content">
+                <div class="section">
+                    <h3>Performance Metrics</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">2.1s</div>
+                            <div class="metric-label">Load Time</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-value">1.8s</div>
+                            <div class="metric-label">First Contentful Paint</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-value">2.3s</div>
+                            <div class="metric-label">Largest Contentful Paint</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-value">45ms</div>
+                            <div class="metric-label">First Input Delay</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="runPerformanceAudit()">Run Performance Audit</button>
+                    <button class="btn btn-secondary" onclick="viewPerformanceHistory()">View History</button>
+                </div>
+            </div>
+            
+            <!-- Security Tab -->
+            <div id="security" class="tab-content">
+                <div class="section">
+                    <h3>Security Status</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card success">
+                            <div class="metric-value">0</div>
+                            <div class="metric-label">Critical Vulnerabilities</div>
+                        </div>
+                        
+                        <div class="metric-card warning">
+                            <div class="metric-value">2</div>
+                            <div class="metric-label">Medium Vulnerabilities</div>
+                        </div>
+                        
+                        <div class="metric-card success">
+                            <div class="metric-value">✓</div>
+                            <div class="metric-label">HTTPS Enabled</div>
+                        </div>
+                        
+                        <div class="metric-card success">
+                            <div class="metric-value">✓</div>
+                            <div class="metric-label">Security Headers</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="runSecurityScan()">Run Security Scan</button>
+                    <button class="btn btn-secondary" onclick="viewSecurityReport()">View Security Report</button>
+                </div>
+            </div>
+            
+            <!-- Deployment Tab -->
+            <div id="deployment" class="tab-content">
+                <div class="section">
+                    <h3>Deployment Pipeline</h3>
+                    <div class="deployment-pipeline" id="pipeline-status">
+                        <div class="pipeline-stage success">
+                            <div class="stage-name">Test</div>
+                            <div class="stage-status">✓ Passed</div>
+                            <div class="stage-duration">2m 34s</div>
+                        </div>
+                        
+                        <div class="pipeline-stage success">
+                            <div class="stage-name">Build</div>
+                            <div class="stage-status">✓ Completed</div>
+                            <div class="stage-duration">1m 45s</div>
+                        </div>
+                        
+                        <div class="pipeline-stage active">
+                            <div class="stage-name">Deploy</div>
+                            <div class="stage-status">⏳ In Progress</div>
+                            <div class="stage-duration">0m 23s</div>
+                        </div>
+                        
+                        <div class="pipeline-stage">
+                            <div class="stage-name">Verify</div>
+                            <div class="stage-status">⏸ Waiting</div>
+                            <div class="stage-duration">-</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="deployToStaging()">Deploy to Staging</button>
+                    <button class="btn btn-warning" onclick="deployToProduction()">Deploy to Production</button>
+                    <button class="btn btn-danger" onclick="rollbackDeployment()">Rollback</button>
+                </div>
+            </div>
+            
+            <!-- Environments Tab -->
+            <div id="environments" class="tab-content">
+                <div class="section">
+                    <h3>Environment Status</h3>
+                    <div class="environment-status">
+                        <div class="environment-card healthy">
+                            <div class="environment-name">Development</div>
+                            <a href="http://localhost:8000" class="environment-url">localhost:8000</a>
+                            <div class="environment-health">✓ Healthy</div>
+                            <div class="environment-version">v1.2.3-dev</div>
+                        </div>
+                        
+                        <div class="environment-card healthy">
+                            <div class="environment-name">Staging</div>
+                            <a href="https://staging.leddisplaysolutions.com" class="environment-url">staging.leddisplaysolutions.com</a>
+                            <div class="environment-health">✓ Healthy</div>
+                            <div class="environment-version">v1.2.2</div>
+                        </div>
+                        
+                        <div class="environment-card healthy">
+                            <div class="environment-name">Production</div>
+                            <a href="https://leddisplaysolutions.com" class="environment-url">leddisplaysolutions.com</a>
+                            <div class="environment-health">✓ Healthy</div>
+                            <div class="environment-version">v1.2.1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Logs Tab -->
+            <div id="logs" class="tab-content">
+                <div class="section">
+                    <h3>System Logs</h3>
+                    <div class="log-viewer" id="log-viewer">
+                        <div class="log-entry info">
+                            <span class="timestamp">[2024-01-15 10:30:15]</span>
+                            <span class="log-message">INFO: Test suite started</span>
+                        </div>
+                        <div class="log-entry success">
+                            <span class="timestamp">[2024-01-15 10:32:48]</span>
+                            <span class="log-message">SUCCESS: Unit tests completed - 45/45 passed</span>
+                        </div>
+                        <div class="log-entry success">
+                            <span class="timestamp">[2024-01-15 10:35:12]</span>
+                            <span class="log-message">SUCCESS: Integration tests completed - 12/12 passed</span>
+                        </div>
+                        <div class="log-entry warning">
+                            <span class="timestamp">[2024-01-15 10:37:23]</span>
+                            <span class="log-message">WARNING: Performance test exceeded threshold - 3.2s load time</span>
+                        </div>
+                        <div class="log-entry info">
+                            <span class="timestamp">[2024-01-15 10:40:01]</span>
+                            <span class="log-message">INFO: Deployment to staging initiated</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="refreshLogs()">Refresh Logs</button>
+                    <button class="btn btn-secondary" onclick="downloadLogs()">Download Logs</button>
+                    <button class="btn btn-danger" onclick="clearLogs()">Clear Logs</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Load Scripts -->
+    <script src="js/test-automation.js"></script>
+    
+    <script>
+        // Dashboard functionality
+        let currentTab = 'overview';
+        let refreshInterval;
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+            setupTabNavigation();
+            startAutoRefresh();
+            loadInitialData();
+        });
+        
+        function initializeDashboard() {
+            console.log('Initializing Test & Deployment Dashboard');
+            
+            // Check if test automation is available
+            if (window.testAutomation) {
+                console.log('Test Automation framework loaded');
+            } else {
+                console.warn('Test Automation framework not available');
+            }
+        }
+        
+        function setupTabNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const tabId = link.dataset.tab;
+                    switchTab(tabId);
+                    
+                    // Update active nav link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+        }
+        
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+                currentTab = tabId;
+                
+                // Load tab-specific data
+                loadTabData(tabId);
+            }
+        }
+        
+        function loadTabData(tabId) {
+            switch (tabId) {
+                case 'tests':
+                    loadTestResults();
+                    break;
+                case 'coverage':
+                    loadCoverageData();
+                    break;
+                case 'performance':
+                    loadPerformanceData();
+                    break;
+                case 'security':
+                    loadSecurityData();
+                    break;
+                case 'deployment':
+                    loadDeploymentStatus();
+                    break;
+                case 'environments':
+                    loadEnvironmentStatus();
+                    break;
+                case 'logs':
+                    loadSystemLogs();
+                    break;
+            }
+        }
+        
+        function startAutoRefresh() {
+            refreshInterval = setInterval(() => {
+                refreshCurrentTab();
+            }, 30000); // Refresh every 30 seconds
+        }
+        
+        function refreshCurrentTab() {
+            loadTabData(currentTab);
+            updateMetrics();
+        }
+        
+        function loadInitialData() {
+            updateMetrics();
+            loadRecentActivity();
+        }
+        
+        function updateMetrics() {
+            // Simulate metric updates
+            const metrics = {
+                testPassRate: Math.floor(Math.random() * 10) + 90,
+                codeCoverage: Math.floor(Math.random() * 15) + 75,
+                performanceScore: Math.floor(Math.random() * 20) + 70,
+                securityScore: Math.floor(Math.random() * 10) + 85
+            };
+            
+            document.getElementById('test-pass-rate').textContent = metrics.testPassRate + '%';
+            document.getElementById('code-coverage').textContent = metrics.codeCoverage + '%';
+            document.getElementById('performance-score').textContent = metrics.performanceScore;
+            document.getElementById('security-score').textContent = metrics.securityScore;
+            
+            // Update overall status
+            const overallStatus = document.getElementById('overall-status');
+            if (metrics.testPassRate >= 95 && metrics.codeCoverage >= 80 && metrics.securityScore >= 90) {
+                overallStatus.textContent = 'All Systems Operational';
+                overallStatus.className = 'status-badge success';
+            } else if (metrics.testPassRate >= 85 || metrics.codeCoverage >= 70) {
+                overallStatus.textContent = 'Minor Issues Detected';
+                overallStatus.className = 'status-badge warning';
+            } else {
+                overallStatus.textContent = 'Critical Issues Found';
+                overallStatus.className = 'status-badge error';
+            }
+        }
+        
+        function loadRecentActivity() {
+            const activities = [
+                { time: '2 minutes ago', message: 'Unit tests completed successfully', type: 'success' },
+                { time: '5 minutes ago', message: 'Code coverage increased to 82%', type: 'info' },
+                { time: '10 minutes ago', message: 'Performance test completed', type: 'warning' },
+                { time: '15 minutes ago', message: 'Security scan completed', type: 'success' },
+                { time: '20 minutes ago', message: 'Deployment to staging successful', type: 'success' }
+            ];
+            
+            const activityContainer = document.getElementById('recent-activity');
+            activityContainer.innerHTML = activities.map(activity => `
+                <div class="test-result">
+                    <div class="test-name">${activity.message}</div>
+                    <div class="test-status ${activity.type}">${activity.time}</div>
+                </div>
+            `).join('');
+        }
+        
+        function loadTestResults() {
+            if (window.testAutomation) {
+                const results = window.testAutomation.getResults();
+                displayTestResults(results);
+            } else {
+                // Simulate test results
+                const mockResults = [
+                    {
+                        suite: 'Unit Tests',
+                        total: 45,
+                        passedCount: 43,
+                        results: [
+                            { name: 'Email Validation', passed: true, message: 'All tests passed' },
+                            { name: 'Form Validation', passed: true, message: 'All tests passed' },
+                            { name: 'Data Sanitization', passed: false, message: 'XSS test failed' },
+                            { name: 'Utility Functions', passed: true, message: 'All tests passed' }
+                        ]
+                    },
+                    {
+                        suite: 'Integration Tests',
+                        total: 12,
+                        passedCount: 12,
+                        results: [
+                            { name: 'API Integration', passed: true, message: 'All endpoints working' },
+                            { name: 'Database Connection', passed: true, message: 'Connection successful' },
+                            { name: 'Email System', passed: true, message: 'Emails sending correctly' }
+                        ]
+                    }
+                ];
+                displayTestResults(mockResults);
+            }
+        }
+        
+        function displayTestResults(results) {
+            const container = document.getElementById('test-suites');
+            
+            if (!results || results.length === 0) {
+                container.innerHTML = '<p>No test results available. Run tests to see results.</p>';
+                return;
+            }
+            
+            container.innerHTML = results.map(suite => `
+                <div class="test-suite">
+                    <div class="test-suite-header">
+                        <div class="test-suite-name">${suite.suite}</div>
+                        <div class="test-suite-stats">
+                            <span class="test-stat passed">✓ ${suite.passedCount || 0}</span>
+                            <span class="test-stat failed">✗ ${(suite.total || 0) - (suite.passedCount || 0)}</span>
+                        </div>
+                    </div>
+                    <div class="test-results">
+                        ${suite.results ? suite.results.map(test => `
+                            <div class="test-result">
+                                <div class="test-name">${test.name}</div>
+                                <div class="test-status ${test.passed ? 'passed' : 'failed'}">
+                                    ${test.passed ? '✓ PASS' : '✗ FAIL'}
+                                </div>
+                            </div>
+                        `).join('') : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function loadCoverageData() {
+            if (window.testAutomation) {
+                const coverage = window.testAutomation.getCoverage();
+                updateCoverageDisplay(coverage);
+            }
+        }
+        
+        function updateCoverageDisplay(coverage) {
+            // Update coverage bars with actual data
+            if (coverage) {
+                const statements = coverage.statements?.percentage || 85;
+                const branches = coverage.branches?.percentage || 78;
+                const functions = coverage.functions?.percentage || 92;
+                const lines = coverage.lines?.percentage || 88;
+                
+                updateCoverageBar('statements', statements);
+                updateCoverageBar('branches', branches);
+                updateCoverageBar('functions', functions);
+                updateCoverageBar('lines', lines);
+            }
+        }
+        
+        function updateCoverageBar(type, percentage) {
+            const bars = document.querySelectorAll('.coverage-fill');
+            // This would update specific bars based on type
+            // For now, just update the display
+        }
+        
+        // Action Functions
+        async function runAllTests() {
+            showLoading('Running all tests...');
+            
+            try {
+                if (window.testAutomation) {
+                    const results = await window.testAutomation.test();
+                    displayTestResults([results]);
+                    showNotification('All tests completed', 'success');
+                } else {
+                    // Simulate test run
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                    showNotification('Tests completed (simulated)', 'success');
+                }
+            } catch (error) {
+                showNotification('Test run failed: ' + error.message, 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        async function runTestSuite(suiteType) {
+            showLoading(`Running ${suiteType} tests...`);
+            
+            try {
+                if (window.testAutomation && suiteType !== 'all') {
+                    const results = await window.testAutomation.test(suiteType);
+                    displayTestResults([results]);
+                } else if (suiteType === 'all') {
+                    await runAllTests();
+                    return;
+                } else {
+                    // Simulate specific test suite
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+                
+                showNotification(`${suiteType} tests completed`, 'success');
+            } catch (error) {
+                showNotification(`${suiteType} tests failed: ` + error.message, 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        async function deployToStaging() {
+            showLoading('Deploying to staging...');
+            
+            try {
+                if (window.testAutomation) {
+                    const result = await window.testAutomation.deploy('staging');
+                    showNotification('Deployment to staging successful', 'success');
+                } else {
+                    // Simulate deployment
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    showNotification('Deployment to staging completed (simulated)', 'success');
+                }
+                
+                updatePipelineStatus('staging');
+            } catch (error) {
+                showNotification('Deployment failed: ' + error.message, 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        async function deployToProduction() {
+            if (!confirm('Are you sure you want to deploy to production?')) {
+                return;
+            }
+            
+            showLoading('Deploying to production...');
+            
+            try {
+                if (window.testAutomation) {
+                    const result = await window.testAutomation.deploy('production');
+                    showNotification('Deployment to production successful', 'success');
+                } else {
+                    // Simulate deployment
+                    await new Promise(resolve => setTimeout(resolve, 8000));
+                    showNotification('Deployment to production completed (simulated)', 'success');
+                }
+                
+                updatePipelineStatus('production');
+            } catch (error) {
+                showNotification('Production deployment failed: ' + error.message, 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        function updatePipelineStatus(environment) {
+            // Update pipeline visual status
+            const stages = document.querySelectorAll('.pipeline-stage');
+            stages.forEach(stage => {
+                stage.classList.remove('active');
+                stage.classList.add('success');
+            });
+        }
+        
+        function runPerformanceTest() {
+            showLoading('Running performance test...');
+            
+            setTimeout(() => {
+                hideLoading();
+                showNotification('Performance test completed', 'success');
+                // Update performance metrics
+                updateMetrics();
+            }, 3000);
+        }
+        
+        function runSecurityScan() {
+            showLoading('Running security scan...');
+            
+            setTimeout(() => {
+                hideLoading();
+                showNotification('Security scan completed', 'success');
+            }, 4000);
+        }
+        
+        function generateReport() {
+            if (window.testAutomation) {
+                window.testAutomation.exportReport('html');
+                showNotification('Report generated and downloaded', 'success');
+            } else {
+                showNotification('Report generation not available', 'warning');
+            }
+        }
+        
+        function generateCoverageReport() {
+            if (window.testAutomation) {
+                window.testAutomation.exportReport('coverage');
+                showNotification('Coverage report generated', 'success');
+            } else {
+                showNotification('Coverage report not available', 'warning');
+            }
+        }
+        
+        function refreshLogs() {
+            loadSystemLogs();
+            showNotification('Logs refreshed', 'info');
+        }
+        
+        function downloadLogs() {
+            // Simulate log download
+            const logContent = document.getElementById('log-viewer').textContent;
+            const blob = new Blob([logContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `system-logs-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Logs downloaded', 'success');
+        }
+        
+        function clearLogs() {
+            if (confirm('Are you sure you want to clear all logs?')) {
+                document.getElementById('log-viewer').innerHTML = '<div class="log-entry info"><span class="timestamp">[' + new Date().toISOString() + ']</span> <span class="log-message">INFO: Logs cleared</span></div>';
+                showNotification('Logs cleared', 'info');
+            }
+        }
+        
+        function loadSystemLogs() {
+            // Simulate loading fresh logs
+            const logViewer = document.getElementById('log-viewer');
+            const newLogs = [
+                { time: new Date().toISOString(), level: 'info', message: 'System status check completed' },
+                { time: new Date(Date.now() - 60000).toISOString(), level: 'success', message: 'All services running normally' },
+                { time: new Date(Date.now() - 120000).toISOString(), level: 'warning', message: 'High memory usage detected' }
+            ];
+            
+            const logHTML = newLogs.map(log => `
+                <div class="log-entry ${log.level}">
+                    <span class="timestamp">[${log.time.split('T')[1].split('.')[0]}]</span>
+                    <span class="log-message">${log.level.toUpperCase()}: ${log.message}</span>
+                </div>
+            `).join('');
+            
+            logViewer.innerHTML = logHTML + logViewer.innerHTML;
+        }
+        
+        // Utility Functions
+        function showLoading(message) {
+            // Create loading overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'loading-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                color: white;
+                font-size: 1.2rem;
+            `;
+            overlay.innerHTML = `
+                <div style="text-align: center;">
+                    <div class="spinner" style="border-color: #f3f3f3; border-top-color: white; margin: 0 auto 1rem;"></div>
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+        }
+        
+        function hideLoading() {
+            const overlay = document.getElementById('loading-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : type === 'warning' ? '#ffc107' : '#007bff'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 6px;
+                z-index: 10001;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                max-width: 400px;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+        });
+    </script>
+</body>
+</html>

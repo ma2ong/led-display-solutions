@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobile Optimization Test - LED Display Solutions</title>
+    
+    <!-- Mobile-specific meta tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#1e40af">
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Testing mobile optimizations including touch interactions, responsive design, and mobile-specific features for LED display website.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/critical.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mobile-optimized.css">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/js/mobile-optimizer.js" as="script">
+    <link rel="preload" href="/js/main.js" as="script">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <style>
+        /* Demo-specific styles */
+        .mobile-demo-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            background: var(--bg-primary);
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .demo-card {
+            padding: 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            background: var(--gray-50);
+            text-align: center;
+        }
+        
+        .demo-button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0.5rem;
+            min-height: 44px;
+            min-width: 120px;
+            transition: all 0.2s ease;
+        }
+        
+        .demo-button:hover {
+            background: var(--primary-blue-dark);
+            transform: translateY(-2px);
+        }
+        
+        .demo-button.secondary {
+            background: var(--gray-600);
+        }
+        
+        .demo-button.accent {
+            background: var(--accent-orange);
+        }
+        
+        .touch-demo-area {
+            background: var(--gray-100);
+            border: 2px dashed var(--gray-300);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .touch-demo-area.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue-dark);
+        }
+        
+        .orientation-indicator {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            z-index: 1000;
+        }
+        
+        .device-info {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.875rem;
+            margin: 1rem 0;
+        }
+        
+        .swipe-demo {
+            background: linear-gradient(45deg, var(--primary-blue), var(--accent-orange));
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .swipe-indicator {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            animation: swipeHint 2s infinite;
+        }
+        
+        @keyframes swipeHint {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(20px); }
+        }
+        
+        .form-demo {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .image-gallery-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .gallery-image:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-demo-section {
+                margin: 1rem calc(-1 * var(--mobile-padding, 1rem));
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .device-info {
+                font-size: 0.75rem;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Orientation Indicator -->
+    <div class="orientation-indicator" id="orientation-indicator">
+        Portrait
+    </div>
+    
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a href="/" class="logo-text">LED Solutions</a>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/products.html" class="nav-link">Products</a></li>
+                <li><a href="/contact.html" class="nav-link">Contact</a></li>
+                <li><a href="/about.html" class="nav-link">About</a></li>
+            </ul>
+            <button class="navbar-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Mobile Optimization Test</h1>
+            <p class="hero-subtitle">Testing mobile-specific features and responsive design enhancements</p>
+            <a href="#mobile-features" class="btn btn-primary">Explore Mobile Features</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container section-padding">
+        <!-- Device Information -->
+        <section class="mobile-demo-section">
+            <h2>Device Information</h2>
+            <div class="device-info" id="device-info">
+                Loading device information...
+            </div>
+            <button class="demo-button" onclick="updateDeviceInfo()">Refresh Info</button>
+        </section>
+
+        <!-- Touch Interaction Demo -->
+        <section id="mobile-features" class="mobile-demo-section">
+            <h2>Touch Interaction Demo</h2>
+            <p>Test various touch interactions and gestures:</p>
+            
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Touch Feedback</h3>
+                    <button class="demo-button" id="touch-feedback-btn">Touch Me</button>
+                    <p><small>Notice the visual feedback when touched</small></p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Long Press</h3>
+                    <button class="demo-button secondary" id="long-press-btn">Hold Me</button>
+                    <p><small>Hold for 1 second to trigger action</small></p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Double Tap</h3>
+                    <button class="demo-button accent" id="double-tap-btn">Double Tap</button>
+                    <p><small>Tap twice quickly</small></p>
+                </div>
+            </div>
+            
+            <div class="touch-demo-area" id="touch-demo-area">
+                <h3>Multi-Touch Area</h3>
+                <p>Touch, swipe, or use multiple fingers here</p>
+                <div id="touch-info"></div>
+            </div>
+        </section>
+
+        <!-- Swipe Gesture Demo -->
+        <section class="mobile-demo-section">
+            <h2>Swipe Gestures</h2>
+            <div class="swipe-demo" id="swipe-demo">
+                <div class="swipe-indicator">👉</div>
+                <h3>Swipe Demo Area</h3>
+                <p>Swipe left or right to see different content</p>
+                <div id="swipe-content">Content 1 of 3</div>
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button class="demo-button" onclick="prevSwipeContent()">← Previous</button>
+                <button class="demo-button" onclick="nextSwipeContent()">Next →</button>
+            </div>
+        </section>
+
+        <!-- Mobile Form Demo -->
+        <section class="mobile-demo-section">
+            <h2>Mobile-Optimized Form</h2>
+            <p>Form with mobile-specific optimizations:</p>
+            
+            <div class="form-demo">
+                <form id="mobile-form-demo">
+                    <div class="form-group">
+                        <label for="demo-name">Full Name *</label>
+                        <input type="text" id="demo-name" name="name" required 
+                               placeholder="Enter your full name" autocomplete="name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="demo-email">Email Address *</label>
+                        <input type="email" id="demo-email" name="email" required 
+                               placeholder="your@email.com" autocomplete="email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="demo-phone">Phone Number</label>
+                        <input type="tel" id="demo-phone" name="phone" 
+                               placeholder="+1 (555) 123-4567" autocomplete="tel">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="demo-company">Company</label>
+                        <input type="text" id="demo-company" name="company" 
+                               placeholder="Your company name" autocomplete="organization">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="demo-message">Message *</label>
+                        <textarea id="demo-message" name="message" rows="4" required
+                                  placeholder="Tell us about your LED display needs..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="demo-button" style="width: 100%;">
+                        Submit Form
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Image Gallery Demo -->
+        <section class="mobile-demo-section">
+            <h2>Mobile Image Gallery</h2>
+            <p>Touch-optimized image viewing with pinch-to-zoom:</p>
+            
+            <div class="image-gallery-demo">
+                <img src="https://via.placeholder.com/300x200/1e40af/ffffff?text=LED+Display+1" 
+                     alt="LED Display 1" class="gallery-image">
+                <img src="https://via.placeholder.com/300x200/f97316/ffffff?text=LED+Display+2" 
+                     alt="LED Display 2" class="gallery-image">
+                <img src="https://via.placeholder.com/300x200/10b981/ffffff?text=LED+Display+3" 
+                     alt="LED Display 3" class="gallery-image">
+                <img src="https://via.placeholder.com/300x200/6366f1/ffffff?text=LED+Display+4" 
+                     alt="LED Display 4" class="gallery-image">
+                <img src="https://via.placeholder.com/300x200/ec4899/ffffff?text=LED+Display+5" 
+                     alt="LED Display 5" class="gallery-image">
+                <img src="https://via.placeholder.com/300x200/8b5cf6/ffffff?text=LED+Display+6" 
+                     alt="LED Display 6" class="gallery-image">
+            </div>
+        </section>
+
+        <!-- Mobile Navigation Demo -->
+        <section class="mobile-demo-section">
+            <h2>Mobile Navigation Features</h2>
+            <p>Enhanced mobile navigation with quick actions:</p>
+            
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Hamburger Menu</h3>
+                    <button class="demo-button" onclick="window.mobileOptimizer?.toggleMobileMenu()">
+                        Toggle Menu
+                    </button>
+                    <p><small>Full-screen mobile navigation</small></p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Quick Actions</h3>
+                    <button class="demo-button accent" onclick="showQuickActions()">
+                        Show Quick Actions
+                    </button>
+                    <p><small>Bottom action bar for mobile</small></p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Scroll Behavior</h3>
+                    <button class="demo-button secondary" onclick="testScrollBehavior()">
+                        Test Auto-Hide
+                    </button>
+                    <p><small>Navigation hides on scroll down</small></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Demo -->
+        <section class="mobile-demo-section">
+            <h2>Mobile Performance Features</h2>
+            <p>Performance optimizations for mobile devices:</p>
+            
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Reduced Motion</h3>
+                    <button class="demo-button" onclick="toggleReducedMotion()">
+                        Toggle Reduced Motion
+                    </button>
+                    <p><small>Disable animations for better performance</small></p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Lazy Loading</h3>
+                    <button class="demo-button accent" onclick="testLazyLoading()">
+                        Load More Images
+                    </button>
+                    <p><small>Images load as you scroll</small></p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Touch Optimization</h3>
+                    <button class="demo-button secondary" onclick="showTouchOptimizations()">
+                        Show Optimizations
+                    </button>
+                    <p><small>Touch-friendly interface elements</small></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orientation Demo -->
+        <section class="mobile-demo-section">
+            <h2>Orientation Handling</h2>
+            <p>Rotate your device to see orientation-specific optimizations:</p>
+            
+            <div id="orientation-demo" class="demo-card">
+                <h3>Current Orientation: <span id="current-orientation">Unknown</span></h3>
+                <p>Screen Size: <span id="screen-size">Unknown</span></p>
+                <p>Viewport Size: <span id="viewport-size">Unknown</span></p>
+                <button class="demo-button" onclick="updateOrientationInfo()">Refresh</button>
+            </div>
+        </section>
+
+        <!-- Accessibility Demo -->
+        <section class="mobile-demo-section">
+            <h2>Mobile Accessibility</h2>
+            <p>Accessibility features optimized for mobile:</p>
+            
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Large Touch Targets</h3>
+                    <button class="demo-button" style="min-height: 48px; min-width: 150px;">
+                        44px+ Target
+                    </button>
+                    <p><small>Minimum 44px touch targets</small></p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>High Contrast</h3>
+                    <button class="demo-button secondary" onclick="toggleHighContrast()">
+                        Toggle Contrast
+                    </button>
+                    <p><small>Enhanced contrast for readability</small></p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Focus Indicators</h3>
+                    <button class="demo-button accent" id="focus-demo-btn">
+                        Focus Me
+                    </button>
+                    <p><small>Clear focus indicators for navigation</small></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 LED Solutions. Mobile Optimization Test Page.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/mobile-optimizer.js"></script>
+    
+    <!-- Demo-specific JavaScript -->
+    <script>
+        let swipeContentIndex = 0;
+        const swipeContents = [
+            "Content 1 of 3 - LED Indoor Displays",
+            "Content 2 of 3 - LED Outdoor Displays", 
+            "Content 3 of 3 - LED Rental Solutions"
+        ];
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDeviceInfo();
+            updateOrientationInfo();
+            setupTouchDemos();
+            setupFormDemo();
+            
+            // Update orientation indicator
+            updateOrientationIndicator();
+            
+            // Listen for orientation changes
+            document.addEventListener('orientationChanged', (e) => {
+                updateOrientationIndicator();
+                updateOrientationInfo();
+            });
+        });
+        
+        function updateDeviceInfo() {
+            const info = window.mobileOptimizer ? window.mobileOptimizer.getMobileInfo() : {
+                isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+                isTablet: false,
+                touchDevice: 'ontouchstart' in window,
+                orientation: window.innerHeight > window.innerWidth ? 'portrait' : 'landscape',
+                userAgent: navigator.userAgent,
+                screenSize: { width: screen.width, height: screen.height },
+                viewport: { width: window.innerWidth, height: window.innerHeight }
+            };
+            
+            document.getElementById('device-info').innerHTML = `
+                <strong>Device Type:</strong> ${info.isMobile ? 'Mobile' : 'Desktop'} ${info.isTablet ? '(Tablet)' : ''}<br>
+                <strong>Touch Device:</strong> ${info.touchDevice ? 'Yes' : 'No'}<br>
+                <strong>Orientation:</strong> ${info.orientation}<br>
+                <strong>Screen Size:</strong> ${info.screenSize.width} x ${info.screenSize.height}<br>
+                <strong>Viewport Size:</strong> ${info.viewport.width} x ${info.viewport.height}<br>
+                <strong>User Agent:</strong> ${info.userAgent.substring(0, 60)}...
+            `;
+        }
+        
+        function updateOrientationIndicator() {
+            const indicator = document.getElementById('orientation-indicator');
+            const orientation = window.innerHeight > window.innerWidth ? 'Portrait' : 'Landscape';
+            indicator.textContent = orientation;
+        }
+        
+        function updateOrientationInfo() {
+            const orientation = window.innerHeight > window.innerWidth ? 'Portrait' : 'Landscape';
+            document.getElementById('current-orientation').textContent = orientation;
+            document.getElementById('screen-size').textContent = `${screen.width} x ${screen.height}`;
+            document.getElementById('viewport-size').textContent = `${window.innerWidth} x ${window.innerHeight}`;
+        }
+        
+        function setupTouchDemos() {
+            // Touch feedback demo
+            const touchBtn = document.getElementById('touch-feedback-btn');
+            touchBtn.addEventListener('touchstart', () => {
+                touchBtn.style.transform = 'scale(0.95)';
+                touchBtn.style.background = '#059669';
+            });
+            touchBtn.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    touchBtn.style.transform = '';
+                    touchBtn.style.background = '';
+                }, 150);
+            });
+            
+            // Long press demo
+            const longPressBtn = document.getElementById('long-press-btn');
+            let longPressTimer;
+            longPressBtn.addEventListener('touchstart', () => {
+                longPressTimer = setTimeout(() => {
+                    alert('Long press detected!');
+                    navigator.vibrate && navigator.vibrate(100);
+                }, 1000);
+            });
+            longPressBtn.addEventListener('touchend', () => {
+                clearTimeout(longPressTimer);
+            });
+            
+            // Double tap demo
+            const doubleTapBtn = document.getElementById('double-tap-btn');
+            let lastTap = 0;
+            doubleTapBtn.addEventListener('touchend', (e) => {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                if (tapLength < 500 && tapLength > 0) {
+                    alert('Double tap detected!');
+                    e.preventDefault();
+                }
+                lastTap = currentTime;
+            });
+            
+            // Multi-touch area
+            const touchArea = document.getElementById('touch-demo-area');
+            const touchInfo = document.getElementById('touch-info');
+            
+            touchArea.addEventListener('touchstart', (e) => {
+                touchArea.classList.add('active');
+                touchInfo.innerHTML = `Touches: ${e.touches.length}`;
+            });
+            
+            touchArea.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                touchInfo.innerHTML = `Touches: ${e.touches.length} (Moving)`;
+            });
+            
+            touchArea.addEventListener('touchend', () => {
+                touchArea.classList.remove('active');
+                touchInfo.innerHTML = 'Touch ended';
+                setTimeout(() => {
+                    touchInfo.innerHTML = '';
+                }, 2000);
+            });
+        }
+        
+        function setupFormDemo() {
+            const form = document.getElementById('mobile-form-demo');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Form submitted successfully! (Demo only)');
+            });
+        }
+        
+        function nextSwipeContent() {
+            swipeContentIndex = (swipeContentIndex + 1) % swipeContents.length;
+            document.getElementById('swipe-content').textContent = swipeContents[swipeContentIndex];
+        }
+        
+        function prevSwipeContent() {
+            swipeContentIndex = (swipeContentIndex - 1 + swipeContents.length) % swipeContents.length;
+            document.getElementById('swipe-content').textContent = swipeContents[swipeContentIndex];
+        }
+        
+        function showQuickActions() {
+            if (window.mobileOptimizer) {
+                // Quick actions are already added by mobile optimizer
+                alert('Quick actions are visible at the bottom of the screen on mobile devices!');
+            } else {
+                alert('Mobile optimizer not loaded. Quick actions would appear at the bottom on mobile.');
+            }
+        }
+        
+        function testScrollBehavior() {
+            // Scroll down to demonstrate auto-hide navigation
+            window.scrollTo({ top: 500, behavior: 'smooth' });
+            setTimeout(() => {
+                alert('Notice how the navigation hides when scrolling down on mobile!');
+            }, 1000);
+        }
+        
+        function toggleReducedMotion() {
+            document.body.classList.toggle('reduced-motion');
+            const isReduced = document.body.classList.contains('reduced-motion');
+            alert(`Reduced motion is now ${isReduced ? 'enabled' : 'disabled'}`);
+        }
+        
+        function testLazyLoading() {
+            // Add more images to demonstrate lazy loading
+            const gallery = document.querySelector('.image-gallery-demo');
+            for (let i = 7; i <= 12; i++) {
+                const img = document.createElement('img');
+                img.src = `https://via.placeholder.com/300x200/1e40af/ffffff?text=LED+Display+${i}`;
+                img.alt = `LED Display ${i}`;
+                img.className = 'gallery-image';
+                img.loading = 'lazy';
+                gallery.appendChild(img);
+            }
+            alert('More images added with lazy loading!');
+        }
+        
+        function showTouchOptimizations() {
+            alert('Touch optimizations include:\n• 44px+ touch targets\n• Visual feedback\n• Gesture support\n• Improved scrolling\n• Touch-friendly forms');
+        }
+        
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+            const isHighContrast = document.body.classList.contains('high-contrast');
+            alert(`High contrast mode is now ${isHighContrast ? 'enabled' : 'disabled'}`);
+        }
+        
+        // Add swipe gesture support to swipe demo
+        document.addEventListener('DOMContentLoaded', () => {
+            const swipeDemo = document.getElementById('swipe-demo');
+            let startX, startY;
+            
+            swipeDemo.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            });
+            
+            swipeDemo.addEventListener('touchend', (e) => {
+                if (!startX || !startY) return;
+                
+                const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
+                
+                const deltaX = endX - startX;
+                const deltaY = endY - startY;
+                
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                    if (deltaX > 0) {
+                        prevSwipeContent();
+                    } else {
+                        nextSwipeContent();
+                    }
+                }
+                
+                startX = startY = null;
+            });
+        });
+        
+        // Focus demo
+        document.getElementById('focus-demo-btn').addEventListener('click', function() {
+            this.focus();
+            alert('Notice the focus indicator around this button!');
+        });
+        
+        // Add high contrast styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .high-contrast {
+                filter: contrast(150%) brightness(120%);
+            }
+            .high-contrast .demo-button {
+                border: 2px solid currentColor;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

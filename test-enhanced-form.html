@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>增强表单系统测试 - Enhanced Form System Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .test-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .status-info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .test-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .btn-test {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-test:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>增强表单系统测试页面 / Enhanced Form System Test Page</h1>
+        
+        <div class="status-info">
+            <strong>表单状态 / Form Status:</strong> <span id="form-status">Loading...</span><br>
+            <strong>验证状态 / Validation Status:</strong> <span id="validation-status">Ready</span><br>
+            <strong>提交状态 / Submission Status:</strong> <span id="submission-status">Ready</span>
+        </div>
+
+        <div class="test-section">
+            <h3>1. 表单功能测试 / Form Functionality Test</h3>
+            <div class="test-form">
+                <form id="inquiry-form" class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message *</label>
+                        <textarea id="message" name="message" rows="4" required placeholder="Enter your message here..."></textarea>
+                        <div class="character-count">
+                            <span id="char-count">0</span> / 1000 characters
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="privacy_consent" name="privacy_consent" value="1" required>
+                            <span class="checkmark"></span>
+                            I agree to the Privacy Policy *
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Submit Test Inquiry</span>
+                            <span class="btn-loading" style="display: none;">
+                                <span class="spinner"></span> Sending...
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. 验证功能测试 / Validation Function Test</h3>
+            <button class="btn-test" onclick="testValidation()">测试验证 / Test Validation</button>
+            <button class="btn-test" onclick="testInvalidData()">测试无效数据 / Test Invalid Data</button>
+            <button class="btn-test" onclick="testValidData()">测试有效数据 / Test Valid Data</button>
+            <button class="btn-test" onclick="clearForm()">清空表单 / Clear Form</button>
+        </div>
+
+        <div class="test-section">
+            <h3>3. 自动保存测试 / Auto-save Test</h3>
+            <p>在表单中输入一些内容，然后刷新页面查看是否自动恢复。</p>
+            <p>Enter some content in the form, then refresh the page to see if it auto-restores.</p>
+            <button class="btn-test" onclick="testAutoSave()">测试自动保存 / Test Auto-save</button>
+            <button class="btn-test" onclick="clearSavedData()">清除保存数据 / Clear Saved Data</button>
+        </div>
+
+        <div class="test-section">
+            <h3>4. 字符计数测试 / Character Count Test</h3>
+            <p>在消息框中输入文本，观察字符计数的变化和颜色提示。</p>
+            <p>Type in the message box and observe character count changes and color indicators.</p>
+            <button class="btn-test" onclick="fillLongMessage()">填充长消息 / Fill Long Message</button>
+            <button class="btn-test" onclick="fillMaxMessage()">填充最大长度 / Fill Max Length</button>
+        </div>
+
+        <div class="test-section">
+            <h3>5. 错误处理测试 / Error Handling Test</h3>
+            <button class="btn-test" onclick="testNetworkError()">模拟网络错误 / Simulate Network Error</button>
+            <button class="btn-test" onclick="testServerError()">模拟服务器错误 / Simulate Server Error</button>
+            <button class="btn-test" onclick="testSuccessResponse()">模拟成功响应 / Simulate Success Response</button>
+        </div>
+
+        <div class="test-section">
+            <h3>6. 多语言测试 / Multilingual Test</h3>
+            <button class="lang-switcher">EN/中</button>
+            <p>切换语言后，验证消息应该更新为对应语言。</p>
+            <p>After switching language, validation messages should update to corresponding language.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>7. 事件监听测试 / Event Listener Test</h3>
+            <div id="event-log" style="background: #f8f9fa; padding: 10px; border-radius: 4px; max-height: 200px; overflow-y: auto;">
+                <strong>事件日志 / Event Log:</strong><br>
+            </div>
+            <button class="btn-test" onclick="clearEventLog()">清除日志 / Clear Log</button>
+        </div>
+
+        <div class="test-section">
+            <h3>8. 性能测试 / Performance Test</h3>
+            <button class="btn-test" onclick="testFormPerformance()">测试表单性能 / Test Form Performance</button>
+            <div id="performance-results"></div>
+        </div>
+    </div>
+
+    <!-- I18n System -->
+    <script src="js/i18n.js"></script>
+    <!-- Enhanced Form System -->
+    <script src="js/enhanced-form.js"></script>
+    <!-- Main JS File -->
+    <script src="js/main.js" defer></script>
+
+    <script>
+        let eventLog = [];
+        
+        // 测试函数
+        function testValidation() {
+            if (window.enhancedInquiryForm) {
+                // 测试各种验证场景
+                const form = window.enhancedInquiryForm;
+                
+                // 测试空字段
+                console.log('Name validation (empty):', form.validateField('name', '', true));
+                console.log('Email validation (invalid):', form.validateField('email', 'invalid-email', true));
+                console.log('Message validation (too short):', form.validateField('message', 'Hi', true));
+                
+                logEvent('Validation test completed');
+            } else {
+                alert('Enhanced form not initialized');
+            }
+        }
+        
+        function testInvalidData() {
+            document.getElementById('name').value = 'A'; // Too short
+            document.getElementById('email').value = 'invalid-email'; // Invalid format
+            document.getElementById('message').value = 'Short'; // Too short
+            
+            // Trigger validation
+            document.getElementById('name').blur();
+            document.getElementById('email').blur();
+            document.getElementById('message').blur();
+            
+            logEvent('Invalid data filled for testing');
+        }
+        
+        function testValidData() {
+            document.getElementById('name').value = 'John Doe';
+            document.getElementById('email').value = 'john.doe@example.com';
+            document.getElementById('company').value = 'Test Company';
+            document.getElementById('phone').value = '+1-555-123-4567';
+            document.getElementById('message').value = 'This is a test message with sufficient length to pass validation requirements.';
+            document.getElementById('privacy_consent').checked = true;
+            
+            logEvent('Valid data filled for testing');
+        }
+        
+        function clearForm() {
+            document.getElementById('inquiry-form').reset();
+            document.getElementById('char-count').textContent = '0';
+            
+            // Clear all error states
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+            document.querySelectorAll('.field-error').forEach(el => el.remove());
+            document.querySelectorAll('.error-icon').forEach(el => el.remove());
+            
+            logEvent('Form cleared');
+        }
+        
+        function testAutoSave() {
+            if (window.enhancedInquiryForm) {
+                window.enhancedInquiryForm.saveFormData();
+                logEvent('Auto-save triggered manually');
+                alert('表单数据已保存到localStorage / Form data saved to localStorage');
+            }
+        }
+        
+        function clearSavedData() {
+            if (window.enhancedInquiryForm) {
+                window.enhancedInquiryForm.clearSavedData();
+                logEvent('Saved data cleared');
+                alert('保存的数据已清除 / Saved data cleared');
+            }
+        }
+        
+        function fillLongMessage() {
+            const longMessage = 'This is a long test message. '.repeat(30);
+            document.getElementById('message').value = longMessage;
+            document.getElementById('message').dispatchEvent(new Event('input'));
+            logEvent('Long message filled');
+        }
+        
+        function fillMaxMessage() {
+            const maxMessage = 'A'.repeat(1001); // Over limit
+            document.getElementById('message').value = maxMessage;
+            document.getElementById('message').dispatchEvent(new Event('input'));
+            logEvent('Max length message filled');
+        }
+        
+        function testNetworkError() {
+            // Mock network error
+            const originalFetch = window.fetch;
+            window.fetch = () => Promise.reject(new Error('Network error'));
+            
+            setTimeout(() => {
+                window.fetch = originalFetch;
+            }, 5000);
+            
+            logEvent('Network error simulation activated');
+            alert('网络错误模拟已激活，尝试提交表单 / Network error simulation activated, try submitting form');
+        }
+        
+        function testServerError() {
+            // Mock server error
+            const originalFetch = window.fetch;
+            window.fetch = () => Promise.resolve({
+                ok: false,
+                status: 500,
+                statusText: 'Internal Server Error',
+                json: () => Promise.resolve({ error: 'Server error occurred' })
+            });
+            
+            setTimeout(() => {
+                window.fetch = originalFetch;
+            }, 5000);
+            
+            logEvent('Server error simulation activated');
+            alert('服务器错误模拟已激活，尝试提交表单 / Server error simulation activated, try submitting form');
+        }
+        
+        function testSuccessResponse() {
+            // Mock success response
+            const originalFetch = window.fetch;
+            window.fetch = () => Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({
+                    success: true,
+                    message: 'Test inquiry submitted successfully!',
+                    inquiry_id: 'TEST-' + Date.now()
+                })
+            });
+            
+            setTimeout(() => {
+                window.fetch = originalFetch;
+            }, 5000);
+            
+            logEvent('Success response simulation activated');
+            alert('成功响应模拟已激活，尝试提交表单 / Success response simulation activated, try submitting form');
+        }
+        
+        function testFormPerformance() {
+            const startTime = performance.now();
+            
+            // Simulate heavy form operations
+            for (let i = 0; i < 1000; i++) {
+                if (window.enhancedInquiryForm) {
+                    window.enhancedInquiryForm.validateField('email', 'test@example.com', false);
+                }
+            }
+            
+            const endTime = performance.now();
+            const duration = endTime - startTime;
+            
+            document.getElementById('performance-results').innerHTML = `
+                <p><strong>性能测试结果 / Performance Test Results:</strong></p>
+                <p>1000次验证耗时 / 1000 validations took: ${duration.toFixed(2)}ms</p>
+                <p>平均每次 / Average per validation: ${(duration/1000).toFixed(4)}ms</p>
+            `;
+            
+            logEvent(`Performance test completed: ${duration.toFixed(2)}ms`);
+        }
+        
+        function clearEventLog() {
+            eventLog = [];
+            document.getElementById('event-log').innerHTML = '<strong>事件日志 / Event Log:</strong><br>';
+        }
+        
+        function logEvent(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            eventLog.push(`[${timestamp}] ${message}`);
+            
+            const logElement = document.getElementById('event-log');
+            logElement.innerHTML = '<strong>事件日志 / Event Log:</strong><br>' + 
+                eventLog.slice(-10).join('<br>'); // Show last 10 events
+            
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 更新状态信息
+            setTimeout(() => {
+                const formStatus = window.enhancedInquiryForm ? '已初始化 / Initialized' : '未初始化 / Not Initialized';
+                document.getElementById('form-status').textContent = formStatus;
+                
+                logEvent('Test page loaded');
+            }, 500);
+            
+            // 监听表单事件
+            const form = document.getElementById('inquiry-form');
+            
+            form.addEventListener('formSubmissionSuccess', (e) => {
+                logEvent('Form submission success event received');
+                document.getElementById('submission-status').textContent = '提交成功 / Success';
+            });
+            
+            form.addEventListener('formSubmissionError', (e) => {
+                logEvent('Form submission error event received: ' + e.detail.error);
+                document.getElementById('submission-status').textContent = '提交失败 / Failed';
+            });
+            
+            // 监听语言变更事件
+            document.addEventListener('languageChanged', function(event) {
+                logEvent('Language changed to: ' + event.detail.language);
+                
+                if (window.enhancedInquiryForm) {
+                    window.enhancedInquiryForm.updateLanguageTexts();
+                }
+            });
+            
+            // 监听表单字段变化
+            form.addEventListener('input', (e) => {
+                if (e.target.name === 'message') {
+                    const charCount = e.target.value.length;
+                    document.getElementById('validation-status').textContent = `字符数: ${charCount} / Char count: ${charCount}`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

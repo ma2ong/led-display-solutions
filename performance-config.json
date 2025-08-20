@@ -1,0 +1,46 @@
+{
+  "optimization": {
+    "images": {
+      "lazyLoading": true,
+      "webpSupport": true,
+      "compressionQuality": 85,
+      "maxWidth": 1920,
+      "placeholderColor": "#f3f4f6",
+      "fadeInDuration": 300
+    },
+    "css": {
+      "minification": true,
+      "criticalCss": true,
+      "unusedCssRemoval": true,
+      "prefetch": ["style.css", "critical.css"]
+    },
+    "javascript": {
+      "minification": true,
+      "bundling": true,
+      "deferNonCritical": true,
+      "preloadCritical": ["main.js", "i18n.js"]
+    },
+    "fonts": {
+      "preload": ["Inter", "Poppins"],
+      "display": "swap",
+      "subset": "latin,latin-ext"
+    },
+    "caching": {
+      "staticAssets": "1y",
+      "htmlPages": "1h",
+      "apiResponses": "5m"
+    }
+  },
+  "monitoring": {
+    "performanceMetrics": true,
+    "errorTracking": true,
+    "userExperience": true,
+    "loadingIndicators": true
+  },
+  "thresholds": {
+    "firstContentfulPaint": 1500,
+    "largestContentfulPaint": 2500,
+    "cumulativeLayoutShift": 0.1,
+    "firstInputDelay": 100
+  }
+}

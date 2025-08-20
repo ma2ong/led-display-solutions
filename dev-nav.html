@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Navigator | LED Display B2B Website</title>
+    <style>
+        :root {
+            --primary-blue: #1e40af;
+            --gray-800: #1f2937;
+            --gray-600: #4b5563;
+            --gray-400: #9ca3af;
+            --gray-200: #e5e7eb;
+            --gray-100: #f3f4f6;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: var(--font-primary);
+            margin: 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--gray-800);
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-8);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        .header h1 {
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+            margin-bottom: var(--space-8);
+            flex-wrap: wrap;
+        }
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--gray-200);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.2);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--space-6);
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+        .card-preview {
+            background-color: var(--gray-100);
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            font-style: italic;
+        }
+        .card-content {
+            padding: var(--space-6);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-content h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--gray-800);
+        }
+        .card-content p {
+            margin: 0;
+            color: var(--gray-600);
+            flex-grow: 1;
+        }
+        .card-content a {
+            text-decoration: none;
+            color: white;
+            background-color: var(--primary-blue);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: var(--space-4);
+            display: block;
+            transition: background-color 0.2s ease;
+        }
+        .card-content a:hover {
+            background-color: #1e3a8a;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>LED B2B Website Project Navigator</h1>
+            <p>A complete sitemap for the Shenzhen Lejin Optoelectronics project.</p>
+            <div class="filters">
+                <input type="search" id="search-box" class="search-box" placeholder="Search pages (e.g., 'product', 'contact')...">
+            </div>
+        </header>
+
+        <div class="grid" id="page-grid">
+            <!-- Page cards will be injected here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const pages = [
+            { url: 'homepage.html', title: 'Homepage', description: '企业形象展示首页' },
+            { url: 'about.html', title: 'About Us', description: '公司简介与企业实力' },
+            { url: 'products.html', title: 'Products', description: '产品中心总览' },
+            { url: 'fine-pitch.html', title: 'Fine Pitch LED', description: '小间距LED显示屏' },
+            { url: 'rental.html', title: 'Rental LED', description: '租赁LED显示屏' },
+            { url: 'outdoor.html', title: 'Outdoor LED', description: '户外LED显示屏' },
+            { url: 'creative.html', title: 'Creative LED', description: '创意LED显示屏' },
+            { url: 'transparent.html', title: 'Transparent LED', description: '透明LED显示屏' },
+            { url: 'solutions.html', title: 'Solutions', description: '解决方案展示' },
+            { url: 'cases.html', title: 'Case Studies', description: '成功案例展示' },
+            { url: 'news.html', title: 'News', description: '新闻资讯中心' },
+            { url: 'support.html', title: 'Support', description: '技术支持服务' },
+            { url: 'contact.html', title: 'Contact', description: '联系我们页面' },
+        ];
+
+        const grid = document.getElementById('page-grid');
+        const searchBox = document.getElementById('search-box');
+
+        const renderGrid = (filter = '') => {
+            grid.innerHTML = '';
+            const searchTerm = filter.toLowerCase();
+            const filteredPages = pages.filter(p => 
+                p.title.toLowerCase().includes(searchTerm) || 
+                p.description.toLowerCase().includes(searchTerm)
+            );
+
+            filteredPages.forEach(page => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-preview">
+                        <span>Page Preview Placeholder</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>${page.title}</h3>
+                        <p>${page.description}</p>
+                        <a href="${page.url}" target="_blank">View Page</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        };
+
+        searchBox.addEventListener('input', (e) => {
+            renderGrid(e.target.value);
+        });
+
+        // Initial render
+        renderGrid();
+    </script>
+
+</body>
+</html>

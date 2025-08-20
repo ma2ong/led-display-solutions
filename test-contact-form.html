@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Contact Form Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .test-info {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .test-info h3 {
+            margin: 0 0 0.5rem 0;
+            color: #0369a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-info">
+            <h3>Enhanced Contact Form Test</h3>
+            <p>This page tests the enhanced contact form with all new features:</p>
+            <ul>
+                <li>✅ Enhanced form fields (country, inquiry type, product interest)</li>
+                <li>✅ Real-time validation and character counting</li>
+                <li>✅ Auto-save and restore form data</li>
+                <li>✅ Improved error handling and user feedback</li>
+                <li>✅ Loading states and submission prevention</li>
+                <li>✅ Email notifications (simulated)</li>
+            </ul>
+        </div>
+
+        <div class="contact-grid">
+            <!-- Enhanced Contact Form -->
+            <div>
+                <h2>Send Us a Message</h2>
+                <form id="inquiry-form" class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">Country/Region</label>
+                            <select id="country" name="country">
+                                <option value="">Select your country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="AU">Australia</option>
+                                <option value="JP">Japan</option>
+                                <option value="KR">South Korea</option>
+                                <option value="SG">Singapore</option>
+                                <option value="IN">India</option>
+                                <option value="CN">China</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inquiry_type">Inquiry Type</label>
+                            <select id="inquiry_type" name="inquiry_type">
+                                <option value="general">General Inquiry</option>
+                                <option value="quote">Request Quote</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="sample">Sample Request</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product_interest">Product Interest</label>
+                        <select id="product_interest" name="product_interest">
+                            <option value="">Select product category</option>
+                            <option value="fine-pitch-led">Fine Pitch LED Display</option>
+                            <option value="outdoor-led">Outdoor LED Display</option>
+                            <option value="rental-led">Rental LED Display</option>
+                            <option value="creative-led">Creative LED Display</option>
+                            <option value="transparent-led">Transparent LED Display</option>
+                            <option value="interactive-led">Interactive LED Display</option>
+                            <option value="custom">Custom Solution</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="project_details">Project Details (Optional)</label>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="screen_size">Approximate Screen Size</label>
+                                <input type="text" id="screen_size" name="screen_size" placeholder="e.g., 3m x 2m">
+                            </div>
+                            <div class="form-group">
+                                <label for="budget_range">Budget Range (USD)</label>
+                                <select id="budget_range" name="budget_range">
+                                    <option value="">Select budget range</option>
+                                    <option value="under-10k">Under $10,000</option>
+                                    <option value="10k-50k">$10,000 - $50,000</option>
+                                    <option value="50k-100k">$50,000 - $100,000</option>
+                                    <option value="100k-500k">$100,000 - $500,000</option>
+                                    <option value="over-500k">Over $500,000</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message / Project Requirements *</label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Please describe your LED display requirements, project details, installation environment, or any questions you have..."></textarea>
+                        <div class="character-count">
+                            <span id="char-count">0</span> / 1000 characters
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter" name="newsletter" value="1">
+                            <span class="checkmark"></span>
+                            Subscribe to our newsletter for LED industry updates and product news
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="privacy_consent" name="privacy_consent" value="1" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#" target="_blank">Privacy Policy</a> and consent to the processing of my personal data *
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Submit Inquiry</span>
+                            <span class="btn-loading" style="display: none;">
+                                <span class="spinner"></span> Sending...
+                            </span>
+                        </button>
+                        <p class="form-note">We typically respond within 24 hours</p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Test Instructions -->
+            <div>
+                <h3>Test Instructions</h3>
+                <div class="contact-info">
+                    <h4>Features to Test:</h4>
+                    <ol>
+                        <li><strong>Form Validation:</strong> Try submitting with empty required fields</li>
+                        <li><strong>Email Validation:</strong> Enter invalid email formats</li>
+                        <li><strong>Character Counter:</strong> Type in the message field and watch the counter</li>
+                        <li><strong>Auto-save:</strong> Fill the form, refresh the page, and see if data is restored</li>
+                        <li><strong>Loading State:</strong> Submit the form and see the loading animation</li>
+                        <li><strong>Success/Error Messages:</strong> Check the response messages</li>
+                    </ol>
+                    
+                    <h4>Test Data:</h4>
+                    <ul>
+                        <li><strong>Name:</strong> John Smith</li>
+                        <li><strong>Email:</strong> john.smith@example.com</li>
+                        <li><strong>Company:</strong> ABC Corporation</li>
+                        <li><strong>Phone:</strong> +1-555-123-4567</li>
+                        <li><strong>Country:</strong> United States</li>
+                        <li><strong>Message:</strong> I'm interested in a P2.5 outdoor LED display for our shopping mall. The screen size should be approximately 10m x 6m.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js" defer></script>
+</body>
+</html>

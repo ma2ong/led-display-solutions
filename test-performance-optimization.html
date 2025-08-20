@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Optimization Test - LED Display Solutions</title>
+    
+    <!-- Critical CSS - loaded synchronously -->
+    <link rel="stylesheet" href="/css/critical.css">
+    
+    <!-- Non-critical CSS - loaded asynchronously -->
+    <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/performance-optimized.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/performance-optimized.css">
+    </noscript>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/js/performance-optimizer.js" as="script">
+    <link rel="preload" href="/js/main.js" as="script">
+    
+    <!-- Font optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <meta name="description" content="Testing performance optimizations for LED display website including lazy loading, critical CSS, and user experience enhancements.">
+</head>
+<body>
+    <!-- Page loading indicator -->
+    <div id="page-loading-bar"></div>
+    
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a href="/" class="logo-text">LED Solutions</a>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/products.html" class="nav-link">Products</a></li>
+                <li><a href="/contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="navbar-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title text-reveal">
+                <span class="text-reveal-inner">Performance Optimization Test</span>
+            </h1>
+            <p class="hero-subtitle text-reveal">
+                <span class="text-reveal-inner">Testing various performance enhancements and optimizations</span>
+            </p>
+            <a href="#features" class="btn btn-primary btn-optimized">Explore Features</a>
+        </div>
+    </section>
+
+    <!-- Performance Features Section -->
+    <section id="features" class="section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title observe-visibility">Performance Features</h2>
+                <p class="section-subtitle observe-visibility">Advanced optimizations for better user experience</p>
+            </div>
+            
+            <div class="grid-optimized">
+                <!-- Lazy Loading Demo -->
+                <div class="card-optimized grid-item-optimized observe-visibility">
+                    <div class="image-container">
+                        <img data-src="https://via.placeholder.com/400x250/1e40af/ffffff?text=Lazy+Loaded+Image+1" 
+                             alt="Lazy loaded image demo" 
+                             class="lazy-image responsive-image"
+                             width="400" 
+                             height="250">
+                        <div class="image-placeholder">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Lazy Loading</h3>
+                        <p>Images load only when they enter the viewport, improving initial page load time.</p>
+                        <div class="tooltip-optimized" data-tooltip="Reduces initial bandwidth usage">
+                            <span class="btn-link">Learn More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Critical CSS Demo -->
+                <div class="card-optimized grid-item-optimized observe-visibility">
+                    <div class="image-container">
+                        <img data-src="https://via.placeholder.com/400x250/f97316/ffffff?text=Critical+CSS+Demo" 
+                             alt="Critical CSS demo" 
+                             class="lazy-image responsive-image"
+                             width="400" 
+                             height="250">
+                        <div class="image-placeholder">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Critical CSS</h3>
+                        <p>Above-the-fold styles load first, non-critical styles load asynchronously.</p>
+                        <div class="tooltip-optimized" data-tooltip="Improves First Contentful Paint">
+                            <span class="btn-link">Learn More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Monitoring -->
+                <div class="card-optimized grid-item-optimized observe-visibility">
+                    <div class="image-container">
+                        <img data-src="https://via.placeholder.com/400x250/10b981/ffffff?text=Performance+Monitoring" 
+                             alt="Performance monitoring demo" 
+                             class="lazy-image responsive-image"
+                             width="400" 
+                             height="250">
+                        <div class="image-placeholder">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Performance Monitoring</h3>
+                        <p>Real-time monitoring of Core Web Vitals and performance metrics.</p>
+                        <div class="tooltip-optimized" data-tooltip="Tracks LCP, FID, and CLS">
+                            <span class="btn-link">Learn More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resource Preloading -->
+                <div class="card-optimized grid-item-optimized observe-visibility">
+                    <div class="image-container">
+                        <img data-src="https://via.placeholder.com/400x250/6366f1/ffffff?text=Resource+Preloading" 
+                             alt="Resource preloading demo" 
+                             class="lazy-image responsive-image"
+                             width="400" 
+                             height="250">
+                        <div class="image-placeholder">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Resource Preloading</h3>
+                        <p>Critical resources are preloaded to reduce loading times.</p>
+                        <div class="tooltip-optimized" data-tooltip="Preloads fonts, CSS, and JS">
+                            <span class="btn-link">Learn More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Awareness -->
+                <div class="card-optimized grid-item-optimized observe-visibility">
+                    <div class="image-container">
+                        <img data-src="https://via.placeholder.com/400x250/ec4899/ffffff?text=Connection+Aware" 
+                             alt="Connection aware loading demo" 
+                             class="lazy-image responsive-image"
+                             width="400" 
+                             height="250">
+                        <div class="image-placeholder">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Connection Awareness</h3>
+                        <p>Adapts loading strategy based on user's connection speed.</p>
+                        <div class="tooltip-optimized" data-tooltip="Optimizes for slow connections">
+                            <span class="btn-link">Learn More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Experience Enhancements -->
+                <div class="card-optimized grid-item-optimized observe-visibility">
+                    <div class="image-container">
+                        <img data-src="https://via.placeholder.com/400x250/8b5cf6/ffffff?text=UX+Enhancements" 
+                             alt="UX enhancements demo" 
+                             class="lazy-image responsive-image"
+                             width="400" 
+                             height="250">
+                        <div class="image-placeholder">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">UX Enhancements</h3>
+                        <p>Loading indicators, smooth animations, and better feedback.</p>
+                        <div class="tooltip-optimized" data-tooltip="Improves perceived performance">
+                            <span class="btn-link">Learn More</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section -->
+    <section class="section-padding" style="background: var(--bg-primary);">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title observe-visibility">Interactive Performance Demo</h2>
+                <p class="section-subtitle observe-visibility">Test various performance features</p>
+            </div>
+            
+            <div class="demo-controls" style="text-align: center; margin-bottom: 3rem;">
+                <button id="test-lazy-loading" class="btn btn-primary btn-optimized" style="margin: 0.5rem;">
+                    Test Lazy Loading
+                </button>
+                <button id="test-loading-states" class="btn btn-accent btn-optimized" style="margin: 0.5rem;">
+                    Test Loading States
+                </button>
+                <button id="show-performance-metrics" class="btn btn-primary btn-optimized" style="margin: 0.5rem;">
+                    Show Performance Metrics
+                </button>
+                <button id="test-modal" class="btn btn-accent btn-optimized" style="margin: 0.5rem;">
+                    Test Optimized Modal
+                </button>
+            </div>
+            
+            <!-- Performance Metrics Display -->
+            <div id="performance-metrics" class="card-optimized" style="display: none; padding: 2rem; margin-bottom: 2rem;">
+                <h3>Performance Metrics</h3>
+                <div id="metrics-content">
+                    <div class="loading-skeleton" style="height: 20px; margin-bottom: 1rem;"></div>
+                    <div class="loading-skeleton" style="height: 20px; margin-bottom: 1rem;"></div>
+                    <div class="loading-skeleton" style="height: 20px;"></div>
+                </div>
+            </div>
+            
+            <!-- Dynamic Content Area -->
+            <div id="dynamic-content" class="grid-optimized">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Optimized Modal -->
+    <div id="test-modal" class="modal-optimized">
+        <div class="modal-content-optimized" style="padding: 2rem; max-width: 500px;">
+            <h3 style="margin-bottom: 1rem;">Optimized Modal</h3>
+            <p style="margin-bottom: 1.5rem;">
+                This modal uses hardware acceleration and optimized animations for smooth performance.
+                It includes backdrop blur and proper focus management.
+            </p>
+            <div style="text-align: right;">
+                <button id="close-modal" class="btn btn-primary btn-optimized">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 LED Solutions. Performance optimization test page.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll progress indicator -->
+    <div class="scroll-progress"></div>
+
+    <!-- Scripts -->
+    <script src="/js/performance-optimizer.js"></script>
+    <script src="/js/main.js"></script>
+    
+    <!-- Demo-specific JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize text reveal animations
+            const textReveals = document.querySelectorAll('.text-reveal');
+            textReveals.forEach(el => {
+                setTimeout(() => el.classList.add('animate'), 500);
+            });
+            
+            // Initialize visibility observer
+            const observeElements = document.querySelectorAll('.observe-visibility');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            observeElements.forEach(el => observer.observe(el));
+            
+            // Scroll progress indicator
+            const scrollProgress = document.querySelector('.scroll-progress');
+            window.addEventListener('scroll', () => {
+                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                scrollProgress.style.width = scrolled + '%';
+            });
+            
+            // Demo button handlers
+            document.getElementById('test-lazy-loading').addEventListener('click', () => {
+                loadMoreImages();
+            });
+            
+            document.getElementById('test-loading-states').addEventListener('click', (e) => {
+                simulateLoading(e.target);
+            });
+            
+            document.getElementById('show-performance-metrics').addEventListener('click', () => {
+                showPerformanceMetrics();
+            });
+            
+            document.getElementById('test-modal').addEventListener('click', () => {
+                showModal();
+            });
+            
+            document.getElementById('close-modal').addEventListener('click', () => {
+                hideModal();
+            });
+            
+            // Close modal on backdrop click
+            document.querySelector('.modal-optimized').addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal-optimized')) {
+                    hideModal();
+                }
+            });
+        });
+        
+        function loadMoreImages() {
+            const container = document.getElementById('dynamic-content');
+            const colors = ['1e40af', 'f97316', '10b981', '6366f1', 'ec4899', '8b5cf6'];
+            
+            for (let i = 0; i < 6; i++) {
+                const color = colors[i % colors.length];
+                const card = document.createElement('div');
+                card.className = 'card-optimized grid-item-optimized';
+                card.innerHTML = `
+                    <div class="image-container">
+                        <img data-src="https://via.placeholder.com/400x250/${color}/ffffff?text=Dynamic+Image+${i+1}" 
+                             alt="Dynamically loaded image ${i+1}" 
+                             class="lazy-image responsive-image"
+                             width="400" 
+                             height="250">
+                        <div class="image-placeholder">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Dynamic Image ${i+1}</h3>
+                        <p>This image was loaded dynamically to test lazy loading performance.</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+            
+            // Reinitialize lazy loading for new images
+            if (window.performanceOptimizer) {
+                window.performanceOptimizer.initImageOptimizations();
+            }
+        }
+        
+        function simulateLoading(button) {
+            button.classList.add('loading-button');
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.classList.remove('loading-button');
+                button.disabled = false;
+                
+                // Show success message
+                const message = document.createElement('div');
+                message.className = 'toast-message success';
+                message.textContent = 'Loading simulation completed!';
+                message.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: var(--success-green);
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 8px;
+                    z-index: 3000;
+                `;
+                document.body.appendChild(message);
+                
+                setTimeout(() => message.remove(), 3000);
+            }, 2000);
+        }
+        
+        function showPerformanceMetrics() {
+            const metricsDiv = document.getElementById('performance-metrics');
+            const contentDiv = document.getElementById('metrics-content');
+            
+            metricsDiv.style.display = 'block';
+            
+            // Simulate loading metrics
+            setTimeout(() => {
+                const metrics = window.performanceOptimizer ? window.performanceOptimizer.metrics : {
+                    loadTime: Math.round(performance.now()),
+                    domContentLoaded: Math.round(performance.now() * 0.8),
+                    firstContentfulPaint: Math.round(performance.now() * 0.6)
+                };
+                
+                contentDiv.innerHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div>
+                            <strong>Load Time:</strong><br>
+                            <span style="color: var(--primary-blue); font-size: 1.5rem;">${metrics.loadTime}ms</span>
+                        </div>
+                        <div>
+                            <strong>DOM Content Loaded:</strong><br>
+                            <span style="color: var(--success-green); font-size: 1.5rem;">${metrics.domContentLoaded}ms</span>
+                        </div>
+                        <div>
+                            <strong>First Contentful Paint:</strong><br>
+                            <span style="color: var(--accent-orange); font-size: 1.5rem;">${metrics.firstContentfulPaint}ms</span>
+                        </div>
+                        <div>
+                            <strong>Connection:</strong><br>
+                            <span style="color: var(--text-secondary);">${navigator.connection ? navigator.connection.effectiveType : 'Unknown'}</span>
+                        </div>
+                    </div>
+                `;
+            }, 1000);
+        }
+        
+        function showModal() {
+            const modal = document.querySelector('.modal-optimized');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function hideModal() {
+            const modal = document.querySelector('.modal-optimized');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

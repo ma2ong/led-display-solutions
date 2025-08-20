@@ -1,0 +1,179 @@
+{
+  "security": {
+    "inputValidation": {
+      "enabled": true,
+      "maxInputLength": 1000,
+      "allowedCharacters": {
+        "text": "^[a-zA-Z0-9\\s\\.,!?\\-_@#$%&*()+=\\[\\]{}|;:'\"/\\\\<>]*$",
+        "email": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+        "phone": "^[\\+]?[1-9][\\d]{0,15}$",
+        "url": "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$"
+      },
+      "sanitization": {
+        "removeScriptTags": true,
+        "removeEventHandlers": true,
+        "encodeHtmlEntities": true,
+        "removeJavaScriptUrls": true
+      }
+    },
+    "xssProtection": {
+      "enabled": true,
+      "strictMode": true,
+      "allowedTags": ["p", "br", "strong", "em", "u", "i", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li", "a"],
+      "allowedAttributes": {
+        "a": ["href", "title", "target"],
+        "*": ["class", "id"]
+      },
+      "contentSecurityPolicy": {
+        "enabled": true,
+        "directives": {
+          "default-src": ["'self'"],
+          "script-src": ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com", "https://www.google-analytics.com"],
+          "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+          "img-src": ["'self'", "data:", "https:", "http:"],
+          "font-src": ["'self'", "https://fonts.gstatic.com"],
+          "connect-src": ["'self'", "https://www.google-analytics.com"],
+          "frame-ancestors": ["'none'"],
+          "base-uri": ["'self'"],
+          "form-action": ["'self'"]
+        }
+      }
+    },
+    "csrfProtection": {
+      "enabled": true,
+      "tokenLength": 32,
+      "tokenExpiry": 1800000,
+      "requireForAllForms": true,
+      "headerName": "X-CSRF-Token",
+      "cookieName": "csrf_token",
+      "sessionStorageKey": "csrf_token"
+    },
+    "rateLimiting": {
+      "enabled": true,
+      "windowSize": 60000,
+      "maxRequests": 100,
+      "blockDuration": 300000,
+      "whitelist": ["127.0.0.1", "localhost"],
+      "endpoints": {
+        "/api/contact": {
+          "maxRequests": 5,
+          "windowSize": 300000
+        },
+        "/api/search": {
+          "maxRequests": 50,
+          "windowSize": 60000
+        }
+      }
+    },
+    "fileUpload": {
+      "enabled": true,
+      "maxFileSize": 5242880,
+      "allowedTypes": ["jpg", "jpeg", "png", "gif", "pdf", "doc", "docx", "txt"],
+      "blockedTypes": ["exe", "bat", "cmd", "com", "pif", "scr", "vbs", "js", "php", "asp", "jsp"],
+      "scanForMalware": true,
+      "quarantineDirectory": "./quarantine/",
+      "virusTotalApiKey": ""
+    },
+    "sessionSecurity": {
+      "enabled": true,
+      "sessionTimeout": 1800000,
+      "regenerateOnLogin": true,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "strict"
+    },
+    "headers": {
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-XSS-Protection": "1; mode=block",
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Permissions-Policy": "geolocation=(), microphone=(), camera=()"
+    },
+    "monitoring": {
+      "enabled": true,
+      "logSecurityEvents": true,
+      "alertOnSuspiciousActivity": true,
+      "maxLogEntries": 1000,
+      "logRetentionDays": 30,
+      "alertThresholds": {
+        "failedLoginAttempts": 5,
+        "rateLimitViolations": 10,
+        "xssAttempts": 3,
+        "csrfViolations": 3
+      },
+      "notifications": {
+        "email": {
+          "enabled": false,
+          "recipients": ["admin@leddisplaysolutions.com"],
+          "smtpServer": "",
+          "smtpPort": 587,
+          "username": "",
+          "password": ""
+        },
+        "webhook": {
+          "enabled": false,
+          "url": "",
+          "secret": ""
+        }
+      }
+    },
+    "encryption": {
+      "enabled": true,
+      "algorithm": "AES-256-GCM",
+      "keyRotationInterval": 86400000,
+      "saltLength": 16,
+      "iterations": 100000
+    },
+    "audit": {
+      "enabled": true,
+      "logAllRequests": false,
+      "logFailedRequests": true,
+      "logSecurityEvents": true,
+      "logUserActions": true,
+      "retentionPeriod": 2592000000,
+      "exportFormat": "json",
+      "compressionEnabled": true
+    }
+  },
+  "compliance": {
+    "gdpr": {
+      "enabled": true,
+      "cookieConsent": true,
+      "dataRetentionPeriod": 31536000000,
+      "rightToBeForgotten": true,
+      "dataPortability": true
+    },
+    "ccpa": {
+      "enabled": false,
+      "doNotSellLink": true,
+      "privacyPolicyLink": "/privacy-policy.html"
+    },
+    "pci": {
+      "enabled": false,
+      "level": "SAQ-A",
+      "tokenization": true,
+      "encryption": true
+    }
+  },
+  "testing": {
+    "penetrationTesting": {
+      "enabled": true,
+      "schedule": "monthly",
+      "scope": ["web", "api", "database"],
+      "reportFormat": "pdf"
+    },
+    "vulnerabilityScanning": {
+      "enabled": true,
+      "schedule": "weekly",
+      "tools": ["owasp-zap", "nmap", "nikto"],
+      "autoRemediation": false
+    },
+    "securityAudit": {
+      "enabled": true,
+      "schedule": "quarterly",
+      "scope": ["code", "infrastructure", "processes"],
+      "compliance": ["owasp-top10", "sans-top25"]
+    }
+  }
+}

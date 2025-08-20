@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Optimization Test - LED Display Solutions</title>
+    <meta name="description" content="Test page for SEO optimization features including meta tags, structured data, and social sharing for LED display website.">
+    <meta name="keywords" content="SEO test, LED display, meta tags, structured data, social sharing">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- SEO Configuration -->
+    <script type="application/json" data-seo-config>
+    {
+        "siteName": "LED Display Solutions Test",
+        "defaultTitle": "SEO Test Page | LED Display Solutions",
+        "defaultDescription": "Testing SEO optimization features for LED display website",
+        "googleAnalyticsId": "G-TEST123456",
+        "googleTagManagerId": "GTM-TEST123",
+        "structuredDataEnabled": true,
+        "openGraphEnabled": true,
+        "twitterCardEnabled": true,
+        "jsonLdEnabled": true
+    }
+    </script>
+    
+    <style>
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .test-section h3 {
+            margin: 0 0 1rem 0;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .test-result {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .test-result.warning {
+            border-left-color: #ffc107;
+        }
+        
+        .test-result.error {
+            border-left-color: #dc3545;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        
+        .social-share {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .share-buttons-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .share-label {
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .share-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .share-button:hover {
+            background: #0056b3;
+            color: white;
+        }
+        
+        .share-icon {
+            font-size: 1.2rem;
+        }
+        
+        .faq-item {
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .faq-question {
+            background: #f8f9fa;
+            padding: 1rem;
+            margin: 0;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .faq-answer {
+            padding: 1rem;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .test-controls {
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">LED Solutions</a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>SEO Optimization Test Page</h1>
+            <p>This page tests various SEO optimization features including meta tags, structured data, social sharing, and analytics integration.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Controls</h3>
+            <div class="test-controls">
+                <button class="btn btn-primary" onclick="runSEOTests()">Run SEO Tests</button>
+                <button class="btn btn-secondary" onclick="showMetaTags()">Show Meta Tags</button>
+                <button class="btn btn-secondary" onclick="showStructuredData()">Show Structured Data</button>
+                <button class="btn btn-success" onclick="testAnalytics()">Test Analytics</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>SEO Test Results</h3>
+            <div id="test-results">
+                <p>Click "Run SEO Tests" to see the results...</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Meta Tags Analysis</h3>
+            <div id="meta-analysis">
+                <p>Click "Show Meta Tags" to analyze current meta tags...</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Structured Data</h3>
+            <div id="structured-data-display">
+                <p>Click "Show Structured Data" to view generated JSON-LD...</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Social Sharing Test</h3>
+            <div class="social-share">
+                <!-- Social sharing buttons will be generated here -->
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>FAQ Section (for FAQ Schema)</h3>
+            <div class="faq-item">
+                <h4 class="faq-question" onclick="toggleFAQ(this)">What types of LED displays do you manufacture?</h4>
+                <div class="faq-answer">
+                    <p>We manufacture a wide range of LED displays including fine pitch LED displays, outdoor LED screens, rental LED panels, transparent LED displays, and creative LED solutions for various commercial and industrial applications.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <h4 class="faq-question" onclick="toggleFAQ(this)">What is the warranty period for your LED displays?</h4>
+                <div class="faq-answer">
+                    <p>We offer a comprehensive 2-year warranty on all our LED display products, covering both hardware components and software. Extended warranty options are also available for long-term projects.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <h4 class="faq-question" onclick="toggleFAQ(this)">Do you provide installation and maintenance services?</h4>
+                <div class="faq-answer">
+                    <p>Yes, we provide complete installation services through our certified technicians and ongoing maintenance support. We also offer training programs for your technical staff.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Product Information (for Product Schema)</h3>
+            <div class="product-info">
+                <h4 class="product-title">P1.25 Fine Pitch LED Display</h4>
+                <p class="product-description">Ultra-high resolution indoor LED display perfect for control rooms, broadcast studios, and premium commercial applications. Features seamless modular design and exceptional color accuracy.</p>
+                <div class="product-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Pixel Pitch:</span>
+                        <span class="spec-value">1.25mm</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Brightness:</span>
+                        <span class="spec-value">800 nits</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Refresh Rate:</span>
+                        <span class="spec-value">3840Hz</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Viewing Angle:</span>
+                        <span class="spec-value">160°/160°</span>
+                    </div>
+                </div>
+                <div class="product-price">
+                    <span class="price">$15,000</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Console Output</h3>
+            <div id="console-output" class="code-block">
+                Console messages will appear here...
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 LED Display Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Load SEO Optimizer -->
+    <script src="js/seo-optimizer.js"></script>
+    
+    <script>
+        // Console output capture
+        const originalLog = console.log;
+        const originalWarn = console.warn;
+        const originalError = console.error;
+        
+        function updateConsoleOutput(message, type = 'log') {
+            const consoleOutput = document.getElementById('console-output');
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '[ERROR]' : type === 'warn' ? '[WARN]' : '[INFO]';
+            consoleOutput.textContent += `${timestamp} ${prefix} ${message}\n`;
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            updateConsoleOutput(args.join(' '), 'log');
+        };
+        
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            updateConsoleOutput(args.join(' '), 'warn');
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            updateConsoleOutput(args.join(' '), 'error');
+        };
+        
+        // Test functions
+        function runSEOTests() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '<p>Running SEO tests...</p>';
+            
+            const tests = [
+                testTitle,
+                testMetaDescription,
+                testMetaKeywords,
+                testCanonicalUrl,
+                testOpenGraphTags,
+                testTwitterCards,
+                testStructuredDataPresence,
+                testImageOptimization,
+                testLinkOptimization,
+                testRobotsTags
+            ];
+            
+            let results = [];
+            
+            tests.forEach(test => {
+                try {
+                    const result = test();
+                    results.push(result);
+                } catch (error) {
+                    results.push({
+                        name: 'Test Error',
+                        status: 'error',
+                        message: error.message
+                    });
+                }
+            });
+            
+            displayTestResults(results);
+        }
+        
+        function testTitle() {
+            const title = document.title;
+            const length = title.length;
+            
+            return {
+                name: 'Page Title',
+                status: length >= 30 && length <= 60 ? 'success' : 'warning',
+                message: `Title: "${title}" (${length} characters). Recommended: 30-60 characters.`
+            };
+        }
+        
+        function testMetaDescription() {
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (!metaDesc) {
+                return {
+                    name: 'Meta Description',
+                    status: 'error',
+                    message: 'Meta description is missing.'
+                };
+            }
+            
+            const content = metaDesc.getAttribute('content');
+            const length = content.length;
+            
+            return {
+                name: 'Meta Description',
+                status: length >= 120 && length <= 160 ? 'success' : 'warning',
+                message: `Description: "${content.substring(0, 100)}..." (${length} characters). Recommended: 120-160 characters.`
+            };
+        }
+        
+        function testMetaKeywords() {
+            const metaKeywords = document.querySelector('meta[name="keywords"]');
+            return {
+                name: 'Meta Keywords',
+                status: metaKeywords ? 'success' : 'warning',
+                message: metaKeywords ? 'Meta keywords present.' : 'Meta keywords missing (optional but recommended).'
+            };
+        }
+        
+        function testCanonicalUrl() {
+            const canonical = document.querySelector('link[rel="canonical"]');
+            return {
+                name: 'Canonical URL',
+                status: canonical ? 'success' : 'warning',
+                message: canonical ? `Canonical URL: ${canonical.href}` : 'Canonical URL missing.'
+            };
+        }
+        
+        function testOpenGraphTags() {
+            const ogTags = document.querySelectorAll('meta[property^="og:"]');
+            const requiredTags = ['og:title', 'og:description', 'og:image', 'og:url'];
+            const presentTags = Array.from(ogTags).map(tag => tag.getAttribute('property'));
+            const missingTags = requiredTags.filter(tag => !presentTags.includes(tag));
+            
+            return {
+                name: 'Open Graph Tags',
+                status: missingTags.length === 0 ? 'success' : 'warning',
+                message: missingTags.length === 0 ? 
+                    `All required OG tags present (${presentTags.length} total).` :
+                    `Missing OG tags: ${missingTags.join(', ')}`
+            };
+        }
+        
+        function testTwitterCards() {
+            const twitterTags = document.querySelectorAll('meta[name^="twitter:"]');
+            return {
+                name: 'Twitter Cards',
+                status: twitterTags.length > 0 ? 'success' : 'warning',
+                message: `Twitter card tags: ${twitterTags.length} found.`
+            };
+        }
+        
+        function testStructuredDataPresence() {
+            const jsonLdScripts = document.querySelectorAll('script[type="application/ld+json"]');
+            return {
+                name: 'Structured Data',
+                status: jsonLdScripts.length > 0 ? 'success' : 'warning',
+                message: `JSON-LD structured data blocks: ${jsonLdScripts.length} found.`
+            };
+        }
+        
+        function testImageOptimization() {
+            const images = document.querySelectorAll('img');
+            const imagesWithoutAlt = Array.from(images).filter(img => !img.alt);
+            
+            return {
+                name: 'Image Optimization',
+                status: imagesWithoutAlt.length === 0 ? 'success' : 'warning',
+                message: `Images: ${images.length} total, ${imagesWithoutAlt.length} missing alt text.`
+            };
+        }
+        
+        function testLinkOptimization() {
+            const externalLinks = document.querySelectorAll('a[href^="http"]:not([href*="' + window.location.hostname + '"])');
+            const linksWithoutNoopener = Array.from(externalLinks).filter(link => !link.rel.includes('noopener'));
+            
+            return {
+                name: 'Link Optimization',
+                status: linksWithoutNoopener.length === 0 ? 'success' : 'warning',
+                message: `External links: ${externalLinks.length} total, ${linksWithoutNoopener.length} missing rel="noopener".`
+            };
+        }
+        
+        function testRobotsTags() {
+            const robotsMeta = document.querySelector('meta[name="robots"]');
+            return {
+                name: 'Robots Meta Tag',
+                status: robotsMeta ? 'success' : 'warning',
+                message: robotsMeta ? 
+                    `Robots directive: ${robotsMeta.getAttribute('content')}` :
+                    'Robots meta tag missing.'
+            };
+        }
+        
+        function displayTestResults(results) {
+            const resultsDiv = document.getElementById('test-results');
+            
+            const html = results.map(result => `
+                <div class="test-result ${result.status}">
+                    <strong>${result.name}:</strong> ${result.message}
+                </div>
+            `).join('');
+            
+            resultsDiv.innerHTML = html;
+        }
+        
+        function showMetaTags() {
+            const metaAnalysis = document.getElementById('meta-analysis');
+            const metaTags = document.querySelectorAll('meta');
+            
+            let html = '<h4>Current Meta Tags:</h4><div class="code-block">';
+            
+            metaTags.forEach(meta => {
+                const name = meta.getAttribute('name') || meta.getAttribute('property') || meta.getAttribute('charset');
+                const content = meta.getAttribute('content') || 'UTF-8';
+                
+                if (name) {
+                    html += `&lt;meta ${meta.getAttribute('name') ? 'name' : 'property'}="${name}" content="${content}"&gt;\n`;
+                } else if (meta.getAttribute('charset')) {
+                    html += `&lt;meta charset="${content}"&gt;\n`;
+                }
+            });
+            
+            html += '</div>';
+            metaAnalysis.innerHTML = html;
+        }
+        
+        function showStructuredData() {
+            const structuredDataDiv = document.getElementById('structured-data-display');
+            const jsonLdScripts = document.querySelectorAll('script[type="application/ld+json"]');
+            
+            if (jsonLdScripts.length === 0) {
+                structuredDataDiv.innerHTML = '<p>No structured data found.</p>';
+                return;
+            }
+            
+            let html = '<h4>Generated Structured Data:</h4>';
+            
+            jsonLdScripts.forEach((script, index) => {
+                try {
+                    const data = JSON.parse(script.textContent);
+                    html += `<h5>Block ${index + 1} (${data['@type']}):</h5>`;
+                    html += `<div class="code-block">${JSON.stringify(data, null, 2)}</div>`;
+                } catch (error) {
+                    html += `<div class="test-result error">Error parsing JSON-LD block ${index + 1}: ${error.message}</div>`;
+                }
+            });
+            
+            structuredDataDiv.innerHTML = html;
+        }
+        
+        function testAnalytics() {
+            console.log('Testing analytics integration...');
+            
+            // Test Google Analytics
+            if (typeof gtag !== 'undefined') {
+                console.log('Google Analytics (gtag) is loaded');
+                gtag('event', 'seo_test', {
+                    event_category: 'SEO',
+                    event_label: 'Analytics Test',
+                    value: 1
+                });
+            } else {
+                console.warn('Google Analytics (gtag) not found');
+            }
+            
+            // Test custom tracking
+            if (window.seoOptimizer) {
+                console.log('SEO Optimizer is available');
+                window.seoOptimizer.trackEvent('seo_test_page_view', {
+                    page_type: 'test',
+                    test_name: 'SEO Optimization Test'
+                });
+            } else {
+                console.warn('SEO Optimizer not found');
+            }
+        }
+        
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('SEO Test Page loaded');
+            
+            // Wait for SEO optimizer to initialize
+            setTimeout(() => {
+                if (window.seoOptimizer) {
+                    console.log('SEO Optimizer initialized successfully');
+                    console.log('Page data:', window.seoOptimizer.pageData);
+                } else {
+                    console.error('SEO Optimizer failed to initialize');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

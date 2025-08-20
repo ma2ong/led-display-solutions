@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航系统测试 - Navigation Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .test-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .nav-test {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .breadcrumb-test {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .page-link {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 12px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .page-link:hover {
+            background: #0056b3;
+            color: white;
+        }
+        .status-info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>导航系统测试页面 / Navigation System Test Page</h1>
+        
+        <div class="status-info">
+            <strong>当前页面 / Current Page:</strong> <span id="current-page">Loading...</span><br>
+            <strong>面包屑状态 / Breadcrumb Status:</strong> <span id="breadcrumb-status">Loading...</span><br>
+            <strong>导航状态 / Navigation Status:</strong> <span id="nav-status">Loading...</span>
+        </div>
+
+        <div class="test-section">
+            <h3>1. 面包屑导航测试 / Breadcrumb Navigation Test</h3>
+            <p>面包屑导航应该自动显示在页面顶部。The breadcrumb navigation should automatically appear at the top of the page.</p>
+            <div class="breadcrumb-test">
+                <strong>预期面包屑 / Expected Breadcrumb:</strong> Home > Navigation Test
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. 导航菜单一致性测试 / Navigation Menu Consistency Test</h3>
+            <p>所有页面应该有统一的导航结构。All pages should have consistent navigation structure.</p>
+            <div class="nav-test">
+                <strong>测试页面链接 / Test Page Links:</strong><br>
+                <a href="index.html" class="page-link">首页 / Home</a>
+                <a href="about.html" class="page-link">关于我们 / About</a>
+                <a href="products.html" class="page-link">产品中心 / Products</a>
+                <a href="fine-pitch.html" class="page-link">小间距LED / Fine Pitch</a>
+                <a href="outdoor.html" class="page-link">户外LED / Outdoor</a>
+                <a href="contact.html" class="page-link">联系我们 / Contact</a>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. 活动状态测试 / Active State Test</h3>
+            <p>当前页面在导航菜单中应该有活动状态标记。Current page should have active state in navigation menu.</p>
+            <div id="active-nav-info" class="nav-test">
+                检查中... Checking...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. 多语言导航测试 / Multilingual Navigation Test</h3>
+            <button class="lang-switcher">EN/中</button>
+            <p>切换语言后，导航菜单和面包屑应该更新。Navigation menu and breadcrumb should update after language switch.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>5. 响应式导航测试 / Responsive Navigation Test</h3>
+            <p>调整浏览器窗口大小测试移动端导航。Resize browser window to test mobile navigation.</p>
+            <div class="nav-test">
+                <strong>测试步骤 / Test Steps:</strong><br>
+                1. 缩小浏览器窗口 / Shrink browser window<br>
+                2. 点击汉堡菜单按钮 / Click hamburger menu button<br>
+                3. 检查下拉菜单 / Check dropdown menu<br>
+                4. 点击菜单项测试导航 / Click menu items to test navigation
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>6. 页脚一致性测试 / Footer Consistency Test</h3>
+            <p>所有页面应该有统一的页脚结构。All pages should have consistent footer structure.</p>
+            <div id="footer-info" class="nav-test">
+                检查中... Checking...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>7. 手动测试功能 / Manual Test Functions</h3>
+            <button class="page-link" onclick="testBreadcrumb()">测试面包屑 / Test Breadcrumb</button>
+            <button class="page-link" onclick="testNavigation()">测试导航 / Test Navigation</button>
+            <button class="page-link" onclick="testActiveStates()">测试活动状态 / Test Active States</button>
+            <button class="page-link" onclick="showPageInfo()">显示页面信息 / Show Page Info</button>
+        </div>
+
+        <div class="test-section">
+            <h3>8. 控制台日志 / Console Logs</h3>
+            <p>打开浏览器开发者工具查看控制台日志，了解导航系统的工作状态。</p>
+            <p>Open browser developer tools to see console logs about navigation system status.</p>
+        </div>
+    </div>
+
+    <!-- I18n System -->
+    <script src="js/i18n.js"></script>
+    <!-- Breadcrumb System -->
+    <script src="js/breadcrumb.js"></script>
+    <!-- Main JS File -->
+    <script src="js/main.js" defer></script>
+
+    <script>
+        // 测试函数
+        function testBreadcrumb() {
+            if (window.breadcrumbNav) {
+                console.log('Breadcrumb system status:', {
+                    initialized: !!window.breadcrumbNav,
+                    currentPage: window.breadcrumbNav.getCurrentPage(),
+                    pageMapping: window.breadcrumbNav.pageMapping
+                });
+                alert('面包屑测试完成，请查看控制台 / Breadcrumb test completed, check console');
+            } else {
+                console.error('Breadcrumb system not initialized');
+                alert('面包屑系统未初始化 / Breadcrumb system not initialized');
+            }
+        }
+
+        function testNavigation() {
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const activeLinks = document.querySelectorAll('.navbar-nav .nav-link.active');
+            
+            console.log('Navigation test results:', {
+                totalLinks: navLinks.length,
+                activeLinks: activeLinks.length,
+                activeLink: activeLinks[0]?.textContent || 'None',
+                allLinks: Array.from(navLinks).map(link => ({
+                    text: link.textContent,
+                    href: link.href,
+                    active: link.classList.contains('active')
+                }))
+            });
+            
+            alert(`导航测试完成 / Navigation test completed\\n链接总数 / Total links: ${navLinks.length}\\n活动链接 / Active links: ${activeLinks.length}`);
+        }
+
+        function testActiveStates() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const activeLinks = document.querySelectorAll('.navbar-nav .nav-link.active');
+            
+            document.getElementById('active-nav-info').innerHTML = `
+                <strong>当前页面 / Current Page:</strong> ${currentPage}<br>
+                <strong>活动链接数量 / Active Links Count:</strong> ${activeLinks.length}<br>
+                <strong>活动链接文本 / Active Link Text:</strong> ${activeLinks[0]?.textContent || 'None'}
+            `;
+        }
+
+        function showPageInfo() {
+            const info = {
+                pathname: window.location.pathname,
+                filename: window.location.pathname.split('/').pop() || 'index.html',
+                breadcrumbInitialized: !!window.breadcrumbNav,
+                i18nInitialized: !!window.i18n,
+                currentLanguage: window.i18n?.getCurrentLanguage() || 'Unknown'
+            };
+            
+            console.log('Page information:', info);
+            alert(`页面信息 / Page Info:\\n文件名 / Filename: ${info.filename}\\n面包屑 / Breadcrumb: ${info.breadcrumbInitialized ? '已初始化' : '未初始化'}\\n多语言 / I18n: ${info.i18nInitialized ? '已初始化' : '未初始化'}\\n当前语言 / Language: ${info.currentLanguage}`);
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 更新页面状态信息
+            setTimeout(() => {
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                document.getElementById('current-page').textContent = currentPage;
+                
+                const breadcrumbExists = !!document.querySelector('.breadcrumb-nav');
+                document.getElementById('breadcrumb-status').textContent = breadcrumbExists ? '已显示 / Displayed' : '未显示 / Not Displayed';
+                
+                const navExists = !!document.querySelector('.navbar-nav');
+                document.getElementById('nav-status').textContent = navExists ? '已加载 / Loaded' : '未加载 / Not Loaded';
+                
+                // 测试活动状态
+                testActiveStates();
+                
+                // 检查页脚
+                const footerExists = !!document.querySelector('.main-footer');
+                document.getElementById('footer-info').innerHTML = `
+                    <strong>页脚状态 / Footer Status:</strong> ${footerExists ? '已加载 / Loaded' : '未加载 / Not Loaded'}<br>
+                    <strong>页脚列数 / Footer Columns:</strong> ${document.querySelectorAll('.footer-column').length}
+                `;
+            }, 500);
+            
+            // 监听语言变更事件
+            document.addEventListener('languageChanged', function(event) {
+                console.log('Language changed in navigation test:', event.detail);
+                setTimeout(() => {
+                    testActiveStates();
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

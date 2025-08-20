@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and test pages
+Disallow: /admin/
+Disallow: /test-*
+Disallow: /logs/
+Disallow: /backups/
+Disallow: /*.json$
+Disallow: /*.py$
+
+# Allow important pages
+Allow: /products.html
+Allow: /outdoor.html
+Allow: /fine-pitch.html
+Allow: /rental.html
+Allow: /transparent.html
+Allow: /contact.html
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Sitemap location
+Sitemap: https://leddisplaysolutions.com/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1

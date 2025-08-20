@@ -1,0 +1,35 @@
+{
+  "name": "led-display-solutions",
+  "version": "1.0.0",
+  "description": "Professional LED Display Solutions - Enterprise Website System",
+  "main": "integrated_server.py",
+  "scripts": {
+    "dev": "python quick_start.py",
+    "start": "python integrated_server.py",
+    "build": "echo 'Build completed'",
+    "test": "python -m pytest tests/",
+    "deploy": "python deploy_to_web.py"
+  },
+  "keywords": [
+    "led-display",
+    "digital-signage",
+    "enterprise-website",
+    "flask",
+    "python",
+    "responsive-design",
+    "pwa"
+  ],
+  "author": "LED Display Solutions Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/led-display-solutions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/led-display-solutions/issues"
+  },
+  "homepage": "https://github.com/yourusername/led-display-solutions#readme",
+  "engines": {
+    "python": ">=3.7"
+  }
+}

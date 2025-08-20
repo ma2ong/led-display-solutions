@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Search & Product Comparison Test - LED Display Solutions</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional styles for testing */
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .test-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .test-section h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .demo-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .demo-product {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .demo-product h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .demo-product .specs {
+            margin-bottom: 1rem;
+        }
+        
+        .demo-product .spec-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .demo-product .spec-label {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .demo-product .spec-value {
+            color: #333;
+        }
+        
+        .demo-product .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+        
+        .demo-product .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        
+        .feature-demo {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-demo h3 {
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-demo p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-demo .demo-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+        
+        .instructions ul {
+            color: #856404;
+            margin-left: 1.5rem;
+        }
+        
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <header style="text-align: center; margin-bottom: 3rem;">
+            <h1>Advanced Search & Product Comparison Test</h1>
+            <p style="color: #666; font-size: 1.1rem;">Testing enhanced product search and comparison features</p>
+        </header>
+
+        <div class="instructions">
+            <h3>🧪 Test Instructions</h3>
+            <ul>
+                <li>Use the advanced search interface below to filter products by various criteria</li>
+                <li>Try the quick search with terms like "outdoor", "fine pitch", or "rental"</li>
+                <li>Add products to comparison using the ⚖️ button on product cards</li>
+                <li>View the comparison table with different view modes (detailed, compact, differences only)</li>
+                <li>Test saving and loading searches</li>
+                <li>Try exporting search results and comparison data</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🔍 Advanced Search Features <span class="status-indicator status-success">Active</span></h2>
+            <div class="feature-demo">
+                <h3>Quick Search</h3>
+                <p>Search across product names, descriptions, features, and specifications with real-time results.</p>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="testQuickSearch('outdoor')">Test: Search "outdoor"</button>
+                    <button class="btn btn-primary" onclick="testQuickSearch('fine pitch')">Test: Search "fine pitch"</button>
+                    <button class="btn btn-primary" onclick="testQuickSearch('4000 nits')">Test: Search "4000 nits"</button>
+                </div>
+            </div>
+            
+            <div class="feature-demo">
+                <h3>Advanced Filters</h3>
+                <p>Filter products by category, pixel pitch, brightness, price range, application, and features.</p>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="testAdvancedFilter('category', 'outdoor')">Test: Outdoor Category</button>
+                    <button class="btn btn-primary" onclick="testAdvancedFilter('brightness', '6000+')">Test: High Brightness</button>
+                    <button class="btn btn-primary" onclick="testAdvancedFilter('price', '10000-15000')">Test: Mid Price Range</button>
+                </div>
+            </div>
+            
+            <div class="feature-demo">
+                <h3>Search Management</h3>
+                <p>Save frequently used searches and access search history for quick retrieval.</p>
+                <div class="demo-actions">
+                    <button class="btn btn-secondary" onclick="testSaveSearch()">Test: Save Current Search</button>
+                    <button class="btn btn-secondary" onclick="testLoadSearch()">Test: Load Saved Search</button>
+                    <button class="btn btn-secondary" onclick="testExportResults()">Test: Export Results</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>⚖️ Product Comparison Features <span class="status-indicator status-success">Active</span></h2>
+            <div class="feature-demo">
+                <h3>Comparison Management</h3>
+                <p>Add up to 4 products for side-by-side comparison with detailed specifications.</p>
+                <div class="demo-actions">
+                    <button class="btn btn-success" onclick="testAddToComparison(1)">Add P1.25 Fine Pitch</button>
+                    <button class="btn btn-success" onclick="testAddToComparison(3)">Add P4 Outdoor</button>
+                    <button class="btn btn-success" onclick="testAddToComparison(5)">Add P3.91 Rental</button>
+                    <button class="btn btn-primary" onclick="testViewComparison()">View Comparison</button>
+                </div>
+            </div>
+            
+            <div class="feature-demo">
+                <h3>Comparison Views</h3>
+                <p>Switch between detailed table view, compact cards, and differences-only mode.</p>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="testComparisonView('detailed')">Detailed View</button>
+                    <button class="btn btn-primary" onclick="testComparisonView('compact')">Compact View</button>
+                    <button class="btn btn-primary" onclick="testComparisonView('differences')">Differences Only</button>
+                </div>
+            </div>
+            
+            <div class="feature-demo">
+                <h3>Comparison Actions</h3>
+                <p>Export comparison data, share with others, or request quotes for selected products.</p>
+                <div class="demo-actions">
+                    <button class="btn btn-secondary" onclick="testExportComparison()">Export PDF</button>
+                    <button class="btn btn-secondary" onclick="testShareComparison()">Share Comparison</button>
+                    <button class="btn btn-success" onclick="testRequestQuote()">Request Quote</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Search Interface will be inserted here -->
+        <div id="search-interface-container"></div>
+
+        <!-- Demo Products for Testing -->
+        <div class="test-section">
+            <h2>📦 Demo Products <span class="status-indicator status-info">For Testing</span></h2>
+            <div class="demo-products">
+                <div class="demo-product">
+                    <h3>P1.25 Fine Pitch LED Display</h3>
+                    <div class="specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Pixel Pitch:</span>
+                            <span class="spec-value">1.25mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Brightness:</span>
+                            <span class="spec-value">800 nits</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Application:</span>
+                            <span class="spec-value">Control Room, Broadcast</span>
+                        </div>
+                    </div>
+                    <div class="price">$15,000</div>
+                    <div class="actions">
+                        <button class="btn btn-success" onclick="addToComparison(1)">⚖️ Compare</button>
+                        <button class="btn btn-primary" onclick="viewProductDetails(1)">View Details</button>
+                    </div>
+                </div>
+
+                <div class="demo-product">
+                    <h3>P4 Outdoor LED Display</h3>
+                    <div class="specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Pixel Pitch:</span>
+                            <span class="spec-value">4.0mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Brightness:</span>
+                            <span class="spec-value">6500 nits</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Application:</span>
+                            <span class="spec-value">Advertising, Stadium</span>
+                        </div>
+                    </div>
+                    <div class="price">$8,000</div>
+                    <div class="actions">
+                        <button class="btn btn-success" onclick="addToComparison(3)">⚖️ Compare</button>
+                        <button class="btn btn-primary" onclick="viewProductDetails(3)">View Details</button>
+                    </div>
+                </div>
+
+                <div class="demo-product">
+                    <h3>P3.91 Rental LED Panel</h3>
+                    <div class="specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Pixel Pitch:</span>
+                            <span class="spec-value">3.91mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Brightness:</span>
+                            <span class="spec-value">4500 nits</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Application:</span>
+                            <span class="spec-value">Events, Concerts</span>
+                        </div>
+                    </div>
+                    <div class="price">$10,000</div>
+                    <div class="actions">
+                        <button class="btn btn-success" onclick="addToComparison(5)">⚖️ Compare</button>
+                        <button class="btn btn-primary" onclick="viewProductDetails(5)">View Details</button>
+                    </div>
+                </div>
+
+                <div class="demo-product">
+                    <h3>Transparent LED Display</h3>
+                    <div class="specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Pixel Pitch:</span>
+                            <span class="spec-value">10.0mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Brightness:</span>
+                            <span class="spec-value">4000 nits</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Application:</span>
+                            <span class="spec-value">Retail, Architecture</span>
+                        </div>
+                    </div>
+                    <div class="price">$20,000</div>
+                    <div class="actions">
+                        <button class="btn btn-success" onclick="addToComparison(6)">⚖️ Compare</button>
+                        <button class="btn btn-primary" onclick="viewProductDetails(6)">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Results Section -->
+        <div class="test-section">
+            <h2>📊 Test Results</h2>
+            <div id="test-results" style="background: white; padding: 1.5rem; border-radius: 8px; min-height: 200px;">
+                <p style="color: #666; font-style: italic;">Test results will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load the advanced search and comparison modules -->
+    <script src="js/advanced-search.js"></script>
+    <script src="js/enhanced-comparison.js"></script>
+    
+    <script>
+        // Test functions for the demo
+        function testQuickSearch(query) {
+            const searchInput = document.getElementById('quick-search');
+            if (searchInput) {
+                searchInput.value = query;
+                if (window.advancedSearch) {
+                    window.advancedSearch.performQuickSearch();
+                    logTestResult(`Quick search performed for: "${query}"`);
+                }
+            } else {
+                logTestResult('Quick search input not found - waiting for initialization');
+                setTimeout(() => testQuickSearch(query), 1000);
+            }
+        }
+
+        function testAdvancedFilter(filterType, value) {
+            const filterId = filterType + '-filter';
+            const filterElement = document.getElementById(filterId);
+            
+            if (filterElement) {
+                filterElement.value = value;
+                if (window.advancedSearch) {
+                    window.advancedSearch.performAdvancedSearch();
+                    logTestResult(`Advanced filter applied: ${filterType} = "${value}"`);
+                }
+            } else {
+                logTestResult(`Filter element ${filterId} not found - waiting for initialization`);
+                setTimeout(() => testAdvancedFilter(filterType, value), 1000);
+            }
+        }
+
+        function testSaveSearch() {
+            if (window.advancedSearch) {
+                // Simulate a search first
+                testQuickSearch('outdoor');
+                setTimeout(() => {
+                    window.advancedSearch.saveCurrentSearch();
+                    logTestResult('Save search dialog opened');
+                }, 500);
+            } else {
+                logTestResult('Advanced search not initialized yet');
+            }
+        }
+
+        function testLoadSearch() {
+            if (window.advancedSearch) {
+                const savedSearches = window.advancedSearch.getSavedSearches();
+                if (savedSearches.length > 0) {
+                    window.advancedSearch.loadSavedSearch(savedSearches[0].id);
+                    logTestResult(`Loaded saved search: "${savedSearches[0].name}"`);
+                } else {
+                    logTestResult('No saved searches available - try saving a search first');
+                }
+            } else {
+                logTestResult('Advanced search not initialized yet');
+            }
+        }
+
+        function testExportResults() {
+            if (window.advancedSearch) {
+                window.advancedSearch.exportResults();
+                logTestResult('Export results initiated');
+            } else {
+                logTestResult('Advanced search not initialized yet');
+            }
+        }
+
+        function testAddToComparison(productId) {
+            if (window.enhancedComparison && window.advancedSearch) {
+                const product = window.advancedSearch.getProduct(productId);
+                if (product) {
+                    const success = window.enhancedComparison.addProduct(product);
+                    if (success) {
+                        logTestResult(`Added "${product.name}" to comparison`);
+                    } else {
+                        logTestResult(`Failed to add "${product.name}" to comparison (may already be added or limit reached)`);
+                    }
+                } else {
+                    logTestResult(`Product with ID ${productId} not found`);
+                }
+            } else {
+                logTestResult('Comparison system not initialized yet');
+            }
+        }
+
+        function testViewComparison() {
+            if (window.enhancedComparison) {
+                window.enhancedComparison.viewComparison();
+                logTestResult('Comparison view opened');
+            } else {
+                logTestResult('Enhanced comparison not initialized yet');
+            }
+        }
+
+        function testComparisonView(viewMode) {
+            if (window.enhancedComparison) {
+                const viewSelect = document.getElementById('comparison-view-mode');
+                if (viewSelect) {
+                    viewSelect.value = viewMode;
+                    window.enhancedComparison.updateComparisonView(viewMode);
+                    logTestResult(`Comparison view changed to: ${viewMode}`);
+                } else {
+                    logTestResult('Comparison modal not open - open comparison first');
+                }
+            } else {
+                logTestResult('Enhanced comparison not initialized yet');
+            }
+        }
+
+        function testExportComparison() {
+            if (window.enhancedComparison) {
+                window.enhancedComparison.exportComparison();
+                logTestResult('Comparison export initiated');
+            } else {
+                logTestResult('Enhanced comparison not initialized yet');
+            }
+        }
+
+        function testShareComparison() {
+            if (window.enhancedComparison) {
+                window.enhancedComparison.shareComparison();
+                logTestResult('Comparison sharing initiated');
+            } else {
+                logTestResult('Enhanced comparison not initialized yet');
+            }
+        }
+
+        function testRequestQuote() {
+            if (window.enhancedComparison) {
+                window.enhancedComparison.requestQuoteForAll();
+                logTestResult('Quote request initiated for compared products');
+            } else {
+                logTestResult('Enhanced comparison not initialized yet');
+            }
+        }
+
+        function logTestResult(message) {
+            const resultsContainer = document.getElementById('test-results');
+            const timestamp = new Date().toLocaleTimeString();
+            const resultEntry = document.createElement('div');
+            resultEntry.style.cssText = 'padding: 0.5rem; border-bottom: 1px solid #eee; color: #333;';
+            resultEntry.innerHTML = `<strong>[${timestamp}]</strong> ${message}`;
+            
+            // Insert at the top
+            if (resultsContainer.firstChild && resultsContainer.firstChild.tagName !== 'P') {
+                resultsContainer.insertBefore(resultEntry, resultsContainer.firstChild);
+            } else {
+                // Remove the placeholder text
+                resultsContainer.innerHTML = '';
+                resultsContainer.appendChild(resultEntry);
+            }
+            
+            // Keep only last 10 results
+            const results = resultsContainer.children;
+            if (results.length > 10) {
+                resultsContainer.removeChild(results[results.length - 1]);
+            }
+        }
+
+        // Initialize test environment
+        document.addEventListener('DOMContentLoaded', () => {
+            logTestResult('Test page loaded - initializing advanced features...');
+            
+            // Check initialization status
+            setTimeout(() => {
+                if (window.advancedSearch) {
+                    logTestResult('✅ Advanced Search initialized successfully');
+                } else {
+                    logTestResult('❌ Advanced Search failed to initialize');
+                }
+                
+                if (window.enhancedComparison) {
+                    logTestResult('✅ Enhanced Comparison initialized successfully');
+                } else {
+                    logTestResult('❌ Enhanced Comparison failed to initialize');
+                }
+            }, 2000);
+        });
+
+        // Override some global functions for testing
+        function viewProductDetails(productId) {
+            logTestResult(`Product details requested for ID: ${productId}`);
+            // In a real implementation, this would navigate to product detail page
+        }
+
+        function requestQuote(productId) {
+            logTestResult(`Quote requested for product ID: ${productId}`);
+            // In a real implementation, this would navigate to contact form
+        }
+    </script>
+</body>
+</html>

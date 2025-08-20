@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多语言系统测试 - I18n Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .test-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+        }
+        .lang-info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-compare {
+            background: #28a745;
+        }
+        .btn-compare:hover {
+            background: #1e7e34;
+        }
+        .btn-compare.active {
+            background: #dc3545;
+        }
+        .btn-compare.active:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>多语言系统测试页面 / I18n System Test Page</h1>
+        
+        <div class="lang-info">
+            <strong>当前语言 / Current Language:</strong> <span id="current-lang">Loading...</span><br>
+            <strong>浏览器语言 / Browser Language:</strong> <span id="browser-lang"></span>
+        </div>
+
+        <div class="test-section">
+            <h3>1. 语言切换器测试 / Language Switcher Test</h3>
+            <button class="lang-switcher">EN/中</button>
+            <p>点击上面的按钮测试语言切换功能。Check console for language change events.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>2. 导航菜单翻译测试 / Navigation Translation Test</h3>
+            <nav style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                <a href="#" data-i18n="nav.home">Home</a> |
+                <a href="#" data-i18n="nav.about">About Us</a> |
+                <a href="#" data-i18n="nav.products">Products</a> |
+                <a href="#" data-i18n="nav.solutions">Solutions</a> |
+                <a href="#" data-i18n="nav.cases">Cases</a> |
+                <a href="#" data-i18n="nav.news">News</a> |
+                <a href="#" data-i18n="nav.support">Support</a> |
+                <a href="#" data-i18n="nav.contact">Contact</a>
+            </nav>
+        </div>
+
+        <div class="test-section">
+            <h3>3. 产品类别翻译测试 / Product Category Translation Test</h3>
+            <div class="test-item">
+                <span data-i18n="products.fine-pitch">Fine Pitch LED</span>
+            </div>
+            <div class="test-item">
+                <span data-i18n="products.outdoor">Outdoor LED</span>
+            </div>
+            <div class="test-item">
+                <span data-i18n="products.rental">Rental LED</span>
+            </div>
+            <div class="test-item">
+                <span data-i18n="products.creative">Creative LED</span>
+            </div>
+            <div class="test-item">
+                <span data-i18n="products.transparent">Transparent LED</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. 按钮翻译测试 / Button Translation Test</h3>
+            <button class="btn" data-i18n="btn.learn-more">Learn More</button>
+            <button class="btn" data-i18n="btn.get-quote">Get a Quote</button>
+            <button class="btn" data-i18n="btn.contact-us">Contact Us</button>
+            <button class="btn" data-i18n="btn.inquire-now">Inquire Now</button>
+        </div>
+
+        <div class="test-section">
+            <h3>5. 产品对比按钮测试 / Product Comparison Button Test</h3>
+            <button class="btn btn-compare" data-product-id="test1">Add to Compare</button>
+            <button class="btn btn-compare active" data-product-id="test2">Remove from Compare</button>
+            <p>这些按钮会根据状态显示不同的文本。These buttons show different text based on their state.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>6. 表单标签测试 / Form Label Test</h3>
+            <form style="background: white; padding: 15px; border-radius: 4px;">
+                <div style="margin: 10px 0;">
+                    <label data-i18n="form.name">Your Name</label><br>
+                    <input type="text" style="width: 200px; padding: 5px;">
+                </div>
+                <div style="margin: 10px 0;">
+                    <label data-i18n="form.email">Email Address</label><br>
+                    <input type="email" style="width: 200px; padding: 5px;">
+                </div>
+                <div style="margin: 10px 0;">
+                    <label data-i18n="form.company">Company Name</label><br>
+                    <input type="text" style="width: 200px; padding: 5px;">
+                </div>
+                <div style="margin: 10px 0;">
+                    <label data-i18n="form.message">Your Message</label><br>
+                    <textarea style="width: 300px; height: 80px; padding: 5px;"></textarea>
+                </div>
+                <button type="button" class="btn" data-i18n="form.submit">Submit Inquiry</button>
+            </form>
+        </div>
+
+        <div class="test-section">
+            <h3>7. 公司信息测试 / Company Information Test</h3>
+            <div class="test-item">
+                <strong>公司名称 / Company:</strong> <span data-i18n="company.name">Shenzhen Lianjin Optoelectronics Co., Ltd.</span>
+            </div>
+            <div class="test-item">
+                <strong>地址 / Address:</strong> <span data-i18n="company.address">Shenzhen, Guangdong, China</span>
+            </div>
+            <div class="test-item">
+                <strong>电话 / Phone:</strong> <span data-i18n="company.phone">+86-755-1234-5678</span>
+            </div>
+            <div class="test-item">
+                <strong>邮箱 / Email:</strong> <span data-i18n="company.email">sales@lianjin-led.com</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>8. 状态消息测试 / Status Message Test</h3>
+            <div class="test-item">
+                <span data-i18n="status.loading">Loading...</span>
+            </div>
+            <div class="test-item">
+                <span data-i18n="status.success">Success</span>
+            </div>
+            <div class="test-item">
+                <span data-i18n="status.error">Error</span>
+            </div>
+            <div class="test-item">
+                <span data-i18n="status.no-results">No results found</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>9. 手动测试功能 / Manual Test Functions</h3>
+            <button class="btn" onclick="testLanguageSwitch()">切换到中文 / Switch to Chinese</button>
+            <button class="btn" onclick="testLanguageSwitch('en')">Switch to English / 切换到英文</button>
+            <button class="btn" onclick="showCurrentTranslations()">显示当前翻译 / Show Current Translations</button>
+            <button class="btn" onclick="testProductComparison()">测试产品对比 / Test Product Comparison</button>
+        </div>
+
+        <div class="test-section">
+            <h3>10. 控制台日志 / Console Logs</h3>
+            <p>打开浏览器开发者工具查看控制台日志，了解i18n系统的工作状态。</p>
+            <p>Open browser developer tools to see console logs about i18n system status.</p>
+        </div>
+    </div>
+
+    <!-- I18n System -->
+    <script src="js/i18n.js"></script>
+    <!-- Main JS File -->
+    <script src="js/main.js" defer></script>
+
+    <script>
+        // 测试函数
+        function testLanguageSwitch(lang) {
+            if (window.i18n) {
+                if (lang) {
+                    window.i18n.setLanguage(lang);
+                } else {
+                    window.i18n.toggleLanguage();
+                }
+            } else {
+                console.error('I18n system not initialized');
+            }
+        }
+
+        function showCurrentTranslations() {
+            if (window.i18n) {
+                const currentLang = window.i18n.getCurrentLanguage();
+                const translations = window.i18n.translations[currentLang];
+                console.log(`Current Language: ${currentLang}`);
+                console.log('Current Translations:', translations);
+                alert(`当前语言: ${currentLang}\n翻译数量: ${Object.keys(translations).length}\n详细信息请查看控制台`);
+            } else {
+                console.error('I18n system not initialized');
+            }
+        }
+
+        function testProductComparison() {
+            if (window.productComparison) {
+                // 模拟添加产品到对比
+                window.productComparison.addProduct('test-product-1');
+                window.productComparison.addProduct('test-product-2');
+                console.log('Added test products to comparison');
+            } else {
+                console.error('Product comparison system not initialized');
+            }
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 显示浏览器语言
+            document.getElementById('browser-lang').textContent = navigator.language || navigator.userLanguage;
+            
+            // 监听语言变更事件
+            document.addEventListener('languageChanged', function(event) {
+                const { language } = event.detail;
+                document.getElementById('current-lang').textContent = language;
+                console.log('Language changed event received:', event.detail);
+                
+                // 更新产品对比按钮文本
+                updateCompareButtons();
+            });
+            
+            // 初始化当前语言显示
+            setTimeout(() => {
+                if (window.i18n) {
+                    document.getElementById('current-lang').textContent = window.i18n.getCurrentLanguage();
+                    updateCompareButtons();
+                }
+            }, 100);
+        });
+
+        function updateCompareButtons() {
+            document.querySelectorAll('.btn-compare').forEach(btn => {
+                const isActive = btn.classList.contains('active');
+                if (window.i18n) {
+                    const key = isActive ? 'btn.remove-from-compare' : 'btn.add-to-compare';
+                    btn.textContent = window.i18n.t(key);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

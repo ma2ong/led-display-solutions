@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=3.0">
+    <meta name="description" content="Complete mobile experience testing suite for LED Display Solutions. Test touch gestures, responsive design, performance optimization, and mobile-specific features.">
+    <title>Complete Mobile Experience Testing - LED Display Solutions</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#007bff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="LED Solutions">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="images/icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile-responsive.css">
+    
+    <style>
+        .mobile-test-container {
+            max-width: 100%;
+            margin: 0;
+            padding: 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .test-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .test-section h2 {
+            color: #495057;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (min-width: 576px) {
+            .test-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .test-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .test-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .test-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .test-card h3 {
+            color: #007bff;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            min-height: 44px;
+            min-width: 44px;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+        }
+        
+        .test-button:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+        
+        .test-button:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .test-button.secondary {
+            background: #6c757d;
+        }
+        
+        .test-button.danger {
+            background: #dc3545;
+        }
+        
+        .test-button.success {
+            background: #28a745;
+        }
+        
+        .test-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .test-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+        
+        .test-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .test-result.success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .test-result.error {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .test-result.info {
+            background: #d1ecf1;
+            border: 2px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .gesture-area {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border: 2px dashed #007bff;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+            user-select: none;
+            touch-action: none;
+        }
+        
+        .gesture-area.active {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            border-color: #004085;
+        }
+        
+        .device-info {
+            background: #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+        
+        .performance-meter {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .performance-bar {
+            background: #e9ecef;
+            border-radius: 4px;
+            height: 20px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+        
+        .performance-fill {
+            background: linear-gradient(90deg, #28a745, #ffc107, #dc3545);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .touch-indicator {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #007bff;
+            border-radius: 50%;
+            background: rgba(0, 123, 255, 0.3);
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.1s ease;
+        }
+        
+        .swipe-demo {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .swipe-item {
+            background: #007bff;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem;
+            transition: transform 0.3s ease;
+            cursor: grab;
+        }
+        
+        .swipe-item:active {
+            cursor: grabbing;
+        }
+        
+        .network-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            z-index: 10000;
+        }
+        
+        .network-status.online {
+            background: rgba(40, 167, 69, 0.9);
+        }
+        
+        .network-status.offline {
+            background: rgba(220, 53, 69, 0.9);
+        }
+        
+        .keyboard-test {
+            position: relative;
+        }
+        
+        .keyboard-indicator {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 10000;
+            display: none;
+        }
+        
+        .body.keyboard-open .keyboard-indicator {
+            display: block;
+        }
+        
+        .orientation-demo {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1rem 0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .landscape .orientation-demo {
+            background: #d4edda;
+            border-color: #c3e6cb;
+        }
+        
+        .portrait .orientation-demo {
+            background: #d1ecf1;
+            border-color: #bee5eb;
+        }
+        
+        .haptic-button {
+            background: #6f42c1;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 60px;
+        }
+        
+        .haptic-button:active {
+            transform: scale(0.95);
+            background: #5a2d91;
+        }
+        
+        .accessibility-controls {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .accessibility-mode .test-button,
+        .accessibility-mode .test-input {
+            min-height: 48px;
+            font-size: 1.1rem;
+        }
+        
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .offline-indicator {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+            display: none;
+        }
+        
+        .offline .offline-indicator {
+            display: block;
+        }
+        
+        /* Safe area support */
+        .safe-area-demo {
+            background: #e9ecef;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            padding-top: calc(1rem + env(safe-area-inset-top));
+            padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+            padding-left: calc(1rem + env(safe-area-inset-left));
+            padding-right: calc(1rem + env(safe-area-inset-right));
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Network Status Indicator -->
+    <div id="network-status" class="network-status online">
+        <span id="network-text">Online</span>
+    </div>
+    
+    <!-- Keyboard Indicator -->
+    <div class="keyboard-indicator">
+        Virtual keyboard is open
+    </div>
+    
+    <!-- Touch Indicators -->
+    <div id="touch-indicator-1" class="touch-indicator"></div>
+    <div id="touch-indicator-2" class="touch-indicator"></div>
+    
+    <!-- Offline Indicator -->
+    <div class="offline-indicator">
+        <strong>You are offline</strong><br>
+        Some features may not work properly
+    </div>
+
+    <div class="mobile-test-container">
+        <header>
+            <h1>📱 Complete Mobile Experience Testing</h1>
+            <p>Comprehensive testing suite for mobile features, gestures, and optimizations</p>
+        </header>
+
+        <!-- Device Information -->
+        <div class="test-section">
+            <h2>Device Information</h2>
+            <div id="device-info" class="device-info">
+                <div class="loading-spinner"></div>
+                <p>Loading device information...</p>
+            </div>
+            <button class="test-button" onclick="refreshDeviceInfo()">Refresh Info</button>
+            <button class="test-button secondary" onclick="testDeviceCapabilities()">Test Capabilities</button>
+        </div>
+
+        <!-- Touch Gesture Tests -->
+        <div class="test-section">
+            <h2>Touch Gesture Tests</h2>
+            <div class="test-grid">
+                <div class="test-card">
+                    <h3>Single Touch</h3>
+                    <div class="gesture-area" id="single-touch-area">
+                        Touch here to test single touch
+                    </div>
+                    <div id="single-touch-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Multi-Touch</h3>
+                    <div class="gesture-area" id="multi-touch-area">
+                        Use two fingers to test multi-touch
+                    </div>
+                    <div id="multi-touch-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Pinch to Zoom</h3>
+                    <div class="gesture-area zoomable" id="pinch-area" data-scale="1">
+                        Pinch to zoom this area
+                    </div>
+                    <button class="test-button" onclick="resetZoom()">Reset Zoom</button>
+                    <div id="pinch-result" class="test-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Swipe Gesture Tests -->
+        <div class="test-section">
+            <h2>Swipe Gesture Tests</h2>
+            <div class="swipe-demo" id="swipe-demo">
+                <div class="swipe-item" id="swipe-item">
+                    Swipe me in any direction
+                </div>
+                <p>Try swiping left, right, up, or down</p>
+            </div>
+            <div id="swipe-result" class="test-result"></div>
+        </div>
+
+        <!-- Navigation Tests -->
+        <div class="test-section">
+            <h2>Mobile Navigation Tests</h2>
+            <div class="test-grid">
+                <div class="test-card">
+                    <h3>Smart Scrolling</h3>
+                    <p>Test intelligent scroll behavior</p>
+                    <button class="test-button" onclick="testSmartScrolling()">Test Scrolling</button>
+                    <div id="scroll-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Pull to Refresh</h3>
+                    <p>Pull down from the top to test refresh</p>
+                    <button class="test-button" onclick="simulatePullRefresh()">Simulate Refresh</button>
+                    <div id="refresh-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Navigation History</h3>
+                    <p>Test navigation prediction</p>
+                    <button class="test-button" onclick="testNavigationPrediction()">Test Prediction</button>
+                    <div id="navigation-result" class="test-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keyboard and Input Tests -->
+        <div class="test-section">
+            <h2>Keyboard and Input Tests</h2>
+            <div class="test-grid">
+                <div class="test-card keyboard-test">
+                    <h3>Smart Keyboard</h3>
+                    <input type="email" class="test-input" placeholder="Email (keyboard should show @)" inputmode="email">
+                    <input type="tel" class="test-input" placeholder="Phone (numeric keyboard)" inputmode="tel">
+                    <input type="search" class="test-input" placeholder="Search (search keyboard)" inputmode="search">
+                    <div id="keyboard-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Auto-Complete</h3>
+                    <input type="text" class="test-input" id="autocomplete-input" placeholder="Type 'LED' for suggestions">
+                    <div id="autocomplete-suggestions" style="display: none;"></div>
+                    <div id="autocomplete-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Voice Input</h3>
+                    <input type="text" class="test-input" id="voice-input" placeholder="Voice input test">
+                    <button class="test-button" onclick="testVoiceInput()">Start Voice Input</button>
+                    <div id="voice-result" class="test-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Tests -->
+        <div class="test-section">
+            <h2>Performance Tests</h2>
+            <div class="performance-meter">
+                <h4>Performance Metrics</h4>
+                <div>
+                    <label>CPU Performance:</label>
+                    <div class="performance-bar">
+                        <div class="performance-fill" id="cpu-performance" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div>
+                    <label>Memory Usage:</label>
+                    <div class="performance-bar">
+                        <div class="performance-fill" id="memory-usage" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div>
+                    <label>Network Speed:</label>
+                    <div class="performance-bar">
+                        <div class="performance-fill" id="network-speed" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="test-button" onclick="runPerformanceTest()">Run Performance Test</button>
+            <button class="test-button secondary" onclick="testLowEndOptimizations()">Test Low-End Mode</button>
+            <div id="performance-result" class="test-result"></div>
+        </div>
+
+        <!-- Haptic Feedback Tests -->
+        <div class="test-section">
+            <h2>Haptic Feedback Tests</h2>
+            <div class="test-grid">
+                <div class="test-card">
+                    <h3>Vibration Patterns</h3>
+                    <button class="haptic-button" onclick="testHapticFeedback('short')">Short Vibration</button>
+                    <button class="haptic-button" onclick="testHapticFeedback('long')">Long Vibration</button>
+                    <button class="haptic-button" onclick="testHapticFeedback('pattern')">Pattern Vibration</button>
+                    <div id="haptic-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Touch Feedback</h3>
+                    <p>Test visual and audio feedback on touch</p>
+                    <button class="test-button" onclick="testTouchFeedback()">Test Feedback</button>
+                    <div id="feedback-result" class="test-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orientation Tests -->
+        <div class="test-section">
+            <h2>Orientation and Layout Tests</h2>
+            <div class="orientation-demo">
+                <h4>Orientation: <span id="orientation-status">Unknown</span></h4>
+                <p>Rotate your device to test orientation changes</p>
+                <div>
+                    <strong>Screen:</strong> <span id="screen-size">Loading...</span><br>
+                    <strong>Viewport:</strong> <span id="viewport-size">Loading...</span><br>
+                    <strong>Pixel Ratio:</strong> <span id="pixel-ratio">Loading...</span>
+                </div>
+            </div>
+            <button class="test-button" onclick="testResponsiveLayout()">Test Responsive Layout</button>
+            <div id="orientation-result" class="test-result"></div>
+        </div>
+
+        <!-- Network and Offline Tests -->
+        <div class="test-section">
+            <h2>Network and Offline Tests</h2>
+            <div class="test-grid">
+                <div class="test-card">
+                    <h3>Network Detection</h3>
+                    <p>Current connection: <span id="connection-type">Unknown</span></p>
+                    <p>Speed: <span id="connection-speed">Unknown</span></p>
+                    <button class="test-button" onclick="testNetworkSpeed()">Test Speed</button>
+                    <div id="network-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Offline Mode</h3>
+                    <p>Test offline functionality</p>
+                    <button class="test-button" onclick="simulateOffline()">Simulate Offline</button>
+                    <button class="test-button success" onclick="simulateOnline()">Simulate Online</button>
+                    <div id="offline-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Data Saving</h3>
+                    <p>Test data saving mode</p>
+                    <button class="test-button" onclick="enableDataSaving()">Enable Data Saving</button>
+                    <div id="data-saving-result" class="test-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accessibility Tests -->
+        <div class="test-section">
+            <h2>Accessibility Tests</h2>
+            <div class="accessibility-controls">
+                <h4>Accessibility Controls</h4>
+                <button class="test-button" onclick="toggleAccessibilityMode()">Toggle Accessibility Mode</button>
+                <button class="test-button" onclick="testScreenReader()">Test Screen Reader</button>
+                <button class="test-button" onclick="testHighContrast()">Test High Contrast</button>
+            </div>
+            <div id="accessibility-result" class="test-result"></div>
+        </div>
+
+        <!-- Safe Area Tests -->
+        <div class="test-section">
+            <h2>Safe Area Tests</h2>
+            <div class="safe-area-demo">
+                <h4>Safe Area Support</h4>
+                <p>This content respects device safe areas (notches, home indicators, etc.)</p>
+                <p>Top inset: <span id="safe-top">0px</span></p>
+                <p>Bottom inset: <span id="safe-bottom">0px</span></p>
+                <p>Left inset: <span id="safe-left">0px</span></p>
+                <p>Right inset: <span id="safe-right">0px</span></p>
+            </div>
+        </div>
+
+        <!-- PWA Tests -->
+        <div class="test-section">
+            <h2>PWA Features</h2>
+            <div class="test-grid">
+                <div class="test-card">
+                    <h3>Install Prompt</h3>
+                    <p>Test Progressive Web App installation</p>
+                    <button class="test-button" onclick="testPWAInstall()">Test Install</button>
+                    <div id="pwa-result" class="test-result"></div>
+                </div>
+                
+                <div class="test-card">
+                    <h3>Service Worker</h3>
+                    <p>Test offline caching</p>
+                    <button class="test-button" onclick="testServiceWorker()">Test Service Worker</button>
+                    <div id="sw-result" class="test-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Analytics -->
+        <div class="test-section">
+            <h2>Mobile Analytics</h2>
+            <div id="analytics-data" class="device-info">
+                <div class="loading-spinner"></div>
+                <p>Loading analytics data...</p>
+            </div>
+            <button class="test-button" onclick="exportMobileReport()">Export Mobile Report</button>
+            <button class="test-button secondary" onclick="clearAnalyticsData()">Clear Data</button>
+        </div>
+    </div>
+
+    <!-- Load Scripts -->
+    <script src="js/mobile-enhancements.js"></script>
+    <script src="js/mobile-experience-enhancer.js"></script>
+    
+    <script>
+        // Mobile Testing Functions
+        let testResults = {};
+        let touchIndicators = [];
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMobileTests();
+            updateDeviceInfo();
+            updateNetworkStatus();
+            updateOrientationInfo();
+            setupTouchIndicators();
+            setupGestureTests();
+            
+            // Update info periodically
+            setInterval(updateNetworkStatus, 5000);
+            setInterval(updateOrientationInfo, 1000);
+        });
+        
+        function initializeMobileTests() {
+            // Check if mobile enhancers are loaded
+            if (window.mobileExperienceEnhancer) {
+                console.log('Mobile Experience Enhancer loaded');
+                showResult('device-info', 'Mobile Experience Enhancer: ✅ Loaded', 'success');
+            }
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Initialize performance monitoring
+            startPerformanceMonitoring();
+        }
+        
+        function setupEventListeners() {
+            // Network status
+            window.addEventListener('online', () => {
+                updateNetworkStatus();
+                showNotification('Connection restored', 'success');
+            });
+            
+            window.addEventListener('offline', () => {
+                updateNetworkStatus();
+                showNotification('You are offline', 'warning');
+            });
+            
+            // Orientation change
+            window.addEventListener('orientationchange', () => {
+                setTimeout(updateOrientationInfo, 500);
+            });
+            
+            // Keyboard detection
+            let initialHeight = window.innerHeight;
+            window.addEventListener('resize', () => {
+                const currentHeight = window.innerHeight;
+                const heightDiff = initialHeight - currentHeight;
+                
+                if (heightDiff > 150) {
+                    document.body.classList.add('keyboard-open');
+                } else {
+                    document.body.classList.remove('keyboard-open');
+                }
+            });
+        }
+        
+        function setupTouchIndicators() {
+            touchIndicators = [
+                document.getElementById('touch-indicator-1'),
+                document.getElementById('touch-indicator-2')
+            ];
+            
+            document.addEventListener('touchstart', (e) => {
+                Array.from(e.touches).forEach((touch, index) => {
+                    if (touchIndicators[index]) {
+                        const indicator = touchIndicators[index];
+                        indicator.style.left = touch.clientX + 'px';
+                        indicator.style.top = touch.clientY + 'px';
+                        indicator.style.opacity = '1';
+                    }
+                });
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', (e) => {
+                Array.from(e.touches).forEach((touch, index) => {
+                    if (touchIndicators[index]) {
+                        const indicator = touchIndicators[index];
+                        indicator.style.left = touch.clientX + 'px';
+                        indicator.style.top = touch.clientY + 'px';
+                    }
+                });
+            }, { passive: true });
+            
+            document.addEventListener('touchend', (e) => {
+                setTimeout(() => {
+                    touchIndicators.forEach(indicator => {
+                        indicator.style.opacity = '0';
+                    });
+                }, 100);
+            }, { passive: true });
+        }
+        
+        function setupGestureTests() {
+            // Single touch test
+            const singleTouchArea = document.getElementById('single-touch-area');
+            singleTouchArea.addEventListener('touchstart', (e) => {
+                singleTouchArea.classList.add('active');
+                showResult('single-touch-result', `Single touch detected at (${e.touches[0].clientX}, ${e.touches[0].clientY})`, 'success');
+            }, { passive: true });
+            
+            singleTouchArea.addEventListener('touchend', () => {
+                singleTouchArea.classList.remove('active');
+            }, { passive: true });
+            
+            // Multi-touch test
+            const multiTouchArea = document.getElementById('multi-touch-area');
+            multiTouchArea.addEventListener('touchstart', (e) => {
+                if (e.touches.length > 1) {
+                    multiTouchArea.classList.add('active');
+                    showResult('multi-touch-result', `Multi-touch detected: ${e.touches.length} fingers`, 'success');
+                }
+            }, { passive: true });
+            
+            multiTouchArea.addEventListener('touchend', () => {
+                multiTouchArea.classList.remove('active');
+            }, { passive: true });
+            
+            // Pinch test
+            setupPinchTest();
+            
+            // Swipe test
+            setupSwipeTest();
+        }
+        
+        function setupPinchTest() {
+            const pinchArea = document.getElementById('pinch-area');
+            let initialDistance = 0;
+            let initialScale = 1;
+            
+            pinchArea.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 2) {
+                    initialDistance = getDistance(e.touches[0], e.touches[1]);
+                    initialScale = parseFloat(pinchArea.dataset.scale) || 1;
+                }
+            }, { passive: true });
+            
+            pinchArea.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 2) {
+                    const currentDistance = getDistance(e.touches[0], e.touches[1]);
+                    const scale = initialScale * (currentDistance / initialDistance);
+                    const clampedScale = Math.max(0.5, Math.min(3, scale));
+                    
+                    pinchArea.style.transform = `scale(${clampedScale})`;
+                    pinchArea.dataset.scale = clampedScale;
+                    
+                    showResult('pinch-result', `Pinch scale: ${clampedScale.toFixed(2)}x`, 'info');
+                }
+            }, { passive: true });
+        }
+        
+        function setupSwipeTest() {
+            const swipeItem = document.getElementById('swipe-item');
+            let startX = 0, startY = 0;
+            let currentX = 0, currentY = 0;
+            let isDragging = false;
+            
+            swipeItem.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                isDragging = true;
+                swipeItem.style.transition = 'none';
+            }, { passive: true });
+            
+            swipeItem.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                
+                currentX = e.touches[0].clientX;
+                currentY = e.touches[0].clientY;
+                
+                const deltaX = currentX - startX;
+                const deltaY = currentY - startY;
+                
+                swipeItem.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+            }, { passive: true });
+            
+            swipeItem.addEventListener('touchend', () => {
+                if (!isDragging) return;
+                
+                const deltaX = currentX - startX;
+                const deltaY = currentY - startY;
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                let direction = 'none';
+                if (distance > 50) {
+                    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                        direction = deltaX > 0 ? 'right' : 'left';
+                    } else {
+                        direction = deltaY > 0 ? 'down' : 'up';
+                    }
+                }
+                
+                showResult('swipe-result', `Swipe detected: ${direction} (distance: ${distance.toFixed(0)}px)`, 'success');
+                
+                // Reset position
+                swipeItem.style.transition = 'transform 0.3s ease';
+                swipeItem.style.transform = '';
+                isDragging = false;
+            }, { passive: true });
+        }
+        
+        function updateDeviceInfo() {
+            if (window.mobileExperienceEnhancer) {
+                const capabilities = window.mobileExperienceEnhancer.getMobileCapabilities();
+                const info = `
+Device Information:
+- User Agent: ${capabilities.device.userAgent.substring(0, 50)}...
+- Platform: ${capabilities.device.platform}
+- Screen: ${capabilities.device.screenWidth}x${capabilities.device.screenHeight}
+- Viewport: ${capabilities.device.viewportWidth}x${capabilities.device.viewportHeight}
+- Pixel Ratio: ${capabilities.device.pixelRatio}
+- Hardware Concurrency: ${capabilities.device.hardwareConcurrency}
+- Device Memory: ${capabilities.device.deviceMemory}GB
+- Max Touch Points: ${capabilities.touch.maxTouchPoints}
+- Touch Support: ${capabilities.touch.touchSupport ? 'Yes' : 'No'}
+- Multi-Touch: ${capabilities.touch.multiTouch ? 'Yes' : 'No'}
+- Force Touch: ${capabilities.touch.forceTouch ? 'Yes' : 'No'}
+- Network Type: ${capabilities.network.effectiveType}
+- Connection Speed: ${capabilities.network.downlink}Mbps
+- Save Data: ${capabilities.network.saveData ? 'Yes' : 'No'}
+                `;
+                
+                document.getElementById('device-info').innerHTML = `<pre>${info}</pre>`;
+            }
+        }
+        
+        function updateNetworkStatus() {
+            const networkStatus = document.getElementById('network-status');
+            const networkText = document.getElementById('network-text');
+            const connectionType = document.getElementById('connection-type');
+            const connectionSpeed = document.getElementById('connection-speed');
+            
+            if (navigator.onLine) {
+                networkStatus.className = 'network-status online';
+                networkText.textContent = 'Online';
+                document.body.classList.remove('offline');
+            } else {
+                networkStatus.className = 'network-status offline';
+                networkText.textContent = 'Offline';
+                document.body.classList.add('offline');
+            }
+            
+            // Update connection info
+            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            if (connection) {
+                if (connectionType) connectionType.textContent = connection.effectiveType || 'Unknown';
+                if (connectionSpeed) connectionSpeed.textContent = connection.downlink ? connection.downlink + 'Mbps' : 'Unknown';
+            }
+        }
+        
+        function updateOrientationInfo() {
+            const orientationStatus = document.getElementById('orientation-status');
+            const screenSize = document.getElementById('screen-size');
+            const viewportSize = document.getElementById('viewport-size');
+            const pixelRatio = document.getElementById('pixel-ratio');
+            
+            const isLandscape = window.innerWidth > window.innerHeight;
+            orientationStatus.textContent = isLandscape ? 'Landscape' : 'Portrait';
+            
+            if (screenSize) screenSize.textContent = `${screen.width}x${screen.height}`;
+            if (viewportSize) viewportSize.textContent = `${window.innerWidth}x${window.innerHeight}`;
+            if (pixelRatio) pixelRatio.textContent = window.devicePixelRatio || 1;
+            
+            document.body.classList.toggle('landscape', isLandscape);
+            document.body.classList.toggle('portrait', !isLandscape);
+        }
+        
+        function startPerformanceMonitoring() {
+            // Monitor performance metrics
+            setInterval(() => {
+                updatePerformanceMetrics();
+            }, 2000);
+        }
+        
+        function updatePerformanceMetrics() {
+            // Simulate performance metrics (in real app, these would be actual measurements)
+            const cpuUsage = Math.random() * 100;
+            const memoryUsage = (performance.memory?.usedJSHeapSize / performance.memory?.jsHeapSizeLimit * 100) || Math.random() * 100;
+            const networkSpeed = navigator.connection?.downlink * 10 || Math.random() * 100;
+            
+            document.getElementById('cpu-performance').style.width = cpuUsage + '%';
+            document.getElementById('memory-usage').style.width = memoryUsage + '%';
+            document.getElementById('network-speed').style.width = Math.min(networkSpeed, 100) + '%';
+        }
+        
+        // Test Functions
+        function refreshDeviceInfo() {
+            updateDeviceInfo();
+            showNotification('Device information refreshed', 'success');
+        }
+        
+        function testDeviceCapabilities() {
+            if (window.mobileExperienceEnhancer) {
+                window.mobileExperienceEnhancer.optimizeForDevice();
+                showResult('device-info', 'Device optimization applied based on capabilities', 'success');
+            }
+        }
+        
+        function resetZoom() {
+            const pinchArea = document.getElementById('pinch-area');
+            pinchArea.style.transform = '';
+            pinchArea.dataset.scale = '1';
+            showResult('pinch-result', 'Zoom reset to 1x', 'info');
+        }
+        
+        function testSmartScrolling() {
+            // Simulate smart scrolling behavior
+            window.scrollTo({ top: 500, behavior: 'smooth' });
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                showResult('scroll-result', 'Smart scrolling test completed', 'success');
+            }, 1000);
+        }
+        
+        function simulatePullRefresh() {
+            showNotification('Pull to refresh simulated', 'info');
+            showResult('refresh-result', 'Refresh action triggered', 'success');
+        }
+        
+        function testNavigationPrediction() {
+            if (window.mobileExperienceEnhancer) {
+                // This would normally analyze user behavior
+                showResult('navigation-result', 'Navigation prediction: User likely to visit /products.html next', 'info');
+            }
+        }
+        
+        function testVoiceInput() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.lang = 'en-US';
+                recognition.onresult = (event) => {
+                    const result = event.results[0][0].transcript;
+                    document.getElementById('voice-input').value = result;
+                    showResult('voice-result', `Voice input: "${result}"`, 'success');
+                };
+                recognition.onerror = (event) => {
+                    showResult('voice-result', `Voice input error: ${event.error}`, 'error');
+                };
+                recognition.start();
+                showResult('voice-result', 'Listening... (speak now)', 'info');
+            } else {
+                showResult('voice-result', 'Voice input not supported', 'error');
+            }
+        }
+        
+        function runPerformanceTest() {
+            showResult('performance-result', 'Running performance test...', 'info');
+            
+            const startTime = performance.now();
+            
+            // CPU intensive task
+            let result = 0;
+            for (let i = 0; i < 1000000; i++) {
+                result += Math.sqrt(i);
+            }
+            
+            const endTime = performance.now();
+            const duration = endTime - startTime;
+            
+            let performance_level = 'High';
+            if (duration > 100) performance_level = 'Low';
+            else if (duration > 50) performance_level = 'Medium';
+            
+            showResult('performance-result', 
+                `Performance test completed in ${duration.toFixed(2)}ms\nPerformance level: ${performance_level}`,
+                'success'
+            );
+        }
+        
+        function testLowEndOptimizations() {
+            document.body.classList.toggle('low-end-device');
+            const isEnabled = document.body.classList.contains('low-end-device');
+            showResult('performance-result', 
+                `Low-end optimizations: ${isEnabled ? 'Enabled' : 'Disabled'}`,
+                'info'
+            );
+        }
+        
+        function testHapticFeedback(type) {
+            if ('vibrate' in navigator) {
+                let pattern;
+                switch (type) {
+                    case 'short':
+                        pattern = 50;
+                        break;
+                    case 'long':
+                        pattern = 200;
+                        break;
+                    case 'pattern':
+                        pattern = [100, 50, 100, 50, 100];
+                        break;
+                }
+                
+                navigator.vibrate(pattern);
+                showResult('haptic-result', `${type} vibration triggered`, 'success');
+            } else {
+                showResult('haptic-result', 'Vibration not supported', 'error');
+            }
+        }
+        
+        function testTouchFeedback() {
+            // Test visual and audio feedback
+            const button = event.target;
+            button.classList.add('touch-feedback', 'active');
+            
+            // Play sound if audio context is available
+            if (window.mobileExperienceEnhancer?.audioContext) {
+                // Sound feedback would be triggered here
+            }
+            
+            setTimeout(() => {
+                button.classList.remove('active');
+            }, 300);
+            
+            showResult('feedback-result', 'Touch feedback test completed', 'success');
+        }
+        
+        function testResponsiveLayout() {
+            const currentWidth = window.innerWidth;
+            let breakpoint = 'xs';
+            
+            if (currentWidth >= 1200) breakpoint = 'xl';
+            else if (currentWidth >= 992) breakpoint = 'lg';
+            else if (currentWidth >= 768) breakpoint = 'md';
+            else if (currentWidth >= 576) breakpoint = 'sm';
+            
+            showResult('orientation-result', 
+                `Current breakpoint: ${breakpoint} (${currentWidth}px)`,
+                'info'
+            );
+        }
+        
+        function testNetworkSpeed() {
+            showResult('network-result', 'Testing network speed...', 'info');
+            
+            const startTime = Date.now();
+            const testImage = new Image();
+            testImage.onload = () => {
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+                const speed = duration < 1000 ? 'Fast' : duration < 3000 ? 'Medium' : 'Slow';
+                
+                showResult('network-result', 
+                    `Network speed test: ${duration}ms (${speed})`,
+                    'success'
+                );
+            };
+            testImage.onerror = () => {
+                showResult('network-result', 'Network speed test failed', 'error');
+            };
+            testImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        }
+        
+        function simulateOffline() {
+            document.body.classList.add('offline');
+            showNotification('Offline mode simulated', 'warning');
+            showResult('offline-result', 'Offline mode activated', 'info');
+        }
+        
+        function simulateOnline() {
+            document.body.classList.remove('offline');
+            showNotification('Online mode restored', 'success');
+            showResult('offline-result', 'Online mode restored', 'success');
+        }
+        
+        function enableDataSaving() {
+            // Simulate data saving mode
+            document.querySelectorAll('img').forEach(img => {
+                if (!img.dataset.originalSrc) {
+                    img.dataset.originalSrc = img.src;
+                    img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2U8L3RleHQ+PC9zdmc+';
+                }
+            });
+            
+            showResult('data-saving-result', 'Data saving mode enabled - images replaced with placeholders', 'success');
+        }
+        
+        function toggleAccessibilityMode() {
+            document.body.classList.toggle('accessibility-mode');
+            const isEnabled = document.body.classList.contains('accessibility-mode');
+            
+            if (window.mobileExperienceEnhancer) {
+                if (isEnabled) {
+                    window.mobileExperienceEnhancer.enableAccessibilityMode();
+                }
+            }
+            
+            showResult('accessibility-result', 
+                `Accessibility mode: ${isEnabled ? 'Enabled' : 'Disabled'}`,
+                'success'
+            );
+        }
+        
+        function testScreenReader() {
+            // Test screen reader announcements
+            if (window.mobileExperienceEnhancer) {
+                window.mobileExperienceEnhancer.announceToScreenReader('Screen reader test announcement');
+            }
+            
+            showResult('accessibility-result', 'Screen reader announcement sent', 'success');
+        }
+        
+        function testHighContrast() {
+            document.body.classList.toggle('high-contrast');
+            const isEnabled = document.body.classList.contains('high-contrast');
+            
+            showResult('accessibility-result', 
+                `High contrast mode: ${isEnabled ? 'Enabled' : 'Disabled'}`,
+                'success'
+            );
+        }
+        
+        function testPWAInstall() {
+            // Test PWA installation prompt
+            if ('serviceWorker' in navigator) {
+                showResult('pwa-result', 'PWA features supported - Service Worker available', 'success');
+            } else {
+                showResult('pwa-result', 'PWA features not supported', 'error');
+            }
+        }
+        
+        function testServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    showResult('sw-result', 
+                        `Service Worker registrations: ${registrations.length}`,
+                        registrations.length > 0 ? 'success' : 'info'
+                    );
+                });
+            } else {
+                showResult('sw-result', 'Service Worker not supported', 'error');
+            }
+        }
+        
+        function exportMobileReport() {
+            const report = {
+                timestamp: new Date().toISOString(),
+                deviceInfo: window.mobileExperienceEnhancer?.getMobileCapabilities() || {},
+                testResults: testResults,
+                performance: {
+                    memory: performance.memory,
+                    navigation: performance.getEntriesByType('navigation')[0],
+                    paint: performance.getEntriesByType('paint')
+                },
+                viewport: {
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    pixelRatio: window.devicePixelRatio
+                },
+                network: {
+                    online: navigator.onLine,
+                    connection: navigator.connection
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `mobile-report-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function clearAnalyticsData() {
+            testResults = {};
+            localStorage.removeItem('mobile_analytics');
+            showNotification('Analytics data cleared', 'success');
+        }
+        
+        // Utility Functions
+        function getDistance(touch1, touch2) {
+            const dx = touch2.clientX - touch1.clientX;
+            const dy = touch2.clientY - touch1.clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+        
+        function showResult(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+                element.className = `test-result ${type}`;
+                element.style.display = 'block';
+                
+                // Store result
+                testResults[elementId] = { message, type, timestamp: Date.now() };
+            }
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 60px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#007bff'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                z-index: 10001;
+                font-size: 0.9rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                max-width: 90vw;
+                text-align: center;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Auto-complete setup
+        document.getElementById('autocomplete-input').addEventListener('input', (e) => {
+            const value = e.target.value.toLowerCase();
+            const suggestions = document.getElementById('autocomplete-suggestions');
+            
+            if (value.includes('led')) {
+                suggestions.innerHTML = `
+                    <div style="background: white; border: 1px solid #ddd; border-radius: 4px; padding: 0.5rem;">
+                        <div style="padding: 0.25rem; cursor: pointer;" onclick="selectSuggestion('LED Display')">LED Display</div>
+                        <div style="padding: 0.25rem; cursor: pointer;" onclick="selectSuggestion('LED Screen')">LED Screen</div>
+                        <div style="padding: 0.25rem; cursor: pointer;" onclick="selectSuggestion('LED Wall')">LED Wall</div>
+                    </div>
+                `;
+                suggestions.style.display = 'block';
+            } else {
+                suggestions.style.display = 'none';
+            }
+        });
+        
+        function selectSuggestion(text) {
+            document.getElementById('autocomplete-input').value = text;
+            document.getElementById('autocomplete-suggestions').style.display = 'none';
+            showResult('autocomplete-result', `Selected: ${text}`, 'success');
+        }
+        
+        // Update safe area info
+        function updateSafeAreaInfo() {
+            const computedStyle = getComputedStyle(document.documentElement);
+            document.getElementById('safe-top').textContent = computedStyle.getPropertyValue('--safe-area-inset-top') || '0px';
+            document.getElementById('safe-bottom').textContent = computedStyle.getPropertyValue('--safe-area-inset-bottom') || '0px';
+            document.getElementById('safe-left').textContent = computedStyle.getPropertyValue('--safe-area-inset-left') || '0px';
+            document.getElementById('safe-right').textContent = computedStyle.getPropertyValue('--safe-area-inset-right') || '0px';
+        }
+        
+        // Update safe area info on load
+        setTimeout(updateSafeAreaInfo, 1000);
+    </script>
+</body>
+</html>

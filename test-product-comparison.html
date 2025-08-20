@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Comparison & Advanced Search Test - LED Display Solutions</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/advanced-search.css">
+    <style>
+        /* Additional styles for comparison features */
+        .comparison-bar {
+            font-family: Arial, sans-serif;
+        }
+        
+        .comparison-modal-content {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .comparison-table {
+            font-size: 0.9rem;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .category-header td {
+            background: #e9ecef !important;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .different-value {
+            background: #fff3cd !important;
+            border-left: 3px solid #ffc107;
+        }
+        
+        .product-thumb {
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .btn-link {
+            background: none;
+            border: none;
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
+        .btn-link:hover {
+            color: #0056b3;
+        }
+        
+        /* Demo product grid */
+        .demo-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .demo-product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .demo-product-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+        }
+        
+        .demo-product-card p {
+            margin: 0 0 1rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .demo-product-specs {
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .demo-product-specs div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+        
+        .demo-add-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .demo-add-btn:hover {
+            background: #1e7e34;
+        }
+        
+        .demo-add-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .test-section h3 {
+            margin: 0 0 1rem 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">LED Solutions</a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Product Comparison & Advanced Search Test</h1>
+            <p>Test the enhanced product comparison and advanced search functionality</p>
+        </div>
+
+        <!-- Advanced Search will be inserted here by JavaScript -->
+        
+        <div class="test-section">
+            <h3>Demo Products</h3>
+            <p>Click "Add to Comparison" to test the comparison functionality. You can compare up to 4 products at once.</p>
+            
+            <div class="demo-products" id="demo-products">
+                <!-- Demo products will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Instructions</h3>
+            <ol>
+                <li><strong>Advanced Search:</strong> Use the search interface above to filter products by various criteria</li>
+                <li><strong>Quick Search:</strong> Type in the search box to find products by name, features, or specifications</li>
+                <li><strong>Filters:</strong> Use the dropdown filters to narrow down products by category, pixel pitch, brightness, etc.</li>
+                <li><strong>Features:</strong> Check feature boxes to find products with specific capabilities</li>
+                <li><strong>Product Comparison:</strong> Click "Add to Comparison" on products below to test comparison</li>
+                <li><strong>Comparison Views:</strong> Try different view modes (Detailed, Compact, Differences Only)</li>
+                <li><strong>Export/Share:</strong> Test the export and share functionality in the comparison modal</li>
+                <li><strong>Saved Searches:</strong> Save your search criteria and reload them later</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h3>Keyboard Shortcuts</h3>
+            <ul>
+                <li><strong>Ctrl + C:</strong> Open comparison modal (if products are selected)</li>
+                <li><strong>Escape:</strong> Close comparison modal</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 LED Display Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Load JavaScript modules -->
+    <script src="js/advanced-search.js"></script>
+    <script src="js/enhanced-comparison.js"></script>
+    
+    <script>
+        // Demo products data
+        const demoProducts = [
+            {
+                id: 1,
+                name: 'P1.25 Fine Pitch LED Display',
+                category: 'fine-pitch',
+                pixelPitch: 1.25,
+                brightness: 800,
+                price: 15000,
+                application: ['control-room', 'broadcast', 'conference'],
+                resolution: '1920x1080',
+                size: '55-inch',
+                features: ['high-resolution', 'low-power', 'seamless'],
+                description: 'Ultra-high resolution indoor LED display perfect for control rooms',
+                image: '/images/products/p125-fine-pitch.jpg',
+                specifications: {
+                    pixelPitch: '1.25mm',
+                    brightness: '800 nits',
+                    refreshRate: '3840Hz',
+                    viewingAngle: '160°',
+                    powerConsumption: '150W/m²',
+                    operatingTemp: '-20°C to +60°C'
+                }
+            },
+            {
+                id: 2,
+                name: 'P1.56 Fine Pitch LED Wall',
+                category: 'fine-pitch',
+                pixelPitch: 1.56,
+                brightness: 1000,
+                price: 12000,
+                application: ['retail', 'corporate', 'exhibition'],
+                resolution: '1920x1080',
+                size: '65-inch',
+                features: ['high-brightness', 'wide-angle', 'energy-efficient'],
+                description: 'High-quality fine pitch LED wall for commercial applications',
+                image: '/images/products/p156-fine-pitch.jpg',
+                specifications: {
+                    pixelPitch: '1.56mm',
+                    brightness: '1000 nits',
+                    refreshRate: '3840Hz',
+                    viewingAngle: '170°',
+                    powerConsumption: '180W/m²',
+                    operatingTemp: '-10°C to +50°C'
+                }
+            },
+            {
+                id: 3,
+                name: 'P4 Outdoor LED Display',
+                category: 'outdoor',
+                pixelPitch: 4.0,
+                brightness: 6500,
+                price: 8000,
+                application: ['advertising', 'stadium', 'outdoor-events'],
+                resolution: '1024x768',
+                size: '75-inch',
+                features: ['weatherproof', 'high-brightness', 'durable'],
+                description: 'Weather-resistant outdoor LED display for advertising',
+                image: '/images/products/p4-outdoor.jpg',
+                specifications: {
+                    pixelPitch: '4.0mm',
+                    brightness: '6500 nits',
+                    refreshRate: '1920Hz',
+                    viewingAngle: '140°',
+                    powerConsumption: '400W/m²',
+                    operatingTemp: '-40°C to +70°C',
+                    ipRating: 'IP65'
+                }
+            },
+            {
+                id: 4,
+                name: 'P6 Outdoor LED Screen',
+                category: 'outdoor',
+                pixelPitch: 6.0,
+                brightness: 7000,
+                price: 6000,
+                application: ['advertising', 'transportation', 'public-info'],
+                resolution: '768x576',
+                size: '85-inch',
+                features: ['high-brightness', 'cost-effective', 'reliable'],
+                description: 'Cost-effective outdoor LED screen for large displays',
+                image: '/images/products/p6-outdoor.jpg',
+                specifications: {
+                    pixelPitch: '6.0mm',
+                    brightness: '7000 nits',
+                    refreshRate: '1920Hz',
+                    viewingAngle: '140°',
+                    powerConsumption: '350W/m²',
+                    operatingTemp: '-40°C to +70°C',
+                    ipRating: 'IP65'
+                }
+            },
+            {
+                id: 5,
+                name: 'P3.91 Rental LED Panel',
+                category: 'rental',
+                pixelPitch: 3.91,
+                brightness: 4500,
+                price: 10000,
+                application: ['events', 'concerts', 'exhibitions'],
+                resolution: '1024x1024',
+                size: '50-inch',
+                features: ['lightweight', 'quick-setup', 'portable'],
+                description: 'Lightweight rental LED panel for events and exhibitions',
+                image: '/images/products/p391-rental.jpg',
+                specifications: {
+                    pixelPitch: '3.91mm',
+                    brightness: '4500 nits',
+                    refreshRate: '3840Hz',
+                    viewingAngle: '160°',
+                    powerConsumption: '280W/m²',
+                    weight: '6.5kg/panel',
+                    setupTime: '< 5 minutes'
+                }
+            },
+            {
+                id: 6,
+                name: 'Transparent LED Display',
+                category: 'transparent',
+                pixelPitch: 10.0,
+                brightness: 4000,
+                price: 20000,
+                application: ['retail', 'architecture', 'museums'],
+                resolution: '640x480',
+                size: '60-inch',
+                features: ['transparent', 'innovative', 'architectural'],
+                description: 'See-through LED display for creative installations',
+                image: '/images/products/transparent-led.jpg',
+                specifications: {
+                    pixelPitch: '10.0mm',
+                    brightness: '4000 nits',
+                    transparency: '70%',
+                    viewingAngle: '140°',
+                    powerConsumption: '200W/m²',
+                    thickness: '12mm'
+                }
+            }
+        ];
+
+        // Populate demo products
+        function populateDemoProducts() {
+            const container = document.getElementById('demo-products');
+            
+            container.innerHTML = demoProducts.map(product => `
+                <div class="demo-product-card">
+                    <h4>${product.name}</h4>
+                    <p>${product.description}</p>
+                    <div class="demo-product-specs">
+                        <div>
+                            <span>Pixel Pitch:</span>
+                            <span>${product.specifications.pixelPitch}</span>
+                        </div>
+                        <div>
+                            <span>Brightness:</span>
+                            <span>${product.specifications.brightness}</span>
+                        </div>
+                        <div>
+                            <span>Price:</span>
+                            <span style="color: #28a745; font-weight: bold;">$${product.price.toLocaleString()}</span>
+                        </div>
+                    </div>
+                    <button class="demo-add-btn" onclick="addProductToComparison(${product.id})" id="btn-${product.id}">
+                        Add to Comparison
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Add product to comparison
+        function addProductToComparison(productId) {
+            const product = demoProducts.find(p => p.id === productId);
+            const button = document.getElementById(`btn-${productId}`);
+            
+            if (product && window.enhancedComparison) {
+                const success = window.enhancedComparison.addProduct(product);
+                if (success) {
+                    button.textContent = 'Added to Comparison';
+                    button.disabled = true;
+                }
+            }
+        }
+
+        // Update button states based on comparison
+        function updateButtonStates() {
+            if (window.enhancedComparison) {
+                demoProducts.forEach(product => {
+                    const button = document.getElementById(`btn-${product.id}`);
+                    const isInComparison = window.enhancedComparison.isProductInComparison(product.id);
+                    
+                    if (isInComparison) {
+                        button.textContent = 'Added to Comparison';
+                        button.disabled = true;
+                    } else {
+                        button.textContent = 'Add to Comparison';
+                        button.disabled = false;
+                    }
+                });
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            populateDemoProducts();
+            
+            // Update button states periodically
+            setInterval(updateButtonStates, 1000);
+            
+            // Override the products data in advanced search
+            setTimeout(() => {
+                if (window.advancedSearch) {
+                    window.advancedSearch.products = demoProducts;
+                    window.advancedSearch.displayResults(demoProducts);
+                }
+            }, 1000);
+        });
+
+        // Test functions for console
+        window.testFunctions = {
+            addAllToComparison: function() {
+                demoProducts.slice(0, 4).forEach(product => {
+                    if (window.enhancedComparison) {
+                        window.enhancedComparison.addProduct(product);
+                    }
+                });
+            },
+            
+            clearComparison: function() {
+                if (window.enhancedComparison) {
+                    window.enhancedComparison.clearComparison();
+                }
+            },
+            
+            showComparison: function() {
+                if (window.enhancedComparison) {
+                    window.enhancedComparison.viewComparison();
+                }
+            },
+            
+            testSearch: function(query) {
+                const searchInput = document.getElementById('quick-search');
+                if (searchInput) {
+                    searchInput.value = query || 'LED';
+                    if (window.advancedSearch) {
+                        window.advancedSearch.performQuickSearch();
+                    }
+                }
+            }
+        };
+
+        console.log('Test functions available:', Object.keys(window.testFunctions));
+        console.log('Use testFunctions.addAllToComparison() to add products to comparison');
+        console.log('Use testFunctions.showComparison() to open comparison modal');
+        console.log('Use testFunctions.testSearch("outdoor") to test search');
+    </script>
+</body>
+</html>
